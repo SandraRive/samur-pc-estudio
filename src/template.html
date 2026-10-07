@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23FF6B1A'/%3E%3Cg transform='translate%284 4%29' fill='none' stroke='%23160700' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 10H6' /%3E %3Cpath d='M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2' /%3E %3Cpath d='M19 18h2a1 1 0 0 0 1-1v-3.28a1 1 0 0 0-.684-.948l-1.923-.641a1 1 0 0 1-.578-.502l-1.539-3.076A1 1 0 0 0 16.382 8H14' /%3E %3Cpath d='M8 8v4' /%3E %3Cpath d='M9 18h6' /%3E %3Ccircle cx='17' cy='18' r='2' /%3E %3Ccircle cx='7' cy='18' r='2' /%3E%3C/g%3E%3C/svg%3E">
 <title>Manual SAMUR-PC Interactivo</title>
 <meta name="description" content="Manual de Procedimientos SAMUR-Protección Civil 2026 en formato interactivo de estudio">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +15,7 @@
   color-scheme:dark;
   --bg:#080C17; --bg2:#0D1324; --panel:#111A2F; --panel2:#17223C; --line:#22304F; --line2:#2E3E63;
   --fg:#EEF2FF; --fg2:#AEB9D6; --fg3:#7684A8;
-  --orange:#FF6B1A; --yellow:#FFD23F; --cyan:#2EC4F1; --red:#FF3B5C; --green:#2EE6A6; --violet:#B98CFF;
+  --orange:%23FF6B1A; --yellow:#FFD23F; --cyan:#2EC4F1; --red:#FF3B5C; --green:#2EE6A6; --violet:#B98CFF;
   --accent:var(--orange); --ok:#2EE6A6; --bad:#FF4D6A;
   --dose-bg:rgba(255,210,63,.13); --dose-fg:#FFE07A;
   --chip-bg:rgba(46,196,241,.12); --chip-fg:#8FE1FF;
@@ -67,7 +68,7 @@ h1,h2,h3{text-wrap:balance}
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .top .wrap{display:flex;align-items:center;gap:12px;height:62px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
-.brand .mark{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--orange);color:#160700;position:relative;overflow:hidden}
+.brand .mark{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--orange);color:%23160700;position:relative;overflow:hidden}
 .brand .mark::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 6px,rgba(255,210,63,.55) 6px 12px);mix-blend-mode:screen;opacity:.5}
 .brand .mark .ic{position:relative;z-index:1;width:20px;height:20px}
 .brand b{font-family:var(--f-display);font-weight:700;font-size:15px;letter-spacing:.01em;line-height:1}
@@ -106,7 +107,7 @@ main{padding-block:28px 80px;min-height:70vh}
 .hero p.lead{font-size:18px;color:var(--fg2);max-width:56ch;margin:0 0 22px}
 .hero .ctas{display:flex;flex-wrap:wrap;gap:10px}
 .btn{display:inline-flex;align-items:center;gap:9px;height:46px;padding:0 18px;border-radius:12px;border:1px solid var(--line2);background:var(--panel2);font-weight:700;text-decoration:none;font-size:15px}
-.btn.pri{background:var(--orange);border-color:var(--orange);color:#160700}
+.btn.pri{background:var(--orange);border-color:var(--orange);color:%23160700}
 .btn.pri:hover{filter:brightness(1.08)}
 .btn:hover{border-color:var(--fg3)}
 .btn.sm{height:38px;padding:0 13px;font-size:14px;border-radius:10px}
