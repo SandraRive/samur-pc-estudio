@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Manual SAMUR-PC Interactivo</title>
 <meta name="description" content="Manual de Procedimientos SAMUR-Protección Civil 2026 en formato interactivo de estudio">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -310,13 +315,15 @@ mark{background:color-mix(in srgb,var(--orange) 40%,transparent);color:inherit;b
 .steps div{display:grid;grid-template-columns:34px 1fr;gap:10px;padding:10px;border-radius:12px;background:var(--panel2);font-size:13.5px;line-height:1.4}
 .steps b.n{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--c);color:#0A0E1A;font-family:var(--f-display)}
 .flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px}
-.flip{perspective:600px;height:96px;border:0;background:none;padding:0}
-.flip .fi{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
+.flip{perspective:600px;height:112px;border:0;background:none;padding:0}
+.flip .fi{display:block;position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
 .flip.on .fi{transform:rotateY(180deg)}
-.flip .fa,.flip .fb{position:absolute;inset:0;border-radius:12px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:grid;place-items:center;padding:8px;border:1px solid var(--line)}
+.flip .fa>span{display:block;text-align:center;line-height:1.1}
+.flip .fa.long{font-size:15px}
+.flip .fa,.flip .bk{position:absolute;inset:0;border-radius:12px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:grid;place-items:center;padding:8px;border:1px solid var(--line)}
 .flip .fa{background:var(--panel2);font-family:var(--f-display);font-size:20px;color:var(--c)}
 .flip .fa small{display:block;font-family:var(--f-mono);font-size:10px;color:var(--fg3);letter-spacing:.12em;text-align:center}
-.flip .fb{background:color-mix(in srgb,var(--c) 18%,var(--panel));transform:rotateY(180deg);font-size:12px;line-height:1.3;text-align:center;overflow:hidden}
+.flip .bk{background:color-mix(in srgb,var(--c) 18%,var(--panel));transform:rotateY(180deg);font-size:11.5px;line-height:1.3;text-align:center;overflow:auto}
 .acc{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:var(--panel2);overflow:hidden}
 .acc summary{list-style:none;display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer;font-weight:700;font-size:14px}
 .acc summary::-webkit-details-marker{display:none}
@@ -705,7 +712,7 @@ function vRepaso(anchor){
       </div>
       <p style="font-size:13px;color:var(--fg2);margin:10px 0 0"><b>A-CLA-RE</b>: Agrupar en el PRV · CLAsificar con STARS · REplantear recursos.</p></div>
     <div class="cheat" id="repaso-claves" ${cv('central')} style="grid-column:1/-1"><h3>${ic('radio')}Claves de radio <small style="font-family:var(--f-body);font-weight:500;color:var(--fg3);font-size:13px">· toca para girar</small></h3>
-      <div class="flips">${R.claves.map(([k,v])=>`<button class="flip"><span class="fi"><span class="fa"><span>${esc(k)}<small>${/^\d|VICTOR/.test(k)?'CLAVE':''}</small></span></span><span class="fb">${esc(v)}</span></span></button>`).join('')}</div>
+      <div class="flips">${R.claves.map(([k,v])=>`<button class="flip"><span class="fi"><span class="fa${k.length>4?' long':''}"><span>${esc(k)}<small>${/^\d|VICTOR/.test(k)?'CLAVE':''}</small></span></span><span class="bk">${esc(v)}</span></span></button>`).join('')}</div>
       <a class="more" href="${procLink('Procedimiento radiotelefónico')}">Procedimiento radiotelefónico ${ic('arrow-right')}</a></div>
     <div class="cheat" id="repaso-codigos" ${cv('operativos')}><h3>${ic('hash')}Códigos de incidente</h3>
       ${R.codigos.map(g=>`<details class="acc"><summary><b>${g.n}</b>${esc(g.name)}${ic('chevron-right')}</summary><div class="codes">${g.c.map(([c,t])=>`<div><span>${c}</span>${esc(t)}</div>`).join('')}</div></details>`).join('')}</div>
