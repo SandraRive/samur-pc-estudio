@@ -1,0 +1,6 @@
+node_modules/
+work/
+pdf/
+*.pdf
+.DS_Store
+*.png

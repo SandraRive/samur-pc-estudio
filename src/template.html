@@ -1,0 +1,837 @@
+<title>Manual SAMUR-PC Interactivo</title>
+<meta name="description" content="Manual de Procedimientos SAMUR-Protección Civil 2026 en formato interactivo de estudio">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: consola de central de comunicaciones — barra superior fija, rejilla de "ámbitos" como teclas de despacho, lector con índice lateral */
+:root{
+  color-scheme:dark;
+  --bg:#080C17; --bg2:#0D1324; --panel:#111A2F; --panel2:#17223C; --line:#22304F; --line2:#2E3E63;
+  --fg:#EEF2FF; --fg2:#AEB9D6; --fg3:#7684A8;
+  --orange:#FF6B1A; --yellow:#FFD23F; --cyan:#2EC4F1; --red:#FF3B5C; --green:#2EE6A6; --violet:#B98CFF;
+  --accent:var(--orange); --ok:#2EE6A6; --bad:#FF4D6A;
+  --dose-bg:rgba(255,210,63,.13); --dose-fg:#FFE07A;
+  --chip-bg:rgba(46,196,241,.12); --chip-fg:#8FE1FF;
+  --shadow:0 18px 50px -20px rgba(0,0,0,.7);
+  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --r:14px;
+}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  color-scheme:light;
+  --bg:#F3F5FB; --bg2:#E9EDF7; --panel:#FFFFFF; --panel2:#F1F4FB; --line:#D8DEEE; --line2:#C4CCE2;
+  --fg:#0B1430; --fg2:#3A4870; --fg3:#66739A;
+  --orange:#E0520A; --yellow:#B98A00; --cyan:#0A86B5; --red:#D61F45; --green:#0D9E6E; --violet:#7A45D6;
+  --ok:#0D9E6E; --bad:#D61F45;
+  --dose-bg:rgba(224,160,0,.16); --dose-fg:#7A5600;
+  --chip-bg:rgba(10,134,181,.1); --chip-fg:#075E80;
+  --shadow:0 18px 40px -24px rgba(20,30,70,.35);
+}}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --bg:#F3F5FB; --bg2:#E9EDF7; --panel:#FFFFFF; --panel2:#F1F4FB; --line:#D8DEEE; --line2:#C4CCE2;
+  --fg:#0B1430; --fg2:#3A4870; --fg3:#66739A;
+  --orange:#E0520A; --yellow:#B98A00; --cyan:#0A86B5; --red:#D61F45; --green:#0D9E6E; --violet:#7A45D6;
+  --ok:#0D9E6E; --bad:#D61F45;
+  --dose-bg:rgba(224,160,0,.16); --dose-fg:#7A5600;
+  --chip-bg:rgba(10,134,181,.1); --chip-fg:#075E80;
+  --shadow:0 18px 40px -24px rgba(20,30,70,.35);
+}
+/* per-ámbito colour: elements carry --cd (dark) and --cl (light) */
+[data-c]{--c:var(--cd)}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) [data-c]{--c:var(--cl)}}
+:root[data-theme="light"] [data-c]{--c:var(--cl)}
+
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--fg)}
+body{font-family:var(--f-body);font-size:16px;line-height:1.55;margin:0;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:44px 44px;background-position:-1px -1px;background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(1200px 600px at 80% -10%,color-mix(in srgb,var(--orange) 14%,transparent),transparent 60%),radial-gradient(900px 500px at -10% 30%,color-mix(in srgb,var(--cyan) 10%,transparent),transparent 60%),linear-gradient(var(--bg) 0,color-mix(in srgb,var(--bg) 82%,transparent) 100%);pointer-events:none;z-index:-1}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--yellow);outline-offset:2px;border-radius:6px}
+.ic{width:1.15em;height:1.15em;flex:none;display:inline-block;vertical-align:-.18em}
+.wrap{max-width:1280px;margin:0 auto;padding-inline:16px}
+h1,h2,h3{text-wrap:balance}
+.mono{font-family:var(--f-mono)}
+
+/* ===== Top bar ===== */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:12px;height:62px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
+.brand .mark{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--orange);color:#160700;position:relative;overflow:hidden}
+.brand .mark::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 6px,rgba(255,210,63,.55) 6px 12px);mix-blend-mode:screen;opacity:.5}
+.brand .mark .ic{position:relative;z-index:1;width:20px;height:20px}
+.brand b{font-family:var(--f-display);font-weight:700;font-size:15px;letter-spacing:.01em;line-height:1}
+.brand small{display:block;font-size:11px;color:var(--fg3);letter-spacing:.12em;text-transform:uppercase;margin-top:3px}
+.search{flex:1;min-width:0;position:relative;max-width:560px;margin-left:auto}
+.search input{width:100%;height:42px;border-radius:12px;border:1px solid var(--line2);background:var(--panel);color:var(--fg);padding:0 14px 0 40px;font:inherit;font-size:15px}
+.search input::placeholder{color:var(--fg3)}
+.search .ic{position:absolute;left:13px;top:12px;color:var(--fg3)}
+.search kbd{position:absolute;right:10px;top:10px;font-family:var(--f-mono);font-size:11px;color:var(--fg3);border:1px solid var(--line2);border-radius:6px;padding:2px 6px}
+.xp{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 8px;border-radius:999px;border:1px solid var(--line2);background:var(--panel);text-decoration:none;flex:none}
+.xp .lv{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--yellow);color:#1C1400;font-weight:800;font-size:12px;font-family:var(--f-mono)}
+.xp span{font-size:13px;font-weight:700;white-space:nowrap}
+.iconbtn{width:42px;height:42px;border-radius:12px;border:1px solid var(--line2);background:var(--panel);display:grid;place-items:center;flex:none}
+.navrow{border-top:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.navrow::-webkit-scrollbar{display:none}
+.navrow .wrap{display:flex;gap:6px;height:46px;align-items:center}
+.navrow a{display:flex;align-items:center;gap:7px;padding:7px 12px;border-radius:10px;text-decoration:none;font-size:13.5px;font-weight:600;color:var(--fg2);white-space:nowrap;border:1px solid transparent}
+.navrow a .ic{color:var(--c,var(--fg3))}
+.navrow a:hover{background:var(--panel)}
+.navrow a.on{background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--fg);border-color:color-mix(in srgb,var(--c) 40%,transparent)}
+@media (max-width:720px){.xp span,.brand small,.search kbd{display:none}.brand b{font-size:13px}.top .wrap{gap:8px}}
+@media (max-width:460px){.brand b{display:none}}
+
+main{padding-block:28px 80px;min-height:70vh}
+
+/* ===== HERO ===== */
+.hero{position:relative;border:1px solid var(--line2);border-radius:24px;overflow:hidden;background:linear-gradient(160deg,var(--panel) 0%,var(--bg2) 100%);box-shadow:var(--shadow)}
+.hero .chev{height:14px;background:repeating-linear-gradient(-45deg,var(--orange) 0 18px,var(--yellow) 18px 36px)}
+.hero .in{display:grid;grid-template-columns:1.25fr .9fr;gap:28px;padding:38px 36px 30px;position:relative}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:8px}
+.eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 0 var(--red);animation:ping 1.6s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--red) 70%,transparent)}100%{box-shadow:0 0 0 12px transparent}}
+.hero h1{font-family:var(--f-display);font-weight:900;font-size:clamp(34px,5.6vw,70px);line-height:.98;letter-spacing:-.02em;margin:14px 0 14px}
+.hero h1 .o{color:transparent;-webkit-text-stroke:2px var(--fg)}
+.hero h1 .hl{color:var(--orange)}
+.hero p.lead{font-size:18px;color:var(--fg2);max-width:56ch;margin:0 0 22px}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:9px;height:46px;padding:0 18px;border-radius:12px;border:1px solid var(--line2);background:var(--panel2);font-weight:700;text-decoration:none;font-size:15px}
+.btn.pri{background:var(--orange);border-color:var(--orange);color:#160700}
+.btn.pri:hover{filter:brightness(1.08)}
+.btn:hover{border-color:var(--fg3)}
+.btn.sm{height:38px;padding:0 13px;font-size:14px;border-radius:10px}
+.monitor{position:relative;border-radius:18px;background:#050812;border:1px solid #1B2744;padding:16px;min-height:230px;display:flex;flex-direction:column;gap:10px;color:#DDE6FF}
+.monitor .row{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:12px;color:#7C8BB3;letter-spacing:.08em}
+.monitor canvas{width:100%;height:110px;display:block}
+.vitals{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.vital{border:1px solid #1B2744;border-radius:12px;padding:8px 10px}
+.vital b{display:block;font-family:var(--f-display);font-size:24px;line-height:1.1;font-variant-numeric:tabular-nums}
+.vital small{font-family:var(--f-mono);font-size:10.5px;color:#7C8BB3;letter-spacing:.1em}
+.v1 b{color:#2EE6A6}.v2 b{color:#FFD23F}.v3 b{color:#2EC4F1}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line2)}
+.stat{padding:16px 22px;border-right:1px solid var(--line2)}
+.stat:last-child{border-right:0}
+.stat b{font-family:var(--f-display);font-size:28px;display:block;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--fg3)}
+@media (max-width:900px){.hero .in{grid-template-columns:1fr;padding:28px 20px}.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line2)}}
+
+.sechead{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:44px 0 16px;flex-wrap:wrap}
+.sechead h2{font-family:var(--f-display);font-size:clamp(22px,3vw,30px);margin:0;letter-spacing:-.01em}
+.sechead p{margin:4px 0 0;color:var(--fg3);font-size:14.5px}
+
+/* ===== Ámbito grid ===== */
+.ambs{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.amb{position:relative;display:flex;flex-direction:column;gap:12px;padding:20px;border-radius:20px;background:var(--panel);border:1px solid var(--line);text-decoration:none;overflow:hidden;transition:transform .18s ease,border-color .18s ease}
+.amb::before{content:"";position:absolute;inset:0;background:radial-gradient(400px 160px at 100% 0%,color-mix(in srgb,var(--c) 22%,transparent),transparent 70%);pointer-events:none}
+.amb:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--c) 60%,transparent)}
+.amb .tile{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c);border:1px solid color-mix(in srgb,var(--c) 40%,transparent)}
+.amb .tile .ic{width:28px;height:28px}
+.amb .num{position:absolute;right:18px;top:16px;font-family:var(--f-mono);font-size:12px;color:var(--fg3)}
+.amb h3{font-family:var(--f-display);font-size:18px;margin:0;line-height:1.2}
+.amb p{margin:0;color:var(--fg2);font-size:14.5px;flex:1}
+.amb .groups{display:flex;flex-wrap:wrap;gap:6px}
+.amb .groups span{font-size:12px;padding:3px 8px;border-radius:999px;background:var(--panel2);color:var(--fg2);border:1px solid var(--line)}
+.bar{height:6px;border-radius:999px;background:var(--panel2);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--c,var(--orange));border-radius:inherit;transition:width .5s ease}
+.amb .foot{display:flex;justify-content:space-between;font-size:12.5px;color:var(--fg3);font-variant-numeric:tabular-nums}
+
+/* quick refs strip */
+.qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.qcard{display:flex;gap:12px;align-items:center;padding:14px;border-radius:16px;border:1px solid var(--line);background:var(--panel);text-decoration:none;text-align:left}
+.qcard:hover{border-color:var(--c)}
+.qcard .tile{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--c);flex:none}
+.qcard b{display:block;font-size:15px}
+.qcard small{color:var(--fg3);font-size:12.5px}
+
+/* ===== Ámbito page ===== */
+.ahead{position:relative;border-radius:24px;padding:28px;border:1px solid color-mix(in srgb,var(--c) 40%,var(--line));background:linear-gradient(135deg,color-mix(in srgb,var(--c) 18%,var(--panel)) 0%,var(--panel) 70%);overflow:hidden}
+.ahead .big{position:absolute;right:-30px;bottom:-40px;color:var(--c);opacity:.12}
+.ahead .big .ic{width:220px;height:220px}
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13px;color:var(--fg3);margin-bottom:10px}
+.crumbs a{text-decoration:none;color:var(--fg2)}
+.crumbs a:hover{color:var(--fg)}
+.ahead h1{font-family:var(--f-display);font-size:clamp(26px,4vw,44px);margin:0 0 8px;letter-spacing:-.015em;line-height:1.05;display:flex;align-items:center;gap:14px}
+.ahead h1 .tile{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;background:var(--c);color:#0A0E1A;flex:none}
+.ahead h1 .tile .ic{width:30px;height:30px}
+.ahead p{margin:0;color:var(--fg2);max-width:62ch}
+.ahead .prog{display:flex;align-items:center;gap:12px;margin-top:18px;max-width:420px;font-size:13px;color:var(--fg2);font-variant-numeric:tabular-nums}
+.ahead .prog .bar{flex:1;height:8px}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:16px 0 6px;scrollbar-width:thin}
+.tab{text-decoration:none;display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel);font-weight:600;font-size:14px;white-space:nowrap;color:var(--fg2)}
+.tab .n{font-family:var(--f-mono);font-size:11.5px;padding:1px 7px;border-radius:999px;background:var(--panel2);color:var(--fg3)}
+.tab.on{background:var(--c);color:#0A0E1A;border-color:var(--c)}
+.tab.on .n{background:rgba(0,0,0,.18);color:#0A0E1A}
+.tab.on .ic{color:#0A0E1A}
+.tab .ic{color:var(--c)}
+.gsec{margin-top:26px}
+.gsec h2{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-size:19px;margin:0 0 12px}
+.gsec h2 .ic{color:var(--c)}
+.gsec h2 small{font-family:var(--f-body);font-size:13px;color:var(--fg3);font-weight:500}
+.plist{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.pcard{display:flex;gap:12px;align-items:flex-start;padding:14px 14px;border-radius:14px;background:var(--panel);border:1px solid var(--line);text-decoration:none;transition:border-color .15s,transform .15s}
+.pcard:hover{border-color:color-mix(in srgb,var(--c) 70%,transparent);transform:translateX(2px)}
+.pcard .tile{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c);flex:none}
+.pcard .t{min-width:0;flex:1}
+.pcard b{display:block;font-size:15px;line-height:1.3}
+.pcard small{display:flex;gap:10px;color:var(--fg3);font-size:12.5px;margin-top:4px;font-variant-numeric:tabular-nums}
+.pcard .done{color:var(--ok);flex:none;opacity:0}
+.pcard.isdone .done{opacity:1}
+.pcard.isdone{border-color:color-mix(in srgb,var(--ok) 35%,var(--line))}
+
+/* ===== Reader ===== */
+.reader{display:grid;grid-template-columns:260px minmax(0,1fr);gap:28px;align-items:start}
+.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 124px);max-height:calc(100vh - 140px);overflow:auto;padding-right:4px;scrollbar-width:thin}
+.side h4{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);margin:0 0 8px}
+.side .toc a{display:block;padding:6px 10px;border-left:2px solid var(--line);font-size:13.5px;color:var(--fg2);text-decoration:none;line-height:1.35}
+.side .toc a:hover{color:var(--fg);border-color:var(--c)}
+.side .sib{margin-top:22px}
+.side .sib a{display:flex;gap:8px;padding:6px 8px;border-radius:8px;font-size:13px;color:var(--fg2);text-decoration:none;line-height:1.3}
+.side .sib a.on{background:color-mix(in srgb,var(--c) 15%,transparent);color:var(--fg);font-weight:600}
+.side .sib a:hover{background:var(--panel)}
+.side .sib .ic{color:var(--ok);width:14px;height:14px;margin-top:2px}
+.side .sib .ph{width:14px;flex:none}
+@media (max-width:980px){.reader{grid-template-columns:1fr}.side{position:static;max-height:none;display:none}}
+.phead{border-radius:22px;padding:24px 26px;border:1px solid color-mix(in srgb,var(--c) 40%,var(--line));background:linear-gradient(135deg,color-mix(in srgb,var(--c) 16%,var(--panel)),var(--panel) 60%);position:relative;overflow:hidden}
+.phead h1{font-family:var(--f-display);font-size:clamp(24px,3.4vw,38px);line-height:1.08;margin:0 0 14px;letter-spacing:-.015em}
+.meta{display:flex;flex-wrap:wrap;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;padding:5px 10px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);color:var(--fg2);font-variant-numeric:tabular-nums}
+.pill .ic{color:var(--c);width:14px;height:14px}
+.pactions{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.btn.done{background:color-mix(in srgb,var(--ok) 18%,transparent);border-color:var(--ok);color:var(--ok)}
+.doc{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:26px 30px;margin-top:14px;font-size:16.5px;line-height:1.65}
+@media (max-width:600px){.doc{padding:20px 16px;font-size:16px}.phead{padding:20px 18px}}
+.doc>*{max-width:78ch}
+.doc p{margin:0 0 12px}
+.doc h3{font-family:var(--f-display);font-size:17px;letter-spacing:.01em;margin:30px 0 12px;padding:10px 14px;border-radius:12px;background:color-mix(in srgb,var(--c) 12%,transparent);border-left:4px solid var(--c);text-transform:none;line-height:1.3;scroll-margin-top:130px}
+.doc h3:first-child{margin-top:0}
+.doc .lab{display:flex;align-items:center;gap:9px;font-weight:800;margin:20px 0 8px;font-size:16px}
+.doc .lab .ic{color:var(--c);width:18px;height:18px}
+.doc ul{margin:4px 0 14px;padding-left:22px}
+.doc ul ul{margin:6px 0 6px;padding-left:20px}
+.doc li{margin:5px 0;padding-left:4px}
+.doc li::marker{color:var(--c)}
+.doc ul ul li::marker{color:var(--fg3)}
+.doc li.num{list-style:none;position:relative}
+.doc li.num::before{content:attr(data-n);position:absolute;left:-26px;top:.1em;min-width:20px;height:20px;border-radius:6px;background:color-mix(in srgb,var(--c) 22%,transparent);color:var(--c);font-family:var(--f-mono);font-size:11px;font-weight:700;display:grid;place-items:center;padding:0 3px}
+.prebox{margin:14px 0 18px;border:1px dashed var(--line2);border-radius:14px;background:var(--bg2);max-width:100%!important}
+.prebox .cap{display:flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg3);padding:8px 12px;border-bottom:1px dashed var(--line2)}
+.prebox pre{margin:0;padding:12px;overflow-x:auto;font-family:var(--f-mono);font-size:12.5px;line-height:1.5;color:var(--fg2)}
+.callout{display:flex;gap:12px;padding:14px 16px;border-radius:14px;margin:14px 0;background:color-mix(in srgb,var(--yellow) 12%,transparent);border:1px solid color-mix(in srgb,var(--yellow) 40%,transparent)}
+.callout .ic{color:var(--yellow);width:20px;height:20px;margin-top:2px}
+.callout p{margin:0}
+.dose{background:var(--dose-bg);color:var(--dose-fg);font-weight:700;padding:0 4px;border-radius:5px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.code{font-family:var(--f-mono);font-size:.86em;font-weight:700;background:var(--chip-bg);color:var(--chip-fg);padding:1px 6px;border-radius:6px;white-space:nowrap}
+.prio{font-family:var(--f-mono);font-size:.84em;font-weight:700;padding:1px 6px;border-radius:6px;color:#0A0E1A;white-space:nowrap}
+.prio.p0{background:#FF3B5C}.prio.p1{background:#FF3B5C}.prio.p2{background:#FF9F1A}.prio.p3{background:#FFD23F}.prio.p4{background:#2EE6A6}
+abbr.ab{text-decoration:underline dotted color-mix(in srgb,var(--c) 70%,transparent);text-underline-offset:3px;cursor:help}
+mark{background:color-mix(in srgb,var(--orange) 40%,transparent);color:inherit;border-radius:3px;padding:0 2px}
+.pnav{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.pnav a{display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--panel);text-decoration:none;min-width:0}
+.pnav a:hover{border-color:var(--c)}
+.pnav a small{color:var(--fg3);font-size:12px;display:flex;gap:6px;align-items:center}
+.pnav a b{font-size:14.5px;overflow:hidden;text-overflow:ellipsis}
+.pnav a.next{text-align:right}
+.pnav a.next small{justify-content:flex-end}
+.tip{position:fixed;z-index:80;max-width:280px;padding:8px 11px;border-radius:10px;background:var(--fg);color:var(--bg);font-size:13px;box-shadow:var(--shadow);pointer-events:none}
+.tip b{font-family:var(--f-mono)}
+.source{margin-top:14px;font-size:13px;color:var(--fg3);display:flex;gap:8px;align-items:center}
+
+/* ===== Vademecum ===== */
+.letters{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0}
+.letters button{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--panel);font-family:var(--f-mono);font-weight:700}
+.letters button.on{background:var(--c);color:#0A0E1A;border-color:var(--c)}
+.letters button:disabled{opacity:.3;cursor:default}
+.filt{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:18px}
+.filt input{height:44px;flex:1;min-width:200px;max-width:420px;border-radius:12px;border:1px solid var(--line2);background:var(--panel);color:var(--fg);padding:0 14px;font:inherit}
+.drugs{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.drug{display:flex;flex-direction:column;gap:6px;text-align:left;padding:14px 16px;border-radius:14px;background:var(--panel);border:1px solid var(--line)}
+.drug:hover{border-color:var(--c)}
+.drug b{display:flex;gap:8px;align-items:center;font-size:15.5px}
+.drug b .ic{color:var(--c)}
+.drug small{color:var(--fg2);font-size:13px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sheet{position:fixed;inset:0;z-index:90;display:flex;justify-content:flex-end;background:rgba(3,6,14,.55);backdrop-filter:blur(3px)}
+.sheet .panel{width:min(640px,100%);height:100%;overflow:auto;background:var(--bg);border-left:1px solid var(--line2);padding:22px 22px calc(40px + env(safe-area-inset-bottom,0px));animation:slide .25s ease}
+@keyframes slide{from{transform:translateX(40px);opacity:.4}}
+.sheet h2{font-family:var(--f-display);font-size:26px;margin:6px 0 16px;line-height:1.1}
+.field{border:1px solid var(--line);border-radius:14px;margin-bottom:10px;background:var(--panel);overflow:hidden}
+.field .fh{display:flex;align-items:center;gap:8px;padding:9px 14px;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--fc);background:color-mix(in srgb,var(--fc) 10%,transparent)}
+.field .fb{padding:10px 14px;font-size:15px}
+.field .fb p{margin:0 0 8px}
+.field .fb ul{margin:4px 0;padding-left:20px}
+.field .fb li{margin:3px 0}
+.abbrs{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
+.abbrs div{display:flex;gap:12px;padding:10px 12px;border-radius:12px;background:var(--panel);border:1px solid var(--line);align-items:baseline}
+.abbrs b{font-family:var(--f-mono);color:var(--c);min-width:72px;flex:none;font-size:13.5px}
+.abbrs span{font-size:14px;color:var(--fg2)}
+
+/* ===== Repaso ===== */
+.rank{display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;padding:22px 24px;border-radius:22px;border:1px solid color-mix(in srgb,var(--yellow) 40%,var(--line));background:linear-gradient(120deg,color-mix(in srgb,var(--yellow) 14%,var(--panel)),var(--panel) 65%)}
+.rank .badge{width:76px;height:76px;border-radius:22px;background:var(--yellow);color:#1C1400;display:grid;place-items:center}
+.rank .badge .ic{width:40px;height:40px}
+.rank h2{font-family:var(--f-display);margin:0;font-size:24px}
+.rank p{margin:4px 0 10px;color:var(--fg2)}
+.rank .bar{height:10px}
+.rank .bar i{background:var(--yellow)}
+.rank .big{font-family:var(--f-display);font-size:34px;text-align:right;line-height:1}
+.rank .big small{display:block;font-family:var(--f-body);font-size:12px;color:var(--fg3);margin-top:4px}
+@media (max-width:640px){.rank{grid-template-columns:auto 1fr}.rank .big{grid-column:1/-1;text-align:left}}
+.modes{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.mode{display:flex;flex-direction:column;gap:10px;text-align:left;padding:18px;border-radius:18px;background:var(--panel);border:1px solid var(--line);position:relative;overflow:hidden}
+.mode:hover{border-color:var(--c);transform:translateY(-2px)}
+.mode{transition:transform .15s,border-color .15s}
+.mode .tile{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c)}
+.mode b{font-family:var(--f-display);font-size:16px}
+.mode small{color:var(--fg2);font-size:13.5px}
+.mode .best{font-family:var(--f-mono);font-size:12px;color:var(--fg3)}
+.cheats{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.cheat{padding:18px;border-radius:18px;background:var(--panel);border:1px solid var(--line)}
+.cheat h3{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-size:16px;margin:0 0 12px}
+.cheat h3 .ic{color:var(--c)}
+.cheat .more{display:inline-flex;gap:6px;align-items:center;font-size:13px;margin-top:12px;color:var(--fg2);text-decoration:none}
+.cheat .more:hover{color:var(--fg)}
+.prios{display:grid;gap:8px}
+.prios div{display:grid;grid-template-columns:52px 1fr;gap:10px;align-items:center;padding:8px 10px;border-radius:12px;background:var(--panel2)}
+.prios b{font-family:var(--f-display);font-size:18px;height:40px;border-radius:10px;display:grid;place-items:center;color:#0A0E1A}
+.prios span{font-size:13.5px;line-height:1.35}
+.prios span strong{display:block;font-size:14.5px}
+.lights{display:grid;gap:8px}
+.lights div{display:flex;gap:12px;align-items:center;padding:10px;border-radius:12px;background:var(--panel2)}
+.lights i{width:22px;height:22px;border-radius:50%;flex:none;box-shadow:0 0 14px currentColor}
+.lights span{font-size:13.5px}
+.vests{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.vests div{display:flex;gap:8px;align-items:center;font-size:13px;padding:7px 8px;border-radius:10px;background:var(--panel2);line-height:1.25}
+.vests i{width:16px;height:22px;border-radius:4px 4px 6px 6px;flex:none;border:1px solid rgba(255,255,255,.25)}
+.steps{display:grid;gap:8px}
+.steps div{display:grid;grid-template-columns:34px 1fr;gap:10px;padding:10px;border-radius:12px;background:var(--panel2);font-size:13.5px;line-height:1.4}
+.steps b.n{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--c);color:#0A0E1A;font-family:var(--f-display)}
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px}
+.flip{perspective:600px;height:96px;border:0;background:none;padding:0}
+.flip .fi{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
+.flip.on .fi{transform:rotateY(180deg)}
+.flip .fa,.flip .fb{position:absolute;inset:0;border-radius:12px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:grid;place-items:center;padding:8px;border:1px solid var(--line)}
+.flip .fa{background:var(--panel2);font-family:var(--f-display);font-size:20px;color:var(--c)}
+.flip .fa small{display:block;font-family:var(--f-mono);font-size:10px;color:var(--fg3);letter-spacing:.12em;text-align:center}
+.flip .fb{background:color-mix(in srgb,var(--c) 18%,var(--panel));transform:rotateY(180deg);font-size:12px;line-height:1.3;text-align:center;overflow:hidden}
+.acc{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:var(--panel2);overflow:hidden}
+.acc summary{list-style:none;display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer;font-weight:700;font-size:14px}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary b{font-family:var(--f-mono);min-width:30px;height:26px;border-radius:7px;display:grid;place-items:center;background:var(--c);color:#0A0E1A;font-size:12px}
+.acc summary .ic{margin-left:auto;transition:transform .2s;color:var(--fg3)}
+.acc[open] summary .ic{transform:rotate(90deg)}
+.acc .codes{padding:2px 12px 10px;display:grid;gap:4px}
+.acc .codes div{display:flex;gap:10px;font-size:13.5px}
+.acc .codes span{font-family:var(--f-mono);color:var(--c);min-width:48px;flex:none;font-weight:700}
+.ind{display:flex;flex-wrap:wrap;gap:6px}
+.ind button{border:1px solid var(--line);background:var(--panel2);border-radius:999px;padding:5px 10px;font-size:12.5px;font-weight:700;font-family:var(--f-mono)}
+.ind button.on{background:var(--c);color:#0A0E1A}
+.indout{margin-top:10px;min-height:46px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--c) 10%,transparent);font-size:14px}
+
+/* ===== Quiz ===== */
+.quiz{max-width:760px;margin:0 auto}
+.qtop{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.qtop .pill b{color:var(--fg)}
+.timer{height:8px;border-radius:999px;background:var(--panel2);overflow:hidden;margin-bottom:18px}
+.timer i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--yellow),var(--red));background-size:300% 100%;transition:width .1s linear}
+.qbox{border-radius:22px;border:1px solid var(--line2);background:var(--panel);padding:26px;box-shadow:var(--shadow)}
+.qbox .qk{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--c)}
+.qbox h2{font-family:var(--f-display);font-size:clamp(19px,2.6vw,26px);line-height:1.25;margin:10px 0 20px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:center;text-align:left;padding:14px 16px;border-radius:14px;border:1px solid var(--line2);background:var(--panel2);font-size:15.5px;line-height:1.35;transition:transform .1s}
+.opt:hover:not(:disabled){border-color:var(--c);transform:translateX(3px)}
+.opt .k{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--bg2);font-family:var(--f-mono);font-weight:700;font-size:13px;flex:none}
+.opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 16%,var(--panel2))}
+.opt.ok .k{background:var(--ok);color:#04150F}
+.opt.ko{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 14%,var(--panel2))}
+.opt.ko .k{background:var(--bad);color:#fff}
+.opt:disabled{cursor:default}
+.fb{margin-top:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.fb .msg{font-weight:800;display:flex;gap:8px;align-items:center}
+.fb .msg.ok{color:var(--ok)}.fb .msg.ko{color:var(--bad)}
+.pop{position:fixed;left:50%;top:40%;transform:translate(-50%,-50%);font-family:var(--f-display);font-size:42px;color:var(--yellow);pointer-events:none;animation:pop .8s ease forwards;z-index:95;text-shadow:0 4px 30px rgba(0,0,0,.4)}
+@keyframes pop{0%{opacity:0;transform:translate(-50%,-30%) scale(.6)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}100%{opacity:0;transform:translate(-50%,-90%) scale(1)}}
+.result{text-align:center;padding:34px 24px}
+.result .score{font-family:var(--f-display);font-size:64px;line-height:1;color:var(--yellow)}
+.result .rv{text-align:left;margin-top:22px;display:grid;gap:8px}
+.result .rv div{padding:10px 12px;border-radius:12px;background:var(--panel2);font-size:14px}
+.result .rv div b{color:var(--ok)}
+
+/* search results */
+.res{display:grid;gap:10px}
+.ritem{display:flex;gap:12px;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--panel);text-decoration:none;text-align:left;width:100%}
+.ritem:hover{border-color:var(--c)}
+.ritem .tile{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 15%,transparent);color:var(--c);flex:none}
+.ritem b{display:block}
+.ritem small{color:var(--fg3);font-size:12.5px}
+.ritem p{margin:6px 0 0;font-size:14px;color:var(--fg2)}
+.empty{padding:40px;text-align:center;color:var(--fg3);border:1px dashed var(--line2);border-radius:18px}
+footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--fg3);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.fadein{animation:fade .35s ease}
+@keyframes fade{from{opacity:.0;transform:translateY(6px)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio"><span class="mark" id="markIc"></span><span><b>SAMUR·PC</b><small>Manual 2026 interactivo</small></span></a>
+    <label class="search"><span id="sIc"></span><input id="q" type="search" placeholder="Busca un procedimiento, fármaco, clave…" autocomplete="off" aria-label="Buscar en el manual"><kbd>/</kbd></label>
+    <a class="xp" href="#repaso" id="xp"></a>
+    <button class="iconbtn" id="theme" aria-label="Cambiar tema"></button>
+  </div>
+  <nav class="navrow"><div class="wrap" id="nav"></div></nav>
+</header>
+<main class="wrap" id="app"></main>
+<footer><div class="wrap"><span>Material de estudio basado en el <b>Manual de Procedimientos SAMUR-Protección Civil · 2026 v1.0</b>. Ante cualquier duda, manda el documento oficial.</span><span id="foot"></span></div></footer>
+
+<script id="data" type="application/json">/*DATA*/</script>
+<script id="ref" type="application/json">/*REF*/</script>
+<script>
+const D=JSON.parse(document.getElementById('data').textContent);
+const R=JSON.parse(document.getElementById('ref').textContent);
+const ICONS=/*ICONS*/;
+const ic=(n,c='')=>`<svg class="ic ${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||ICONS['file-text']||''}</svg>`;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- colours per ámbito ---------- */
+const COL={admin:['#8FA2FF','#3F51C9'],central:['#2EC4F1','#0A7FAD'],operativos:['#FF7A2E','#D24A05'],psico:['#C38CFF','#7A3FD1'],sva:['#FF4D6A','#C81E40'],svb:['#FFB020','#A86A00'],tecnicas:['#2EE6C0','#0B8F78'],anexos:['#FF7AC6','#C0287F'],repaso:['#FFD23F','#9A7400']};
+const cv=k=>`data-c style="--cd:${COL[k][0]};--cl:${COL[k][1]}"`;
+
+/* ---------- state ---------- */
+let S={done:{},xp:0,best:{},seen:{}};
+try{const s=JSON.parse(localStorage.getItem('samurpc-v1')||'null');if(s)S=Object.assign(S,s)}catch(e){}
+const save=()=>{try{localStorage.setItem('samurpc-v1',JSON.stringify(S))}catch(e){}};
+const RANKS=[[0,'Aspirante','Acabas de entrar en la base'],[60,'Voluntario/a PC','Primeras guardias'],[180,'TATS','Ya conoces las claves'],[400,'Enfermero/a','Dominas técnicas y fármacos'],[750,'Médico/a SVA','Protocolos bajo control'],[1200,'Charly','Jefe/a de División de Guardia'],[1800,'Supervisor/a','Visión de todo el operativo'],[2600,'Directivo/a de Guardia','Máximo responsable de la guardia']];
+function rank(){let i=0;RANKS.forEach((r,k)=>{if(S.xp>=r[0])i=k});const cur=RANKS[i],nx=RANKS[i+1];return{i,cur,nx,pct:nx?Math.min(100,(S.xp-cur[0])/(nx[0]-cur[0])*100):100}}
+function addXP(n){S.xp=Math.max(0,S.xp+n);save();drawXP()}
+function drawXP(){const r=rank();$('#xp').innerHTML=`<span class="lv">${r.i+1}</span><span>${esc(r.cur[1])} · ${S.xp} XP</span>`}
+
+/* ---------- index ---------- */
+const P=D.procs; const PI={}; P.forEach((p,i)=>{p.i=i;PI[p.id]=p});
+const AMB={}; D.tree.forEach(a=>AMB[a.id]=a);
+D.tree.forEach(a=>{a.procs=P.filter(p=>p.amb===a.id);a.groups.forEach(g=>g.procs=a.procs.filter(p=>p.grp===g.name))});
+const ACC={'á':'a','à':'a','ä':'a','â':'a','é':'e','è':'e','ë':'e','ê':'e','í':'i','ì':'i','ï':'i','î':'i','ó':'o','ò':'o','ö':'o','ô':'o','ú':'u','ù':'u','ü':'u','û':'u','ñ':'n','ç':'c'};
+const nz=s=>s.toLowerCase().replace(/[áàäâéèëêíìïîóòöôúùüûñç]/g,c=>ACC[c]);
+P.forEach(p=>{p.txt=p.b.map(b=>b.x).join(' \u2022 ');p.nt=nz(p.txt);p.ntitle=nz(p.title)});
+const fieldText=d=>d.f.map(f=>f.b.map(b=>b.x).join(' ')).join(' ');
+D.drugs.forEach((d,i)=>{d.i=i;d.fun=(d.f.find(f=>/Funci|Acci/.test(f.f))||d.f[0]||{b:[]}).b.map(b=>b.x).join(' ');d.nt=nz(d.n+' '+fieldText(d))});
+
+/* abbreviation regex */
+const STOPAB=new Set(['DE','EN','DM','AP','FC','O2']);
+const ABM={};D.abbr.forEach(([k,v])=>{if(k.length>=2&&/[A-Z].*[A-Z]/.test(k)&&!STOPAB.has(k)&&/^[A-Za-z0-9]+$/.test(k))ABM[k]=v});
+const ABRE=new RegExp('\\b('+Object.keys(ABM).sort((a,b)=>b.length-a.length).join('|')+')\\b','g');
+
+/* ---------- text enrichment ---------- */
+const DOSE=/(\b\d+(?:[.,]\d+)?(?:\s?[-–]\s?\d+(?:[.,]\d+)?)?\s?(?:mg|mcg|µg|g|ml|mL|UI|mEq|mmHg|mmol|J|julios|lpm|rpm|kg|cm|mm)(?:\s?\/\s?(?:kg|h|min|m2|dl|ml|L))*(?:\/(?:h|min))?)(?![\w])/g;
+function enrich(t,q){
+  let h=esc(t);
+  h=h.replace(DOSE,'<span class="dose">$1</span>');
+  h=h.replace(/\b((?:[Cc]ódigos?|[Cc]laves?|CÓDIGO|CLAVE)\s+(?:\d+(?:\.\d+)*|VISEM|VISNNA|PIC|Crisis|Infarto|Víctor|VICTOR))/g,'<span class="code">$1</span>');
+  h=h.replace(/\b(P([0-4]))\b(?=\s?[-–:]|\s)/g,'<span class="prio p$2">$1</span>');
+  h=h.replace(/(<[^>]+>)|([^<]+)/g,(m,tag,txt)=>tag?tag:txt.replace(ABRE,'<abbr class="ab" data-a="$1">$1</abbr>'));
+  if(q){const re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');h=h.replace(/(<[^>]+>)|([^<]+)/g,(m,tag,txt)=>tag?tag:txt.replace(re,'<mark>$1</mark>'))}
+  return h;
+}
+const LABIC=[[/indicaci/i,'circle-check'],[/contraindic/i,'ban'],[/material|equipo/i,'package'],[/t[eé]cnica|procedimiento|actuaci|pasos|manejo|tratamiento/i,'list-checks'],[/consideraci|observaci|nota/i,'info'],[/precauci|riesgo|complicaci/i,'shield-alert'],[/dosis|f[aá]rmac|medicaci|perfusi/i,'pill'],[/valoraci|evaluaci|diagn[oó]stic/i,'eye'],[/traslado|transporte/i,'ambulance'],[/funciones|responsab/i,'users'],[/criterio/i,'target'],[/objet|definici/i,'crosshair']];
+const labIcon=t=>{for(const [r,n] of LABIC) if(r.test(t)) return n; return 'chevron-right'};
+const CALL=/^(NOTA|Nota|ATENCI[ÓO]N|Atenci[óo]n|Recuerde|RECUERDE|Importante|IMPORTANTE|Precauci[óo]n|PRECAUCI[ÓO]N|No (?:se )?(?:debe|olvide|retrase|demore)|NUNCA|Nunca)\b/;
+
+function renderBlocks(bs,q,tocOut){
+  let h='',depth=0,open=[];let hi=0;
+  const closeTo=d=>{while(depth>d){if(open[depth])h+='</li>';h+='</ul>';open[depth]=false;depth--}};
+  for(const b of bs){if(!b.x||!b.x.trim())continue;
+    if(b.t==='li'){
+      const tgt=b.l+1;
+      if(depth<tgt){while(depth<tgt){depth++;h+='<ul>';open[depth]=false}}
+      else{closeTo(tgt);if(open[depth])h+='</li>'}
+      h+=b.o?`<li class="num" data-n="${esc(b.o)}">`:'<li>';h+=enrich(b.x,q);open[depth]=true;continue;
+    }
+    closeTo(0);
+    if(b.t==='h'){const id='s'+(hi++);tocOut&&tocOut.push([id,b.x]);h+=`<h3 id="${id}">${enrich(cap(b.x),q)}</h3>`}
+    else if(b.t==='lab'){h+=`<div class="lab">${ic(labIcon(b.x))}<span>${enrich(b.x,q)}</span></div>`}
+    else if(b.t==='pre'){h+=`<div class="prebox"><div class="cap">${ic('layers')}Tabla / esquema · formato original</div><pre>${esc(b.x)}</pre></div>`}
+    else if(CALL.test(b.x)){h+=`<div class="callout">${ic('triangle-alert')}<p>${enrich(b.x,q)}</p></div>`}
+    else h+=`<p>${enrich(b.x,q)}</p>`;
+  }
+  closeTo(0);return h;
+}
+function cap(s){ // sentence-case shouty headings for readability
+  const letters=s.replace(/[^A-Za-zÁÉÍÓÚÑÜáéíóúñü]/g,'');
+  if(letters&&letters===letters.toUpperCase()){const keep=/^(SVA|SVB|USVA|USVB|PCR|RCP|IMV|NRBQ|PIC|CECOR|DRP|SCA|SCACEST|SCASEST|TEP|TCE|EPI|EPIS|OVACE|DESA|DEA|ECG|PMU|PSA|JDS|UPSI|UPSQ|STARS|RN|NNA|VIH|VHB|VHC|SAMUR|ERA|ABCDE|TETRA|PMR|SMS|CHARLY|DELTA|LIMA|FENIX|ROMEO|URO|II|III|IV|I|DDS|INR|EZ-IO|COHB|ETCO2|SATO2|VMNI|RUSH|CAUSE|E-FAST|FAST|AESP|FV|TV|AIT|EAP|IC|EPOC|ADIF|RENFE|SEAM|UAPF|DEC|VISEM|VISNNA|GCS|SIR|ERC)$/;
+    return s.toLowerCase().replace(/[a-záéíóúñü0-9\-]+/gi,(w,i)=>{const U=w.toUpperCase();return keep.test(U)?U:w}).replace(/^\s*([a-záéíóúñ])/,(m,c)=>m.replace(c,c.toUpperCase())).replace(/([.:]\s+)([a-záéíóúñ])/g,(m,a,c)=>a+c.toUpperCase())}
+  return s;
+}
+
+/* ---------- nav ---------- */
+const NAV=[['inicio','Inicio','house','repaso'],...D.tree.map(a=>['a-'+a.id,a.name,a.icon,a.id]),['vademecum','Vademécum','pill','anexos'],['repaso','Zona de repaso','gamepad-2','repaso']];
+function drawNav(cur){$('#nav').innerHTML=NAV.map(([h,n,i,c])=>`<a href="#${h}" ${cv(c)} class="${cur===h?'on':''}">${ic(i)}${esc(n)}</a>`).join('')}
+
+/* ---------- views ---------- */
+const app=$('#app');
+function pct(list){return list.length?Math.round(list.filter(p=>S.done[p.id]).length/list.length*100):0}
+function vHome(){
+  const tot=P.length,done=P.filter(p=>S.done[p.id]).length;
+  app.innerHTML=`
+  <section class="hero fadein">
+    <div class="chev"></div>
+    <div class="in">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Manual de Procedimientos · edición 2026</div>
+        <h1>SAMUR<span class="hl">·</span>PC <span class="o">en</span><br>modo guardia</h1>
+        <p class="lead">Los ${tot} procedimientos del manual ordenados por ámbitos, con vademécum de ${D.drugs.length} fármacos, chuletas de claves y códigos, y retos para repasar la oposición.</p>
+        <div class="ctas">
+          <a class="btn pri" href="#a-${D.tree[0].id}">${ic('book-open')}Empezar a estudiar</a>
+          <a class="btn" href="#repaso">${ic('gamepad-2')}Ponerme a prueba</a>
+          <button class="btn" id="rnd">${ic('shuffle')}Procedimiento al azar</button>
+        </div>
+      </div>
+      <div class="monitor" aria-hidden="true">
+        <div class="row"><span>DII · 25 mm/s</span><span id="clk">--:--</span></div>
+        <canvas id="ecg"></canvas>
+        <div class="vitals">
+          <div class="vital v1"><small>FC</small><b id="hr">72</b></div>
+          <div class="vital v2"><small>SatO₂ %</small><b>98</b></div>
+          <div class="vital v3"><small>ESTUDIADO</small><b>${Math.round(done/tot*100)}%</b></div>
+        </div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>${D.tree.length}</b><span>ámbitos de actuación</span></div>
+      <div class="stat"><b>${tot}</b><span>procedimientos</span></div>
+      <div class="stat"><b>${D.drugs.length}</b><span>fármacos en el vademécum</span></div>
+      <div class="stat"><b>${done}</b><span>marcados como estudiados</span></div>
+    </div>
+  </section>
+  <div class="sechead"><div><h2>Ámbitos del manual</h2><p>Cada ámbito se divide en sus propios bloques temáticos.</p></div></div>
+  <div class="ambs">${D.tree.map((a,k)=>`
+    <a class="amb" href="#a-${a.id}" ${cv(a.id)}>
+      <span class="num">0${k+1}</span>
+      <span class="tile">${ic(a.icon)}</span>
+      <h3>${esc(a.name)}</h3>
+      <p>${esc(a.desc)}</p>
+      <div class="groups">${a.groups.slice(0,5).map(g=>`<span>${esc(g.name)}</span>`).join('')}${a.groups.length>5?`<span>+${a.groups.length-5}</span>`:''}</div>
+      <div class="bar"><i style="width:${pct(a.procs)}%"></i></div>
+      <div class="foot"><span>${a.procs.length} procedimientos · ${a.groups.length} bloques</span><span>${pct(a.procs)}%</span></div>
+    </a>`).join('')}
+    <a class="amb" href="#vademecum" ${cv('anexos')}>
+      <span class="num">0${D.tree.length+1}</span>
+      <span class="tile">${ic('pill')}</span>
+      <h3>Anexos · Vademécum</h3>
+      <p>Fichas de fármacos con función, indicaciones, dosis y contraindicaciones, más el glosario de abreviaturas.</p>
+      <div class="groups"><span>${D.drugs.length} fármacos</span><span>${D.abbr.length} abreviaturas</span></div>
+      <div class="bar"><i style="width:0"></i></div>
+      <div class="foot"><span>Consulta rápida A–Z</span><span>${ic('chevron-right')}</span></div>
+    </a>
+  </div>
+  <div class="sechead"><div><h2>Consulta rápida</h2><p>Lo que más se pregunta, a un toque.</p></div><a class="btn sm" href="#repaso">${ic('gamepad-2')}Ver todo en Zona de repaso</a></div>
+  <div class="qgrid">
+    ${[['#repaso-claves','Claves de radio',R.claves.length+' claves','radio','central'],['#repaso-codigos','Códigos de incidente',R.codigos.reduce((s,g)=>s+g.c.length,0)+' códigos','hash','operativos'],['#repaso-prioridades','Prioridades P1–P4','Niveles de la Central','siren','sva'],['#repaso-imv','IMV y triaje STARS','Petos y 3 triajes','triangle-alert','svb'],['#repaso-indicativos','Indicativos','Propios y ajenos','users','admin'],['#abreviaturas','Abreviaturas',D.abbr.length+' siglas','book-a','anexos']].map(([h,t,s,i,c])=>`<a class="qcard" href="${h}" ${cv(c)}><span class="tile">${ic(i)}</span><span><b>${t}</b><small>${s}</small></span></a>`).join('')}
+  </div>`;
+  $('#rnd').onclick=()=>{location.hash='p-'+P[Math.floor(Math.random()*P.length)].id};
+  startECG();
+}
+let ecgRAF=null;
+function startECG(){
+  const cv_=$('#ecg');if(!cv_)return;const ctx=cv_.getContext('2d');
+  const dpr=window.devicePixelRatio||1;const W=cv_.clientWidth,H=cv_.clientHeight;cv_.width=W*dpr;cv_.height=H*dpr;ctx.scale(dpr,dpr);
+  const beat=t=>{t=t%1;const g=(c,w,a)=>a*Math.exp(-((t-c)**2)/(2*w*w));return g(.18,.025,.12)-g(.36,.008,.15)+g(.39,.012,1)-g(.42,.01,.28)+g(.62,.045,.25)};
+  let x=0,last=null;const speed=W/3.2;const red=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const pts=new Float32Array(Math.ceil(W)+2).fill(NaN);
+  const y=v=>H*.62-v*H*.5;
+  if(red){ctx.strokeStyle='#2EE6A6';ctx.lineWidth=2;ctx.beginPath();for(let i=0;i<W;i++){const v=beat(i/(W/3));i?ctx.lineTo(i,y(v)):ctx.moveTo(i,y(v))}ctx.stroke();return}
+  cancelAnimationFrame(ecgRAF);let t0=performance.now();
+  const loop=now=>{if(!document.body.contains(cv_))return;const dt=(now-(last||now))/1000;last=now;const prev=x;x+=dt*speed;
+    for(let i=Math.floor(prev);i<=Math.floor(x);i++){const xi=i%Math.ceil(W);pts[xi]=beat(i/(W/3.2)*1.15)}
+    if(x>W)x-=W;
+    ctx.clearRect(0,0,W,H);ctx.strokeStyle='rgba(46,230,166,.12)';ctx.lineWidth=1;for(let gx=0;gx<W;gx+=20){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,H);ctx.stroke()}
+    ctx.lineWidth=2.2;ctx.strokeStyle='#2EE6A6';ctx.shadowColor='#2EE6A6';ctx.shadowBlur=8;ctx.beginPath();let pen=false;
+    for(let i=0;i<W;i++){if(Math.abs(i-x)<14){pen=false;continue}const v=pts[i];if(isNaN(v)){pen=false;continue}pen?ctx.lineTo(i,y(v)):(ctx.moveTo(i,y(v)),pen=true)}
+    ctx.stroke();ctx.shadowBlur=0;ctx.fillStyle='#E8FFF6';ctx.beginPath();ctx.arc(x,y(pts[Math.floor(x)]||0),2.6,0,7);ctx.fill();
+    const hr=$('#hr');if(hr&&Math.random()<.01)hr.textContent=70+Math.floor(Math.random()*6);
+    const ck=$('#clk');if(ck){const d=new Date();ck.textContent=d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}
+    ecgRAF=requestAnimationFrame(loop)};
+  ecgRAF=requestAnimationFrame(loop);
+}
+
+function vAmb(id,gi){
+  const a=AMB[id];if(!a)return vHome();
+  const groups=a.groups;const sel=gi==null?-1:+gi;
+  const shown=sel<0?groups:[groups[sel]];
+  app.innerHTML=`<div ${cv(id)} class="fadein">
+    <section class="ahead">
+      <div class="big">${ic(a.icon)}</div>
+      <div class="crumbs"><a href="#inicio">Inicio</a>${ic('chevron-right')}<span>Ámbito</span></div>
+      <h1><span class="tile">${ic(a.icon)}</span>${esc(a.name)}</h1>
+      <p>${esc(a.desc)}. ${a.procs.length} procedimientos repartidos en ${groups.length} bloque${groups.length>1?'s':''}.</p>
+      <div class="prog"><div class="bar"><i style="width:${pct(a.procs)}%"></i></div><span>${a.procs.filter(p=>S.done[p.id]).length}/${a.procs.length} estudiados</span></div>
+    </section>
+    ${groups.length>1?`<div class="tabs" role="tablist">
+      <a class="tab ${sel<0?'on':''}" href="#a-${id}" role="tab">${ic('layers')}Todo<span class="n">${a.procs.length}</span></a>
+      ${groups.map((g,k)=>`<a class="tab ${sel===k?'on':''}" href="#a-${id}.${k}" role="tab">${ic(g.icon)}${esc(g.name)}<span class="n">${g.procs.length}</span></a>`).join('')}
+    </div>`:''}
+    ${shown.map(g=>`<section class="gsec"><h2>${ic(g.icon)}${esc(g.name)} <small>${g.procs.filter(p=>S.done[p.id]).length}/${g.procs.length}</small></h2>
+      <div class="plist">${g.procs.map(p=>pcard(p,g.icon)).join('')}</div></section>`).join('')}
+  </div>`;
+}
+const mins=w=>Math.max(1,Math.round(w/190));
+function pcard(p,icon){return `<a class="pcard ${S.done[p.id]?'isdone':''}" href="#p-${p.id}"><span class="tile">${ic(icon)}</span><span class="t"><b>${esc(p.title)}</b><small><span>${ic('clock')} ${mins(p.w)} min</span><span>${ic('file-text')} pág. ${p.p[0]}${p.p[1]>p.p[0]?'–'+p.p[1]:''}</span></small></span><span class="done">${ic('badge-check')}</span></a>`}
+
+let lastQ='';
+function vProc(id){
+  const p=PI[id];if(!p)return vHome();
+  const a=AMB[p.amb],g=a.groups.find(x=>x.name===p.grp),gk=a.groups.indexOf(g);
+  const toc=[];const body=renderBlocks(p.b,lastQ,toc);
+  const sib=g.procs,k=sib.indexOf(p);
+  const flat=a.procs;const fk=flat.indexOf(p);const prev=flat[fk-1],next=flat[fk+1];
+  app.innerHTML=`<div ${cv(p.amb)} class="reader fadein">
+    <aside class="side">
+      ${toc.length>1?`<h4>En este procedimiento</h4><div class="toc">${toc.map(([i,t])=>`<a href="#p-${p.id}" data-s="${i}">${esc(cap(t))}</a>`).join('')}</div>`:''}
+      <div class="sib"><h4>${esc(g.name)}</h4>${sib.map(s=>`<a href="#p-${s.id}" class="${s===p?'on':''}">${S.done[s.id]?ic('badge-check'):'<span class="ph"></span>'}<span>${esc(s.title)}</span></a>`).join('')}</div>
+    </aside>
+    <article style="min-width:0">
+      <header class="phead">
+        <div class="crumbs"><a href="#inicio">Inicio</a>${ic('chevron-right')}<a href="#a-${a.id}">${esc(a.name)}</a>${ic('chevron-right')}<a href="#a-${a.id}.${gk}">${esc(g.name)}</a></div>
+        <h1>${esc(p.title)}</h1>
+        <div class="meta"><span class="pill">${ic(g.icon)}${esc(g.name)}</span><span class="pill">${ic('clock')}${mins(p.w)} min de lectura</span><span class="pill">${ic('file-text')}Págs. ${p.p[0]}–${p.p[1]} del PDF</span><span class="pill">${ic('list-ordered')}${k+1} de ${sib.length} en el bloque</span></div>
+        <div class="pactions">
+          <button class="btn sm ${S.done[p.id]?'done':''}" id="mark">${ic(S.done[p.id]?'badge-check':'circle-check')}${S.done[p.id]?'Estudiado':'Marcar como estudiado (+10 XP)'}</button>
+          ${lastQ?`<span class="pill">${ic('search')}Resaltando «${esc(lastQ)}»</span>`:''}
+        </div>
+      </header>
+      <div class="doc" id="doc">${body||'<p>Este apartado no contiene texto en el manual.</p>'}</div>
+      <div class="source">${ic('info')}Los algoritmos y diagramas gráficos del manual no se reproducen aquí: consúltalos en las págs. ${p.p[0]}–${p.p[1]} del PDF original.</div>
+      <nav class="pnav">
+        ${prev?`<a href="#p-${prev.id}"><small>${ic('arrow-left')}Anterior</small><b>${esc(prev.title)}</b></a>`:'<span></span>'}
+        ${next?`<a class="next" href="#p-${next.id}"><small>Siguiente${ic('arrow-right')}</small><b>${esc(next.title)}</b></a>`:`<a class="next" href="#a-${a.id}"><small>Fin del ámbito${ic('arrow-right')}</small><b>Volver a ${esc(a.name)}</b></a>`}
+      </nav>
+    </article></div>`;
+  $('#mark').onclick=()=>{if(S.done[p.id]){delete S.done[p.id];addXP(-10)}else{S.done[p.id]=1;addXP(10);popup('+10 XP')}save();const y=scrollY;vProc(id);scrollTo(0,y)};
+  document.querySelectorAll('.toc a').forEach(x=>x.onclick=e=>{e.preventDefault();const t=document.getElementById(x.dataset.s);t&&t.scrollIntoView({behavior:'smooth',block:'start'})});
+  if(lastQ){const m=document.querySelector('#doc mark');m&&setTimeout(()=>m.scrollIntoView({block:'center'}),60)}
+}
+
+/* ---------- vademecum ---------- */
+const FCOL={'Función':['target','var(--cyan)'],'Acción':['target','var(--cyan)'],'Indicaciones':['circle-check','var(--green)'],'Dosis':['pill','var(--yellow)'],'Contraindicaciones':['ban','var(--red)'],'Interacciones':['git-merge','var(--violet)'],'Efectos secundarios':['triangle-alert','var(--orange)'],'Presentación':['package','var(--fg2)'],'Precauciones':['shield-alert','var(--orange)']};
+let vState={l:null,q:''};
+function vVadem(){
+  const letters=[...new Set(D.drugs.map(d=>nz(d.n)[0].toUpperCase()))];
+  const AZ='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  app.innerHTML=`<div ${cv('anexos')} class="fadein">
+    <section class="ahead"><div class="big">${ic('pill')}</div>
+      <div class="crumbs"><a href="#inicio">Inicio</a>${ic('chevron-right')}<span>Anexos</span></div>
+      <h1><span class="tile">${ic('pill')}</span>Vademécum</h1>
+      <p>Relación de fármacos empleados por SAMUR-Protección Civil en las dosis e indicaciones más habituales. Toca una ficha para abrirla.</p>
+    </section>
+    <div class="tabs"><a class="tab on" href="#vademecum">${ic('pill')}Fármacos<span class="n">${D.drugs.length}</span></a><a class="tab" href="#abreviaturas">${ic('book-a')}Abreviaturas<span class="n">${D.abbr.length}</span></a></div>
+    <div class="filt"><input id="vq" type="search" placeholder="Filtra por nombre, indicación o efecto…" value="${esc(vState.q)}" aria-label="Filtrar fármacos"></div>
+    <div class="letters"><button data-l="" class="${!vState.l?'on':''}">·</button>${AZ.map(l=>`<button data-l="${l}" class="${vState.l===l?'on':''}" ${letters.includes(l)?'':'disabled'}>${l}</button>`).join('')}</div>
+    <div class="drugs" id="dl"></div></div>`;
+  const draw=()=>{const q=nz(vState.q.trim());const list=D.drugs.filter(d=>(!vState.l||nz(d.n)[0].toUpperCase()===vState.l)&&(!q||d.nt.includes(q)));
+    $('#dl').innerHTML=list.length?list.map(d=>`<button class="drug" data-i="${d.i}"><b>${ic('pill')}${esc(d.n)}</b><small>${esc(d.fun)}</small></button>`).join(''):`<div class="empty">No hay fármacos con ese filtro.</div>`;
+    document.querySelectorAll('.drug').forEach(b=>b.onclick=()=>openDrug(+b.dataset.i))};
+  draw();
+  $('#vq').oninput=e=>{vState.q=e.target.value;draw()};
+  document.querySelectorAll('.letters button').forEach(b=>b.onclick=()=>{vState.l=b.dataset.l||null;document.querySelectorAll('.letters button').forEach(x=>x.classList.toggle('on',x===b));draw()});
+}
+function openDrug(i){
+  const d=D.drugs[i];const s=document.createElement('div');s.className='sheet';s.setAttribute(...['data-c','']);s.style.cssText=`--cd:${COL.anexos[0]};--cl:${COL.anexos[1]}`;
+  s.innerHTML=`<div class="panel" role="dialog" aria-label="${esc(d.n)}"><div style="display:flex;justify-content:space-between;align-items:center"><span class="pill">${ic('pill')}Vademécum</span><button class="iconbtn" id="cls" aria-label="Cerrar">${ic('x')}</button></div>
+    <h2>${esc(d.n)}</h2>${d.f.map(f=>{const c=FCOL[f.f]||['info','var(--fg2)'];return `<div class="field" style="--fc:${c[1]}"><div class="fh">${ic(c[0])}${esc(f.f)}</div><div class="fb">${renderBlocks(f.b)}</div></div>`}).join('')}
+    <div style="display:flex;gap:8px;margin-top:14px">${i>0?`<button class="btn sm" data-g="${i-1}">${ic('arrow-left')}${esc(D.drugs[i-1].n)}</button>`:''}${i<D.drugs.length-1?`<button class="btn sm" data-g="${i+1}" style="margin-left:auto">${esc(D.drugs[i+1].n)}${ic('arrow-right')}</button>`:''}</div></div>`;
+  document.body.appendChild(s);document.body.style.overflow='hidden';
+  const close=()=>{s.remove();document.body.style.overflow=''};
+  s.onclick=e=>{if(e.target===s)close()};s.querySelector('#cls').onclick=close;
+  s.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{close();openDrug(+b.dataset.g)});
+  document.addEventListener('keydown',function k(e){if(e.key==='Escape'){close();document.removeEventListener('keydown',k)}});
+}
+function vAbbr(){
+  app.innerHTML=`<div ${cv('anexos')} class="fadein">
+    <section class="ahead"><div class="big">${ic('book-a')}</div><div class="crumbs"><a href="#inicio">Inicio</a>${ic('chevron-right')}<span>Anexos</span></div>
+    <h1><span class="tile">${ic('book-a')}</span>Abreviaturas</h1><p>Las siglas del manual. En los procedimientos, las siglas subrayadas muestran su significado al tocarlas.</p></section>
+    <div class="tabs"><a class="tab" href="#vademecum">${ic('pill')}Fármacos<span class="n">${D.drugs.length}</span></a><a class="tab on" href="#abreviaturas">${ic('book-a')}Abreviaturas<span class="n">${D.abbr.length}</span></a></div>
+    <div class="filt"><input id="aq" type="search" placeholder="Busca una sigla o su significado…" aria-label="Filtrar abreviaturas"></div>
+    <div class="abbrs" id="al" style="margin-top:16px"></div></div>`;
+  const draw=q=>{q=nz(q||'');$('#al').innerHTML=D.abbr.filter(([k,v])=>!q||nz(k+' '+v).includes(q)).map(([k,v])=>`<div><b>${esc(k)}</b><span>${esc(v)}</span></div>`).join('')||'<div class="empty">Sin resultados.</div>'};
+  draw();$('#aq').oninput=e=>draw(e.target.value);
+}
+
+/* ---------- repaso ---------- */
+const procLink=t=>{const p=P.find(x=>nz(x.title).includes(nz(t)));return p?'#p-'+p.id:'#inicio'};
+const MODES=[
+  ['claves','Claves de radio','¿Qué significa la clave…?','radio','central'],
+  ['codigos','Códigos de incidente','Del número al tipo de incidente','hash','operativos'],
+  ['indicativos','Indicativos','Charly, Romeo, Beta, Zeta…','users','admin'],
+  ['farmacos','Fármacos','Adivina el fármaco por su función','pill','anexos'],
+  ['abrev','Abreviaturas','Siglas del manual','book-a','tecnicas'],
+  ['mix','Guardia completa','Mezcla de todo, 15 preguntas','flame','sva']];
+function vRepaso(anchor){
+  const r=rank();
+  const IND=[...R.ind['Particulares'],...R.ind['Generales'],...R.ind['Según base o función'],...R.ind['Ajenos']];
+  app.innerHTML=`<div class="fadein" ${cv('repaso')}>
+  <section class="rank"><span class="badge">${ic(r.i>=5?'medal':'trophy')}</span>
+    <div><h2>${esc(r.cur[1])}</h2><p>${esc(r.cur[2])}${r.nx?` · siguiente rango: <b>${esc(r.nx[1])}</b> a ${r.nx[0]} XP`:' · rango máximo'}</p><div class="bar"><i style="width:${r.pct}%"></i></div></div>
+    <div class="big">${S.xp}<small>XP · ${Object.keys(S.done).length}/${P.length} procedimientos estudiados</small></div></section>
+  <div class="sechead"><div><h2>Retos rápidos</h2><p>10 preguntas con contrarreloj. Acierta rápido y encadena racha para sumar más XP.</p></div></div>
+  <div class="modes">${MODES.map(([k,t,s,i,c])=>`<button class="mode" data-m="${k}" ${cv(c)}><span class="tile">${ic(i)}</span><b>${t}</b><small>${s}</small><span class="best">Mejor puntuación: ${S.best[k]||0}</span></button>`).join('')}</div>
+  <div class="sechead"><div><h2>Chuletas</h2><p>Resumen visual de lo que más cae. Cada una enlaza al procedimiento completo.</p></div></div>
+  <div class="cheats">
+    <div class="cheat" id="repaso-prioridades" ${cv('sva')}><h3>${ic('siren')}Prioridades de la Central</h3>
+      <div class="prios">
+        <div><b style="background:#FF3B5C">P1</b><span><strong>Emergencia</strong>Urgencia vital. Unidad activada en emergencia.</span></div>
+        <div><b style="background:#FF9F1A">P2</b><span><strong>Urgencia</strong>Urgencia no vital. Unidad activada en emergencia.</span></div>
+        <div><b style="background:#FFD23F">P3</b><span><strong>Preferente</strong>No vital, con condicionante social. Sin activación en emergencia.</span></div>
+        <div><b style="background:#2EE6A6">P4</b><span><strong>Normal</strong>No urgencia. Sin activación en emergencia.</span></div>
+      </div><a class="more" href="${procLink('Gestión de recursos')}">Gestión de recursos ${ic('arrow-right')}</a></div>
+    <div class="cheat" ${cv('central')}><h3>${ic('activity')}Situaciones operativas USVA</h3>
+      <div class="lights">
+        <div><i style="color:#2EE6A6;background:#2EE6A6"></i><span><b>1 · Verde</b> — Normalidad. Asignación de recursos habitual.</span></div>
+        <div><i style="color:#FFD23F;background:#FFD23F"></i><span><b>2 · Amarillo</b> — Alerta de saturación: ≤ 6 USVA mañana, ≤ 5 tarde, ≤ 2 noche. Control estricto de tiempos.</span></div>
+        <div><i style="color:#FF3B5C;background:#FF3B5C"></i><span><b>3 · Rojo</b> — Saturación: solo 2 USVA en M/T y 1 de noche. Se reservan USVA para códigos graves.</span></div>
+      </div><a class="more" href="${procLink('Gestión de recursos')}">Ver tiempos de control ${ic('arrow-right')}</a></div>
+    <div class="cheat" id="repaso-imv" ${cv('svb')}><h3>${ic('triangle-alert')}IMV · petos de colores</h3>
+      <div class="vests">
+        ${[['#FF3B5C','Jefe de Dispositivo Sanitario'],['#2EE6A6','Jefe PSA'],['#9B5CFF','Rescate sanitario / 1er triaje'],['#9B5CFF','Triaje (2º)'],['#9B5CFF','Numerador'],['#FF8A1A','Espera de recursos'],['#2EE6A6','Filiación'],['#2EE6A6','Evacuación'],['#2E8BFF','Logística y comunicaciones'],['#2EE6A6','Pacientes leves («verde»)']].map(([c,t])=>`<div><i style="background:${c}"></i>${t}</div>`).join('')}
+      </div><a class="more" href="${procLink('Incidentes con múltiples')}">Procedimiento IMV ${ic('arrow-right')}</a></div>
+    <div class="cheat" ${cv('svb')}><h3>${ic('list-ordered')}Triaje STARS</h3>
+      <div class="steps">
+        <div><b class="n">1</b><span><b>Rescate</b> · En el foco, por uno de los primeros TATS. Separa moderados/graves recuperables de ilesos y fallecidos.</span></div>
+        <div><b class="n">2</b><span><b>Asistencia</b> · En zona templada, por médico o enfermero. Graves y moderados frente a leves.</span></div>
+        <div><b class="n">3</b><span><b>Estabilización</b> · Responsable del PSA. Estabilización inmediata + traslado urgente, o traslado urgente con estabilización en ruta.</span></div>
+      </div>
+      <p style="font-size:13px;color:var(--fg2);margin:10px 0 0"><b>A-CLA-RE</b>: Agrupar en el PRV · CLAsificar con STARS · REplantear recursos.</p></div>
+    <div class="cheat" id="repaso-claves" ${cv('central')} style="grid-column:1/-1"><h3>${ic('radio')}Claves de radio <small style="font-family:var(--f-body);font-weight:500;color:var(--fg3);font-size:13px">· toca para girar</small></h3>
+      <div class="flips">${R.claves.map(([k,v])=>`<button class="flip"><span class="fi"><span class="fa"><span>${esc(k)}<small>${/^\d|VICTOR/.test(k)?'CLAVE':''}</small></span></span><span class="fb">${esc(v)}</span></span></button>`).join('')}</div>
+      <a class="more" href="${procLink('Procedimiento radiotelefónico')}">Procedimiento radiotelefónico ${ic('arrow-right')}</a></div>
+    <div class="cheat" id="repaso-codigos" ${cv('operativos')}><h3>${ic('hash')}Códigos de incidente</h3>
+      ${R.codigos.map(g=>`<details class="acc"><summary><b>${g.n}</b>${esc(g.name)}${ic('chevron-right')}</summary><div class="codes">${g.c.map(([c,t])=>`<div><span>${c}</span>${esc(t)}</div>`).join('')}</div></details>`).join('')}</div>
+    <div class="cheat" ${cv('operativos')}><h3>${ic('heart-pulse')}Códigos específicos</h3>
+      <div class="codes" style="display:grid;gap:8px">${R.esp.map(([c,t])=>`<div style="font-size:13.5px;line-height:1.35"><span class="code">${esc(c)}</span> ${esc(t)}</div>`).join('')}</div></div>
+    <div class="cheat" id="repaso-indicativos" ${cv('admin')}><h3>${ic('users')}Indicativos</h3>
+      <div class="ind" id="indb">${IND.map(([k],i)=>`<button data-i="${i}">${esc(k)}</button>`).join('')}</div>
+      <div class="indout" id="indo">Toca un indicativo para ver quién es.</div></div>
+  </div></div>`;
+  document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>location.hash='quiz-'+b.dataset.m);
+  document.querySelectorAll('.flip').forEach(b=>b.onclick=()=>b.classList.toggle('on'));
+  document.querySelectorAll('#indb button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#indb button').forEach(x=>x.classList.toggle('on',x===b));const [k,v]=IND[+b.dataset.i];$('#indo').innerHTML=`<b class="mono">${esc(k)}</b> — ${esc(v)}`});
+  if(anchor){const el=document.getElementById(anchor);el&&setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),50)}
+}
+
+/* ---------- quiz ---------- */
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const clip=(s,n)=>s.length>n?s.slice(0,n).replace(/\s\S*$/,'')+'…':s;
+function poolOf(m){
+  if(m==='claves'){const c=R.claves.filter(x=>!/^Estatus/.test(x[0]));return c.map(([k,v])=>Math.random()<.65?{k:'Claves de radio',q:`¿Qué significa la clave ${k}?`,a:v,d:shuf(c.filter(x=>x[0]!==k)).slice(0,3).map(x=>x[1])}:{k:'Claves de radio',q:`«${clip(v,110)}» ¿Qué clave es?`,a:'Clave '+k,d:shuf(c.filter(x=>x[0]!==k)).slice(0,3).map(x=>'Clave '+x[0])})}
+  if(m==='codigos'){const all=R.codigos.flatMap(g=>g.c.map(c=>[...c,g]));return all.map(([c,t,g])=>{const same=shuf(all.filter(x=>x[0]!==c&&x[2]===g));const oth=shuf(all.filter(x=>x[0]!==c));const ds=[...same,...oth].slice(0,3);return Math.random()<.5?{k:'Código de incidente',q:`¿Qué es el código de incidente ${c}?`,a:t,d:ds.map(x=>x[1])}:{k:'Código de incidente',q:`«${t}» corresponde al código…`,a:c,d:ds.map(x=>x[0])}})}
+  if(m==='indicativos'){const all=[...R.ind['Particulares'],...R.ind['Generales'],...R.ind['Según base o función'],...R.ind['Ajenos']];return all.map(([k,v])=>({k:'Indicativos',q:`¿Quién o qué es «${k}»?`,a:v,d:shuf(all.filter(x=>x[0]!==k&&x[1]!==v)).slice(0,3).map(x=>x[1])}))}
+  if(m==='farmacos'){const ds=D.drugs.filter(d=>d.fun.length>25);return ds.map(d=>{let f=d.fun;d.n.split(/[\s\/]+/).forEach(w=>{if(w.length>4)f=f.replace(new RegExp(w,'gi'),'•••')});return{k:'Vademécum',q:`¿Qué fármaco es? «${clip(f,190)}»`,a:d.n,d:shuf([...new Set(ds.filter(x=>x.n!==d.n).map(x=>x.n))]).slice(0,3)}})}
+  if(m==='abrev'){const all=D.abbr.filter(x=>x[0].length>1);return all.map(([k,v])=>({k:'Abreviaturas',q:`¿Qué significa «${k}»?`,a:v,d:shuf(all.filter(x=>x[0]!==k&&x[1]!==v)).slice(0,3).map(x=>x[1])}))}
+  if(m==='mix')return['claves','codigos','indicativos','farmacos','abrev'].flatMap(poolOf);
+  return [];
+}
+let Q=null,QT=null;
+function vQuiz(m){
+  const meta=MODES.find(x=>x[0]===m);if(!meta)return vRepaso();
+  const n=m==='mix'?15:10;
+  Q={m,meta,items:shuf(poolOf(m)).slice(0,n).map(it=>({...it,opts:shuf([it.a,...it.d])})),i:0,score:0,streak:0,maxStreak:0,ok:0,wrong:[]};
+  qDraw();
+}
+const TLIM=20;
+function qDraw(){
+  clearInterval(QT);
+  const {meta,items,i}=Q;
+  if(i>=items.length)return qEnd();
+  const it=items[i];
+  app.innerHTML=`<div class="quiz fadein" ${cv(meta[4])}>
+    <div class="qtop"><a class="btn sm" href="#repaso">${ic('arrow-left')}Salir</a>
+      <div class="meta"><span class="pill">${ic('list-ordered')}<b>${i+1}</b>/${items.length}</span><span class="pill">${ic('star')}<b>${Q.score}</b> pts</span><span class="pill">${ic('flame')}racha <b>${Q.streak}</b></span></div></div>
+    <div class="timer"><i id="tb" style="width:100%"></i></div>
+    <div class="qbox"><div class="qk">${ic(meta[3])} ${esc(it.k)}</div><h2>${esc(it.q)}</h2>
+      <div class="opts">${it.opts.map((o,k)=>`<button class="opt" data-k="${k}"><span class="k">${'ABCD'[k]}</span><span>${esc(o)}</span></button>`).join('')}</div>
+      <div class="fb" id="fb"></div></div></div>`;
+  const t0=performance.now();let answered=false;
+  const answer=k=>{if(answered)return;answered=true;clearInterval(QT);
+    const el=(performance.now()-t0)/1000;const okk=it.opts.indexOf(it.a);
+    document.querySelectorAll('.opt').forEach((b,j)=>{b.disabled=true;if(j===okk)b.classList.add('ok');if(j===k&&k!==okk)b.classList.add('ko')});
+    let msg;
+    if(k===okk){Q.streak++;Q.maxStreak=Math.max(Q.maxStreak,Q.streak);Q.ok++;const pts=Math.round(100+Math.max(0,TLIM-el)*5)*(Q.streak>=3?2:1);Q.score+=pts;popup('+'+pts+(Q.streak>=3?' 🔥':''));msg=`<span class="msg ok">${ic('circle-check')}¡Correcto! +${pts}</span>`}
+    else{Q.streak=0;Q.wrong.push(it);msg=`<span class="msg ko">${ic('circle-x')}${k<0?'Se acabó el tiempo':'Incorrecto'}</span>`}
+    $('#fb').innerHTML=msg+`<button class="btn sm pri" id="nx">${Q.i+1<Q.items.length?'Siguiente':'Ver resultado'}${ic('arrow-right')}</button>`;
+    $('#nx').onclick=()=>{Q.i++;qDraw()};$('#nx').focus();
+  };
+  document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>answer(+b.dataset.k));
+  QT=setInterval(()=>{const el=(performance.now()-t0)/1000;const tb=$('#tb');if(!tb){clearInterval(QT);return}tb.style.width=Math.max(0,100-el/TLIM*100)+'%';tb.style.backgroundPosition=(el/TLIM*100)+'% 0';if(el>=TLIM)answer(-1)},100);
+}
+function qEnd(){
+  const {m,meta,score,ok,items,wrong,maxStreak}=Q;const xp=ok*3+(ok===items.length?10:0);
+  const rec=score>(S.best[m]||0);if(rec)S.best[m]=score;addXP(xp);save();
+  app.innerHTML=`<div class="quiz fadein" ${cv(meta[4])}><div class="qbox result">
+    <div class="qk">${ic('trophy')} ${esc(meta[1])}</div>
+    <div class="score">${score}</div><p>${ok}/${items.length} aciertos · mejor racha ${maxStreak} · <b>+${xp} XP</b>${rec?' · <b style="color:var(--yellow)">¡Nuevo récord!</b>':''}</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn pri" id="again">${ic('rotate-ccw')}Otra ronda</button><a class="btn" href="#repaso">${ic('gamepad-2')}Zona de repaso</a></div>
+    ${wrong.length?`<div class="rv"><h3 style="font-family:var(--f-display);font-size:16px;margin:8px 0 2px">Para repasar</h3>${wrong.map(w=>`<div>${esc(w.q)}<br>→ <b>${esc(w.a)}</b></div>`).join('')}</div>`:''}
+  </div></div>`;
+  $('#again').onclick=()=>vQuiz(m);
+  if(ok===items.length)popup('¡Pleno!');
+}
+function popup(t){const d=document.createElement('div');d.className='pop';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),850)}
+
+/* ---------- search ---------- */
+function vSearch(q){
+  const n=nz(q.trim());if(n.length<2){route();return}
+  const hits=[];
+  for(const p of P){let s=0;if(p.ntitle.includes(n))s+=1000;let c=0,i=p.nt.indexOf(n);const first=i;while(i>=0&&c<50){c++;i=p.nt.indexOf(n,i+n.length)}s+=c;if(s)hits.push([s,p,first])}
+  hits.sort((a,b)=>b[0]-a[0]);
+  const drugs=D.drugs.filter(d=>d.nt.includes(n)).slice(0,8);
+  const ab=D.abbr.filter(([k,v])=>nz(k)===n||nz(v).includes(n)).slice(0,6);
+  const cl=R.claves.filter(([k,v])=>nz('clave '+k)===n||nz(v).includes(n)).slice(0,6);
+  const snip=(p,i)=>{if(i<0)return'';const a=Math.max(0,i-80);return(a?'…':'')+esc(p.txt.slice(a,i+n.length+120)).replace(new RegExp('('+q.trim().replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>')+'…'};
+  app.innerHTML=`<div class="fadein"><div class="sechead" style="margin-top:0"><div><h2>Resultados para «${esc(q)}»</h2><p>${hits.length} procedimientos · ${drugs.length} fármacos · ${ab.length+cl.length} siglas y claves</p></div></div>
+   ${cl.length||ab.length?`<div class="abbrs" style="margin-bottom:16px" ${cv('central')}>${cl.map(([k,v])=>`<div><b>Clave ${esc(k)}</b><span>${esc(v)}</span></div>`).join('')}${ab.map(([k,v])=>`<div><b>${esc(k)}</b><span>${esc(v)}</span></div>`).join('')}</div>`:''}
+   ${drugs.length?`<div class="drugs" style="margin-bottom:16px" ${cv('anexos')}>${drugs.map(d=>`<button class="drug" data-i="${d.i}"><b>${ic('pill')}${esc(d.n)}</b><small>${esc(d.fun)}</small></button>`).join('')}</div>`:''}
+   <div class="res">${hits.slice(0,60).map(([s,p,i])=>{const a=AMB[p.amb],g=a.groups.find(x=>x.name===p.grp);return `<a class="ritem" href="#p-${p.id}" data-q="1" ${cv(p.amb)}><span class="tile">${ic(g.icon)}</span><span style="min-width:0"><b>${esc(p.title)}</b><small>${esc(a.name)} · ${esc(g.name)}</small><p>${snip(p,i)}</p></span></a>`}).join('')||'<div class="empty">Nada por aquí. Prueba con otra palabra, una sigla o un número de clave.</div>'}</div></div>`;
+  document.querySelectorAll('.drug').forEach(b=>b.onclick=()=>openDrug(+b.dataset.i));
+  document.querySelectorAll('.ritem').forEach(a=>a.onclick=()=>{lastQ=q.trim()});
+}
+
+/* ---------- router ---------- */
+function route(){
+  clearInterval(QT);const h=decodeURIComponent(location.hash.slice(1));
+  let navk='inicio';
+  if(!h.startsWith('p-'))lastQ='';
+  if(!h||h==='inicio')vHome();
+  else if(h.startsWith('a-')){const [id,g]=h.slice(2).split('.');navk='a-'+id;vAmb(id,g)}
+  else if(h.startsWith('p-')){const p=PI[h.slice(2)];navk=p?'a-'+p.amb:'inicio';vProc(h.slice(2))}
+  else if(h==='vademecum'){navk='vademecum';vVadem()}
+  else if(h==='abreviaturas'){navk='vademecum';vAbbr()}
+  else if(h.startsWith('repaso')){navk='repaso';vRepaso(h.includes('-')?h:null)}
+  else if(h.startsWith('quiz-')){navk='repaso';vQuiz(h.slice(5))}
+  else vHome();
+  drawNav(navk);
+  if(!h.startsWith('repaso-'))scrollTo(0,0);
+  const on=document.querySelector('.navrow a.on');on&&on.scrollIntoView({block:'nearest',inline:'nearest'});
+}
+addEventListener('hashchange',()=>{$('#q').value='';route()});
+let st;$('#q').addEventListener('input',e=>{clearTimeout(st);const v=e.target.value;st=setTimeout(()=>{if(v.trim().length>=2)vSearch(v);else route()},160)});
+addEventListener('keydown',e=>{if(e.key==='/'&&document.activeElement.tagName!=='INPUT'){e.preventDefault();$('#q').focus()}
+  if(Q&&location.hash.startsWith('#quiz-')&&/^[1-4a-dA-D]$/.test(e.key)){const k='1234'.indexOf(e.key)>=0?'1234'.indexOf(e.key):'abcd'.indexOf(e.key.toLowerCase());const b=document.querySelectorAll('.opt')[k];b&&!b.disabled&&b.click()}});
+/* abbreviation tooltip */
+const tip=document.createElement('div');tip.className='tip';tip.hidden=true;document.body.appendChild(tip);
+const showTip=(el)=>{const k=el.dataset.a;tip.innerHTML=`<b>${esc(k)}</b> · ${esc(ABM[k]||'')}`;tip.hidden=false;const r=el.getBoundingClientRect();const w=Math.min(280,innerWidth-24);tip.style.left=Math.max(12,Math.min(innerWidth-w-12,r.left))+'px';tip.style.top=(r.bottom+8)+'px'};
+document.addEventListener('mouseover',e=>{const a=e.target.closest&&e.target.closest('abbr.ab');if(a)showTip(a)});
+document.addEventListener('mouseout',e=>{if(e.target.closest&&e.target.closest('abbr.ab'))tip.hidden=true});
+document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('abbr.ab');if(a)showTip(a);else tip.hidden=true});
+addEventListener('scroll',()=>{tip.hidden=true},{passive:true});
+/* theme */
+const themeBtn=$('#theme');
+function curDark(){const t=document.documentElement.dataset.theme;return t?t==='dark':!matchMedia('(prefers-color-scheme: light)').matches}
+function drawTheme(){themeBtn.innerHTML=ic(curDark()?'sun':'moon')}
+themeBtn.onclick=()=>{document.documentElement.dataset.theme=curDark()?'light':'dark';drawTheme()};
+$('#markIc').innerHTML=ic('ambulance');$('#sIc').innerHTML=ic('search');
+$('#foot').textContent=`${P.length} procedimientos · ${D.drugs.length} fármacos · ${D.abbr.length} abreviaturas`;
+drawTheme();drawXP();route();
+</script>

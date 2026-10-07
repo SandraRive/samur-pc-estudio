@@ -1,0 +1,12 @@
+{
+  "name": "samur-pc-manual-interactivo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Manual de Procedimientos SAMUR-PC 2026 en formato web interactivo de estudio",
+  "scripts": {
+    "build": "bash build.sh"
+  },
+  "devDependencies": {
+    "lucide-static": "0.468.0"
+  }
+}
