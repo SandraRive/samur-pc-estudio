@@ -398,7 +398,7 @@ mark{background:color-mix(in srgb,var(--orange) 40%,transparent);color:inherit;b
 .fb #nx{margin-left:auto}
 /* tests por ámbito */
 [id^="repaso-"]{scroll-margin-top:124px}
-.qall{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-bottom:14px}
+.qall{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:12px;margin-bottom:14px;align-items:stretch}
 .qamb{border:1px solid var(--line);border-radius:18px;background:var(--panel);margin-bottom:10px;overflow:hidden}
 .qamb[open]{border-color:color-mix(in srgb,var(--c) 45%,var(--line))}
 .qamb summary{list-style:none;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:14px 16px;cursor:pointer}
@@ -419,6 +419,15 @@ mark{background:color-mix(in srgb,var(--orange) 40%,transparent);color:inherit;b
 .qset.all{background:color-mix(in srgb,var(--c) 14%,var(--panel2));border-color:color-mix(in srgb,var(--c) 40%,var(--line))}
 .qset.all .tile{background:var(--c);color:#0A0E1A}
 .qset .ok{color:var(--ok)}
+.qbig{display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:16px;background:color-mix(in srgb,var(--c) 14%,var(--panel2));border:1px solid color-mix(in srgb,var(--c) 40%,var(--line))}
+.qbig .qh{display:flex;gap:12px;align-items:flex-start;margin-bottom:6px;flex:1}
+.qbig .tile{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--c);color:#0A0E1A;flex:none}
+.qbig b{display:block;font-size:15.5px;line-height:1.3}
+.qbig small{color:var(--fg3);font-size:12.5px}
+.qbig .bar{height:5px;background:var(--bg2)}
+.qbig .exb{display:flex;gap:8px;flex-wrap:wrap;padding-top:10px}
+.qbig .exb .btn{height:36px;font-size:13px;white-space:nowrap;padding:0 12px}
+.qbig .exb .btn:hover{border-color:var(--c)}
 
 /* search results */
 .res{display:grid;gap:10px}
@@ -451,10 +460,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 <script id="data" type="application/json">/*DATA*/</script>
 <script id="ref" type="application/json">/*REF*/</script>
 <script id="quiz" type="application/json">/*QUIZ*/</script>
+<script id="exam" type="application/json">/*EXAM*/</script>
 <script>
 const D=JSON.parse(document.getElementById('data').textContent);
 const R=JSON.parse(document.getElementById('ref').textContent);
 const QZ=JSON.parse(document.getElementById('quiz').textContent);
+const EX=JSON.parse(document.getElementById('exam').textContent);
 const ICONS=/*ICONS*/;
 const ic=(n,c='')=>`<svg class="ic ${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||ICONS['file-text']||''}</svg>`;
 const $=s=>document.querySelector(s);
@@ -480,6 +491,7 @@ D.tree.forEach(a=>{a.procs=P.filter(p=>p.amb===a.id);a.groups.forEach(g=>g.procs
 /* tests escritos a mano: id estable por pregunta para saber cuáles dominas */
 const hsh=s=>{let h=5381;for(let i=0;i<s.length;i++)h=(h*33^s.charCodeAt(i))>>>0;return h.toString(36)};
 const QS={};QZ.forEach(s=>{QS[s.id]=s;const a=AMB[s.amb],g=a.groups.find(x=>x.name===s.g);s.icon=s.p?g.icon:g.icon;s.link=s.p?'#p-'+s.p:'#a-'+s.amb+'.'+a.groups.indexOf(g);s.qs=s.q.map(([q,ans,d,e])=>({id:s.id+'|'+hsh(q),k:s.t,q,a:ans,d,e,l:s.link,lt:s.p?PI[s.p].title:s.g}))});
+const EXS={};EX.forEach(x=>{EXS[x.id]=x;x.qs=x.q.map(([n,q,o,c])=>({id:'ex.'+x.id+'|'+n,k:x.t+' · pregunta '+n,q,a:o[c],o,fixed:1,e:`Respuesta correcta según la plantilla oficial: ${'abc'[c]})`}))});
 const qokN=list=>list.filter(x=>S.qok[x.id]).length;
 const setFor=p=>QS[p.id]||QZ.find(s=>!s.p&&s.amb===p.amb&&s.g===p.grp);
 const ACC={'á':'a','à':'a','ä':'a','â':'a','é':'e','è':'e','ë':'e','ê':'e','í':'i','ì':'i','ï':'i','î':'i','ó':'o','ò':'o','ö':'o','ô':'o','ú':'u','ù':'u','ü':'u','û':'u','ñ':'n','ç':'c'};
@@ -814,7 +826,8 @@ function qTestsHTML(){
   const all=QZ.flatMap(s=>s.qs),dom=qokN(all);
   const ambs=D.tree.filter(a=>QZ.some(s=>s.amb===a.id));
   return `<div class="sechead" id="repaso-tests"><div><h2>Ponme a prueba</h2><p>${QZ.length} tests · ${all.length} preguntas sacadas del manual, con explicación de cada respuesta. Una pregunta cuenta como dominada cuando la aciertas.</p></div></div>
-  <div class="qall"><a class="qset all" href="#quiz-a.all" ${cv('repaso')}><span class="tile">${ic('trophy')}</span><b>Simulacro general</b><small>20 preguntas de todos los ámbitos</small><span>${qbar(dom,all.length)}<small>${dom}/${all.length} dominadas${S.best['a.all']?' · récord '+S.best['a.all']:''}</small></span></a></div>
+  <div class="qall"><div class="qbig" ${cv('repaso')}><div class="qh"><span class="tile">${ic('trophy')}</span><span><b>Simulacro general</b><small>20 preguntas de todos los ámbitos del manual</small></span></div>${qbar(dom,all.length)}<small>${dom}/${all.length} dominadas${S.best['a.all']?' · récord '+S.best['a.all']:''}</small><span class="exb"><a class="btn sm" href="#quiz-a.all">${ic('flame')}Empezar simulacro</a></span></div>
+  ${EX.map(x=>{const d=qokN(x.qs);return `<div class="qbig" ${cv('central')}><div class="qh"><span class="tile">${ic('file-text')}</span><span><b>Preguntas de exámenes oficiales</b><small>${esc(x.t)} · ${esc(x.sub)} · ${x.qs.length} preguntas</small></span></div>${qbar(d,x.qs.length)}<small>${d}/${x.qs.length} dominadas${S.best['x.'+x.id]?' · récord '+S.best['x.'+x.id]:''}</small><span class="exb"><a class="btn sm" href="#quiz-x.${x.id}">${ic('shuffle')}20 al azar</a><a class="btn sm" href="#quiz-xc.${x.id}">${ic('list-ordered')}Examen completo</a></span></div>`}).join('')}</div>
   ${ambs.map(a=>{const ss=QZ.filter(s=>s.amb===a.id),qs=ss.flatMap(s=>s.qs),d=qokN(qs);
     return `<details class="qamb" data-a="${a.id}" ${cv(a.id)} ${QOPEN[a.id]?'open':''}><summary><span class="tile">${ic(a.icon)}</span><span><b>${esc(a.name)}</b><small>${ss.length} test${ss.length>1?'s':''} · ${qs.length} preguntas · ${d} dominadas</small>${qbar(d,qs.length)}</span>${ic('chevron-right')}</summary>
     <div class="qsets">
@@ -844,8 +857,10 @@ function vQuiz(m){
   else if(m.startsWith('t.')&&QS[m.slice(2)]){const s=QS[m.slice(2)];meta=[m,s.t,'',s.icon,s.amb];items=pick(s.qs,10);tl=30;QOPEN[s.amb]=true}
   else if(m==='a.all'){meta=[m,'Simulacro general','','trophy','repaso'];items=pick(QZ.flatMap(s=>s.qs),20);tl=30}
   else if(m.startsWith('a.')&&AMB[m.slice(2)]){const a=AMB[m.slice(2)];meta=[m,'Todo '+a.name,'',a.icon,a.id];QOPEN[a.id]=true;items=pick(QZ.filter(s=>s.amb===a.id).flatMap(s=>s.qs),15);tl=30}
+  else if(m.startsWith('x.')&&EXS[m.slice(2)]){const x=EXS[m.slice(2)];meta=[m,x.t,'','file-text','central'];items=pick(x.qs,20);tl=60}
+  else if(m.startsWith('xc.')&&EXS[m.slice(3)]){const x=EXS[m.slice(3)];meta=[m,x.t+' · completo','','file-text','central'];items=x.qs.slice();tl=60}
   if(!items||!items.length)return vRepaso();
-  Q={m,meta,tl,items:items.map(it=>({...it,opts:shuf([it.a,...it.d])})),i:0,score:0,streak:0,maxStreak:0,ok:0,wrong:[]};
+  Q={m,meta,tl,items:items.map(it=>({...it,opts:it.fixed?it.o:shuf([it.a,...it.d])})),i:0,score:0,streak:0,maxStreak:0,ok:0,wrong:[]};
   qDraw();
 }
 const TLIM=20;
