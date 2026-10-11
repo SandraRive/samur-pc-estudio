@@ -1,5 +1,5 @@
 import json,re,os
-D=json.load(open('data.json')); R=json.load(open('ref.json'))
+D=json.load(open('data.json')); R=json.load(open('ref.json')); QZ=json.load(open('quiz.json'))
 M={'users':'users','shield':'shield-check','hand':'hand-helping','phone':'phone-call','message':'message-square-heart','chat':'messages-square','route':'route','link':'link-2','heart-hand':'heart-handshake','code':'hash','truck':'truck','alert':'triangle-alert','brain':'brain','lungs':'wind','flask':'flask-conical','heart':'heart','stomach':'stethoscope','drop':'droplet','kidney':'bean','neuro':'brain-circuit','baby':'baby','child':'smile','bolt':'zap','mind':'brain-cog','bone':'bone','pulse':'activity','eye':'eye','tools':'wrench','wave':'audio-waveform','soap':'sparkles','tube':'pipette','bandage':'bandage','syringe':'syringe','cross':'briefcase-medical','clipboard':'clipboard-list','headset':'headset','siren':'siren'}
 for a in D['tree']:
     a['icon']=M.get(a['icon'],a['icon'])
@@ -15,6 +15,7 @@ for n in need:
 t=open('template.html').read()
 t=t.replace('/*DATA*/',json.dumps(D,ensure_ascii=False,separators=(',',':')).replace('</','<\\/'))
 t=t.replace('/*REF*/',json.dumps(R,ensure_ascii=False,separators=(',',':')).replace('</','<\\/'))
+t=t.replace('/*QUIZ*/',json.dumps(QZ,ensure_ascii=False,separators=(',',':')).replace('</','<\\/'))
 t=t.replace('/*ICONS*/',json.dumps(icons,separators=(',',':')))
 open('samur-manual.html','w').write(t)
 print(len(t))

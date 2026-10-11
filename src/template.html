@@ -68,7 +68,7 @@ h1,h2,h3{text-wrap:balance}
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .top .wrap{display:flex;align-items:center;gap:12px;height:62px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
-.brand .mark{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--orange);color:%23160700;position:relative;overflow:hidden}
+.brand .mark{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--orange);color:#160700;position:relative;overflow:hidden}
 .brand .mark::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 6px,rgba(255,210,63,.55) 6px 12px);mix-blend-mode:screen;opacity:.5}
 .brand .mark .ic{position:relative;z-index:1;width:20px;height:20px}
 .brand b{font-family:var(--f-display);font-weight:700;font-size:15px;letter-spacing:.01em;line-height:1}
@@ -107,7 +107,7 @@ main{padding-block:28px 80px;min-height:70vh}
 .hero p.lead{font-size:18px;color:var(--fg2);max-width:56ch;margin:0 0 22px}
 .hero .ctas{display:flex;flex-wrap:wrap;gap:10px}
 .btn{display:inline-flex;align-items:center;gap:9px;height:46px;padding:0 18px;border-radius:12px;border:1px solid var(--line2);background:var(--panel2);font-weight:700;text-decoration:none;font-size:15px}
-.btn.pri{background:var(--orange);border-color:var(--orange);color:%23160700}
+.btn.pri{background:var(--orange);border-color:var(--orange);color:#160700}
 .btn.pri:hover{filter:brightness(1.08)}
 .btn:hover{border-color:var(--fg3)}
 .btn.sm{height:38px;padding:0 13px;font-size:14px;border-radius:10px}
@@ -367,6 +367,34 @@ mark{background:color-mix(in srgb,var(--orange) 40%,transparent);color:inherit;b
 .result .rv{text-align:left;margin-top:22px;display:grid;gap:8px}
 .result .rv div{padding:10px 12px;border-radius:12px;background:var(--panel2);font-size:14px}
 .result .rv div b{color:var(--ok)}
+.result .rv .e{display:block;margin-top:6px;color:var(--fg2);font-size:13px;line-height:1.45}
+.result .rv a{display:inline-flex;gap:5px;align-items:center;font-size:12.5px;margin-top:6px;color:var(--c);text-decoration:none;font-weight:700}
+.fb .exp{flex:1 1 100%;display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--c) 10%,var(--panel2));border:1px solid color-mix(in srgb,var(--c) 30%,var(--line));font-size:14.5px;line-height:1.5;color:var(--fg2)}
+.fb .exp .ic{color:var(--yellow);flex:none;margin-top:2px}
+.fb #nx{margin-left:auto}
+/* tests por ámbito */
+[id^="repaso-"]{scroll-margin-top:124px}
+.qall{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-bottom:14px}
+.qamb{border:1px solid var(--line);border-radius:18px;background:var(--panel);margin-bottom:10px;overflow:hidden}
+.qamb[open]{border-color:color-mix(in srgb,var(--c) 45%,var(--line))}
+.qamb summary{list-style:none;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:14px 16px;cursor:pointer}
+.qamb summary::-webkit-details-marker{display:none}
+.qamb summary .tile{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:var(--c);color:#0A0E1A}
+.qamb summary b{font-family:var(--f-display);font-size:17px;display:block}
+.qamb summary small{color:var(--fg3);font-size:13px}
+.qamb summary .bar{height:6px;margin-top:7px;max-width:260px}
+.qamb summary>.ic{color:var(--fg3);transition:transform .2s}
+.qamb[open] summary>.ic{transform:rotate(90deg)}
+.qsets{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;padding:2px 16px 16px}
+.qset{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start;text-align:left;padding:13px 14px;border-radius:14px;background:var(--panel2);border:1px solid var(--line);transition:transform .15s,border-color .15s;color:inherit;text-decoration:none}
+.qset:hover{border-color:var(--c);transform:translateY(-2px)}
+.qset .tile{grid-row:span 3;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c)}
+.qset b{font-size:14.5px;line-height:1.3}
+.qset small{color:var(--fg3);font-size:12.5px}
+.qset .bar{height:5px;margin-top:4px;background:var(--bg2)}
+.qset.all{background:color-mix(in srgb,var(--c) 14%,var(--panel2));border-color:color-mix(in srgb,var(--c) 40%,var(--line))}
+.qset.all .tile{background:var(--c);color:#0A0E1A}
+.qset .ok{color:var(--ok)}
 
 /* search results */
 .res{display:grid;gap:10px}
@@ -398,9 +426,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 <script id="data" type="application/json">/*DATA*/</script>
 <script id="ref" type="application/json">/*REF*/</script>
+<script id="quiz" type="application/json">/*QUIZ*/</script>
 <script>
 const D=JSON.parse(document.getElementById('data').textContent);
 const R=JSON.parse(document.getElementById('ref').textContent);
+const QZ=JSON.parse(document.getElementById('quiz').textContent);
 const ICONS=/*ICONS*/;
 const ic=(n,c='')=>`<svg class="ic ${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||ICONS['file-text']||''}</svg>`;
 const $=s=>document.querySelector(s);
@@ -411,7 +441,7 @@ const COL={admin:['#8FA2FF','#3F51C9'],central:['#2EC4F1','#0A7FAD'],operativos:
 const cv=k=>`data-c style="--cd:${COL[k][0]};--cl:${COL[k][1]}"`;
 
 /* ---------- state ---------- */
-let S={done:{},xp:0,best:{},seen:{}};
+let S={done:{},xp:0,best:{},seen:{},qok:{}};
 try{const s=JSON.parse(localStorage.getItem('samurpc-v1')||'null');if(s)S=Object.assign(S,s)}catch(e){}
 const save=()=>{try{localStorage.setItem('samurpc-v1',JSON.stringify(S))}catch(e){}};
 const RANKS=[[0,'Aspirante','Acabas de entrar en la base'],[60,'Voluntario/a PC','Primeras guardias'],[180,'TATS','Ya conoces las claves'],[400,'Enfermero/a','Dominas técnicas y fármacos'],[750,'Médico/a SVA','Protocolos bajo control'],[1200,'Charly','Jefe/a de División de Guardia'],[1800,'Supervisor/a','Visión de todo el operativo'],[2600,'Directivo/a de Guardia','Máximo responsable de la guardia']];
@@ -423,6 +453,11 @@ function drawXP(){const r=rank();$('#xp').innerHTML=`<span class="lv">${r.i+1}</
 const P=D.procs; const PI={}; P.forEach((p,i)=>{p.i=i;PI[p.id]=p});
 const AMB={}; D.tree.forEach(a=>AMB[a.id]=a);
 D.tree.forEach(a=>{a.procs=P.filter(p=>p.amb===a.id);a.groups.forEach(g=>g.procs=a.procs.filter(p=>p.grp===g.name))});
+/* tests escritos a mano: id estable por pregunta para saber cuáles dominas */
+const hsh=s=>{let h=5381;for(let i=0;i<s.length;i++)h=(h*33^s.charCodeAt(i))>>>0;return h.toString(36)};
+const QS={};QZ.forEach(s=>{QS[s.id]=s;const a=AMB[s.amb],g=a.groups.find(x=>x.name===s.g);s.icon=s.p?g.icon:g.icon;s.link=s.p?'#p-'+s.p:'#a-'+s.amb+'.'+a.groups.indexOf(g);s.qs=s.q.map(([q,ans,d,e])=>({id:s.id+'|'+hsh(q),k:s.t,q,a:ans,d,e,l:s.link,lt:s.p?PI[s.p].title:s.g}))});
+const qokN=list=>list.filter(x=>S.qok[x.id]).length;
+const setFor=p=>QS[p.id]||QZ.find(s=>!s.p&&s.amb===p.amb&&s.g===p.grp);
 const ACC={'á':'a','à':'a','ä':'a','â':'a','é':'e','è':'e','ë':'e','ê':'e','í':'i','ì':'i','ï':'i','î':'i','ó':'o','ò':'o','ö':'o','ô':'o','ú':'u','ù':'u','ü':'u','û':'u','ñ':'n','ç':'c'};
 const nz=s=>s.toLowerCase().replace(/[áàäâéèëêíìïîóòöôúùüûñç]/g,c=>ACC[c]);
 P.forEach(p=>{p.txt=p.b.map(b=>b.x).join(' \u2022 ');p.nt=nz(p.txt);p.ntitle=nz(p.title)});
@@ -608,6 +643,7 @@ function vProc(id){
         <div class="meta"><span class="pill">${ic(g.icon)}${esc(g.name)}</span><span class="pill">${ic('clock')}${mins(p.w)} min de lectura</span><span class="pill">${ic('file-text')}Págs. ${p.p[0]}–${p.p[1]} del PDF</span><span class="pill">${ic('list-ordered')}${k+1} de ${sib.length} en el bloque</span></div>
         <div class="pactions">
           <button class="btn sm ${S.done[p.id]?'done':''}" id="mark">${ic(S.done[p.id]?'badge-check':'circle-check')}${S.done[p.id]?'Estudiado':'Marcar como estudiado (+10 XP)'}</button>
+          ${(qs=>qs?`<a class="btn sm" href="#quiz-t.${qs.id}">${ic('gamepad-2')}Ponme a prueba${qs.p?'':' · '+esc(qs.g)}</a>`:'')(setFor(p))}
           ${lastQ?`<span class="pill">${ic('search')}Resaltando «${esc(lastQ)}»</span>`:''}
         </div>
       </header>
@@ -686,6 +722,7 @@ function vRepaso(anchor){
     <div class="big">${S.xp}<small>XP · ${Object.keys(S.done).length}/${P.length} procedimientos estudiados</small></div></section>
   <div class="sechead"><div><h2>Retos rápidos</h2><p>10 preguntas con contrarreloj. Acierta rápido y encadena racha para sumar más XP.</p></div></div>
   <div class="modes">${MODES.map(([k,t,s,i,c])=>`<button class="mode" data-m="${k}" ${cv(c)}><span class="tile">${ic(i)}</span><b>${t}</b><small>${s}</small><span class="best">Mejor puntuación: ${S.best[k]||0}</span></button>`).join('')}</div>
+  ${qTestsHTML()}
   <div class="sechead"><div><h2>Chuletas</h2><p>Resumen visual de lo que más cae. Cada una enlaza al procedimiento completo.</p></div></div>
   <div class="cheats">
     <div class="cheat" id="repaso-prioridades" ${cv('sva')}><h3>${ic('siren')}Prioridades de la Central</h3>
@@ -724,9 +761,26 @@ function vRepaso(anchor){
       <div class="indout" id="indo">Toca un indicativo para ver quién es.</div></div>
   </div></div>`;
   document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>location.hash='quiz-'+b.dataset.m);
+  document.querySelectorAll('.qamb').forEach(d=>d.ontoggle=()=>{QOPEN[d.dataset.a]=d.open});
   document.querySelectorAll('.flip').forEach(b=>b.onclick=()=>b.classList.toggle('on'));
   document.querySelectorAll('#indb button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#indb button').forEach(x=>x.classList.toggle('on',x===b));const [k,v]=IND[+b.dataset.i];$('#indo').innerHTML=`<b class="mono">${esc(k)}</b> — ${esc(v)}`});
   if(anchor){const el=document.getElementById(anchor);el&&setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),50)}
+}
+
+/* ---------- ponme a prueba por ámbito ---------- */
+const QOPEN={};
+const qbar=(n,t)=>`<div class="bar"><i style="width:${t?n/t*100:0}%"></i></div>`;
+function qTestsHTML(){
+  const all=QZ.flatMap(s=>s.qs),dom=qokN(all);
+  const ambs=D.tree.filter(a=>QZ.some(s=>s.amb===a.id));
+  return `<div class="sechead" id="repaso-tests"><div><h2>Ponme a prueba</h2><p>${QZ.length} tests · ${all.length} preguntas sacadas del manual, con explicación de cada respuesta. Una pregunta cuenta como dominada cuando la aciertas.</p></div></div>
+  <div class="qall"><a class="qset all" href="#quiz-a.all" ${cv('repaso')}><span class="tile">${ic('trophy')}</span><b>Simulacro general</b><small>20 preguntas de todos los ámbitos</small><span>${qbar(dom,all.length)}<small>${dom}/${all.length} dominadas${S.best['a.all']?' · récord '+S.best['a.all']:''}</small></span></a></div>
+  ${ambs.map(a=>{const ss=QZ.filter(s=>s.amb===a.id),qs=ss.flatMap(s=>s.qs),d=qokN(qs);
+    return `<details class="qamb" data-a="${a.id}" ${cv(a.id)} ${QOPEN[a.id]?'open':''}><summary><span class="tile">${ic(a.icon)}</span><span><b>${esc(a.name)}</b><small>${ss.length} test${ss.length>1?'s':''} · ${qs.length} preguntas · ${d} dominadas</small>${qbar(d,qs.length)}</span>${ic('chevron-right')}</summary>
+    <div class="qsets">
+      ${ss.length>1?`<a class="qset all" href="#quiz-a.${a.id}"><span class="tile">${ic('flame')}</span><b>Todo ${esc(a.name)}</b><small>15 preguntas mezcladas${S.best['a.'+a.id]?' · récord '+S.best['a.'+a.id]:''}</small></a>`:''}
+      ${ss.map(s=>{const n=qokN(s.qs);return `<a class="qset" href="#quiz-t.${s.id}"><span class="tile">${ic(s.icon)}</span><b>${esc(s.t)}</b><small>${s.p?esc(s.g)+' · ':''}${s.qs.length} preguntas${S.best['t.'+s.id]?' · récord '+S.best['t.'+s.id]:''}</small><span>${qbar(n,s.qs.length)}<small class="${n===s.qs.length?'ok':''}">${n===s.qs.length?'¡Todo dominado!':n+'/'+s.qs.length+' dominadas'}</small></span></a>`}).join('')}
+    </div></details>`}).join('')}`;
 }
 
 /* ---------- quiz ---------- */
@@ -742,10 +796,16 @@ function poolOf(m){
   return [];
 }
 let Q=null,QT=null;
+/* elige primero las preguntas que aún no dominas */
+const pick=(pool,n)=>{const s=shuf(pool);return [...s.filter(x=>!S.qok[x.id]),...s.filter(x=>S.qok[x.id])].slice(0,n)};
 function vQuiz(m){
-  const meta=MODES.find(x=>x[0]===m);if(!meta)return vRepaso();
-  const n=m==='mix'?15:10;
-  Q={m,meta,items:shuf(poolOf(m)).slice(0,n).map(it=>({...it,opts:shuf([it.a,...it.d])})),i:0,score:0,streak:0,maxStreak:0,ok:0,wrong:[]};
+  let meta=MODES.find(x=>x[0]===m),items,tl=TLIM;
+  if(meta){items=shuf(poolOf(m)).slice(0,m==='mix'?15:10)}
+  else if(m.startsWith('t.')&&QS[m.slice(2)]){const s=QS[m.slice(2)];meta=[m,s.t,'',s.icon,s.amb];items=pick(s.qs,10);tl=30;QOPEN[s.amb]=true}
+  else if(m==='a.all'){meta=[m,'Simulacro general','','trophy','repaso'];items=pick(QZ.flatMap(s=>s.qs),20);tl=30}
+  else if(m.startsWith('a.')&&AMB[m.slice(2)]){const a=AMB[m.slice(2)];meta=[m,'Todo '+a.name,'',a.icon,a.id];QOPEN[a.id]=true;items=pick(QZ.filter(s=>s.amb===a.id).flatMap(s=>s.qs),15);tl=30}
+  if(!items||!items.length)return vRepaso();
+  Q={m,meta,tl,items:items.map(it=>({...it,opts:shuf([it.a,...it.d])})),i:0,score:0,streak:0,maxStreak:0,ok:0,wrong:[]};
   qDraw();
 }
 const TLIM=20;
@@ -755,7 +815,7 @@ function qDraw(){
   if(i>=items.length)return qEnd();
   const it=items[i];
   app.innerHTML=`<div class="quiz fadein" ${cv(meta[4])}>
-    <div class="qtop"><a class="btn sm" href="#repaso">${ic('arrow-left')}Salir</a>
+    <div class="qtop"><a class="btn sm" href="#repaso${Q.m.includes('.')?'-tests':''}">${ic('arrow-left')}Salir</a>
       <div class="meta"><span class="pill">${ic('list-ordered')}<b>${i+1}</b>/${items.length}</span><span class="pill">${ic('star')}<b>${Q.score}</b> pts</span><span class="pill">${ic('flame')}racha <b>${Q.streak}</b></span></div></div>
     <div class="timer"><i id="tb" style="width:100%"></i></div>
     <div class="qbox"><div class="qk">${ic(meta[3])} ${esc(it.k)}</div><h2>${esc(it.q)}</h2>
@@ -766,22 +826,22 @@ function qDraw(){
     const el=(performance.now()-t0)/1000;const okk=it.opts.indexOf(it.a);
     document.querySelectorAll('.opt').forEach((b,j)=>{b.disabled=true;if(j===okk)b.classList.add('ok');if(j===k&&k!==okk)b.classList.add('ko')});
     let msg;
-    if(k===okk){Q.streak++;Q.maxStreak=Math.max(Q.maxStreak,Q.streak);Q.ok++;const pts=Math.round(100+Math.max(0,TLIM-el)*5)*(Q.streak>=3?2:1);Q.score+=pts;popup('+'+pts+(Q.streak>=3?' 🔥':''));msg=`<span class="msg ok">${ic('circle-check')}¡Correcto! +${pts}</span>`}
+    if(k===okk){Q.streak++;Q.maxStreak=Math.max(Q.maxStreak,Q.streak);Q.ok++;if(it.id&&!S.qok[it.id]){S.qok[it.id]=1;Q.nw=(Q.nw||0)+1;save()}const pts=Math.round(100+Math.max(0,Q.tl-el)*5*TLIM/Q.tl)*(Q.streak>=3?2:1);Q.score+=pts;popup('+'+pts+(Q.streak>=3?' 🔥':''));msg=`<span class="msg ok">${ic('circle-check')}¡Correcto! +${pts}</span>`}
     else{Q.streak=0;Q.wrong.push(it);msg=`<span class="msg ko">${ic('circle-x')}${k<0?'Se acabó el tiempo':'Incorrecto'}</span>`}
-    $('#fb').innerHTML=msg+`<button class="btn sm pri" id="nx">${Q.i+1<Q.items.length?'Siguiente':'Ver resultado'}${ic('arrow-right')}</button>`;
+    $('#fb').innerHTML=msg+(it.e?`<div class="exp">${ic('lightbulb')}<span>${esc(it.e)}</span></div>`:'')+`<button class="btn sm pri" id="nx">${Q.i+1<Q.items.length?'Siguiente':'Ver resultado'}${ic('arrow-right')}</button>`;
     $('#nx').onclick=()=>{Q.i++;qDraw()};$('#nx').focus();
   };
   document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>answer(+b.dataset.k));
-  QT=setInterval(()=>{const el=(performance.now()-t0)/1000;const tb=$('#tb');if(!tb){clearInterval(QT);return}tb.style.width=Math.max(0,100-el/TLIM*100)+'%';tb.style.backgroundPosition=(el/TLIM*100)+'% 0';if(el>=TLIM)answer(-1)},100);
+  QT=setInterval(()=>{const el=(performance.now()-t0)/1000;const tb=$('#tb');if(!tb){clearInterval(QT);return}tb.style.width=Math.max(0,100-el/Q.tl*100)+'%';tb.style.backgroundPosition=(el/Q.tl*100)+'% 0';if(el>=Q.tl)answer(-1)},100);
 }
 function qEnd(){
-  const {m,meta,score,ok,items,wrong,maxStreak}=Q;const xp=ok*3+(ok===items.length?10:0);
+  const {m,meta,score,ok,items,wrong,maxStreak,nw}=Q;const xp=ok*3+(ok===items.length?10:0);
   const rec=score>(S.best[m]||0);if(rec)S.best[m]=score;addXP(xp);save();
   app.innerHTML=`<div class="quiz fadein" ${cv(meta[4])}><div class="qbox result">
     <div class="qk">${ic('trophy')} ${esc(meta[1])}</div>
-    <div class="score">${score}</div><p>${ok}/${items.length} aciertos · mejor racha ${maxStreak} · <b>+${xp} XP</b>${rec?' · <b style="color:var(--yellow)">¡Nuevo récord!</b>':''}</p>
-    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn pri" id="again">${ic('rotate-ccw')}Otra ronda</button><a class="btn" href="#repaso">${ic('gamepad-2')}Zona de repaso</a></div>
-    ${wrong.length?`<div class="rv"><h3 style="font-family:var(--f-display);font-size:16px;margin:8px 0 2px">Para repasar</h3>${wrong.map(w=>`<div>${esc(w.q)}<br>→ <b>${esc(w.a)}</b></div>`).join('')}</div>`:''}
+    <div class="score">${score}</div><p>${ok}/${items.length} aciertos · mejor racha ${maxStreak} · <b>+${xp} XP</b>${nw?` · ${nw} pregunta${nw>1?'s':''} nueva${nw>1?'s':''} dominada${nw>1?'s':''}`:''}${rec?' · <b style="color:var(--yellow)">¡Nuevo récord!</b>':''}</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn pri" id="again">${ic('rotate-ccw')}Otra ronda</button><a class="btn" href="#repaso${m.includes('.')?'-tests':''}">${ic('gamepad-2')}Zona de repaso</a></div>
+    ${wrong.length?`<div class="rv"><h3 style="font-family:var(--f-display);font-size:16px;margin:8px 0 2px">Para repasar</h3>${wrong.map(w=>`<div>${esc(w.q)}<br>→ <b>${esc(w.a)}</b>${w.e?`<span class="e">${esc(w.e)}</span>`:''}${w.l?`<a href="${w.l}">${ic('book-open')}${esc(w.lt)}</a>`:''}</div>`).join('')}</div>`:''}
   </div></div>`;
   $('#again').onclick=()=>vQuiz(m);
   if(ok===items.length)popup('¡Pleno!');

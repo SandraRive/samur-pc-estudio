@@ -13,6 +13,8 @@ if [ -n "$1" ]; then
 else
   cp data/data.json data/ref.json work/
 fi
+python3 tools/quiz.py
+cp data/quiz.json work/
 [ -d node_modules/lucide-static ] || npm install
 ln -sfn ../node_modules work/node_modules
 (cd work && python3 assemble.py)
