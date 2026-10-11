@@ -278,7 +278,31 @@ mark{background:color-mix(in srgb,var(--orange) 40%,transparent);color:inherit;b
 /* ===== Repaso ===== */
 .rank{display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;padding:22px 24px;border-radius:22px;border:1px solid color-mix(in srgb,var(--yellow) 40%,var(--line));background:linear-gradient(120deg,color-mix(in srgb,var(--yellow) 14%,var(--panel)),var(--panel) 65%)}
 .rank .badge{width:76px;height:76px;border-radius:22px;background:var(--yellow);color:#1C1400;display:grid;place-items:center}
-.rank .badge .ic{width:40px;height:40px}
+.rank .badge .ic{width:36px;height:36px}
+.rank .badge{border:0;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;transition:transform .15s,box-shadow .15s;box-shadow:0 0 0 0 color-mix(in srgb,var(--yellow) 50%,transparent)}
+.rank .badge small{font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.rank .badge:hover{transform:scale(1.05);box-shadow:0 0 0 6px color-mix(in srgb,var(--yellow) 25%,transparent)}
+.rk-sub{color:var(--fg2);margin:-6px 0 16px}
+.rks{display:grid;gap:8px}
+.rk{display:grid;grid-template-columns:22px 44px 1fr auto;gap:12px;align-items:center;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--panel)}
+.rk-n{font-family:var(--f-mono);font-size:12px;color:var(--fg3);text-align:center}
+.rk-i{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:color-mix(in srgb,var(--yellow) 18%,transparent);color:var(--yellow)}
+.rk-t b{display:block;font-family:var(--f-display);font-size:15.5px}
+.rk-t small{color:var(--fg3);font-size:13px}
+.rk-t .bar{display:block;height:6px;margin-top:7px;background:var(--bg2)}
+.rk-t .bar i{background:var(--yellow)}
+.rk-x{font-family:var(--f-mono);font-size:12.5px;color:var(--fg2);text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.rk-x em{font-style:normal;font-family:var(--f-body);font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px;background:var(--yellow);color:#1C1400}
+.rk.cur{border-color:var(--yellow);background:color-mix(in srgb,var(--yellow) 12%,var(--panel))}
+.rk.cur .rk-i{background:var(--yellow);color:#1C1400}
+.rk.done .rk-i{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+.rk.lock{opacity:.55}
+.rk.lock .rk-i{background:var(--panel2);color:var(--fg3)}
+.rk-h{display:flex;gap:8px;align-items:center;font-family:var(--f-display);font-size:16px;margin:22px 0 10px}
+.rk-h .ic{color:var(--yellow)}
+.rk-how{display:grid;gap:8px}
+.rk-how div{display:flex;gap:12px;align-items:center;padding:10px 12px;border-radius:12px;background:var(--panel2);font-size:14px}
+.rk-how b{font-family:var(--f-mono);min-width:42px;color:var(--yellow)}
 .rank h2{font-family:var(--f-display);margin:0;font-size:24px}
 .rank p{margin:4px 0 10px;color:var(--fg2)}
 .rank .bar{height:10px}
@@ -682,6 +706,21 @@ function vVadem(){
   $('#vq').oninput=e=>{vState.q=e.target.value;draw()};
   document.querySelectorAll('.letters button').forEach(b=>b.onclick=()=>{vState.l=b.dataset.l||null;document.querySelectorAll('.letters button').forEach(x=>x.classList.toggle('on',x===b));draw()});
 }
+const RICON=['book-open','hand-helping','ambulance','syringe','heart-pulse','radio','shield-check','medal'];
+function openRanks(){
+  const r=rank();const s=document.createElement('div');s.className='sheet';s.setAttribute('data-c','');s.style.cssText=`--cd:${COL.repaso[0]};--cl:${COL.repaso[1]}`;
+  s.innerHTML=`<div class="panel" role="dialog" aria-label="Rangos"><div style="display:flex;justify-content:space-between;align-items:center"><span class="pill">${ic('trophy')}Zona de repaso</span><button class="iconbtn" id="cls" aria-label="Cerrar">${ic('x')}</button></div>
+    <h2>Rangos de la guardia</h2>
+    <p class="rk-sub">Tienes <b>${S.xp} XP</b>.${r.nx?` Te faltan <b>${r.nx[0]-S.xp} XP</b> para ser <b>${esc(r.nx[1])}</b>.`:' ¡Has llegado al rango máximo!'}</p>
+    <div class="rks">${RANKS.map(([x,n,d],k)=>{const st=k<r.i?'done':k===r.i?'cur':'lock';const nx=RANKS[k+1];const pc=st==='done'?100:st==='cur'?(nx?Math.min(100,(S.xp-x)/(nx[0]-x)*100):100):0;
+      return `<div class="rk ${st}"><span class="rk-n">${k+1}</span><span class="rk-i">${ic(st==='lock'?'lock':RICON[k])}</span><span class="rk-t"><b>${esc(n)}</b><small>${esc(d)}</small>${st==='cur'&&nx?`<span class="bar"><i style="width:${pc}%"></i></span>`:''}</span><span class="rk-x">${st==='cur'?'<em>Tu rango</em>':''}${x} XP</span></div>`}).join('')}</div>
+    <h3 class="rk-h">${ic('star')}Cómo se gana XP</h3>
+    <div class="rk-how"><div><b>+10</b><span>Marcar un procedimiento como estudiado</span></div><div><b>+3</b><span>Cada acierto en retos y tests</span></div><div><b>+10</b><span>Bonus por pleno (todo acertado)</span></div></div></div>`;
+  document.body.appendChild(s);document.body.style.overflow='hidden';
+  const close=()=>{s.remove();document.body.style.overflow=''};
+  s.onclick=e=>{if(e.target===s)close()};s.querySelector('#cls').onclick=close;
+  document.addEventListener('keydown',function k(e){if(e.key==='Escape'){close();document.removeEventListener('keydown',k)}});
+}
 function openDrug(i){
   const d=D.drugs[i];const s=document.createElement('div');s.className='sheet';s.setAttribute(...['data-c','']);s.style.cssText=`--cd:${COL.anexos[0]};--cl:${COL.anexos[1]}`;
   s.innerHTML=`<div class="panel" role="dialog" aria-label="${esc(d.n)}"><div style="display:flex;justify-content:space-between;align-items:center"><span class="pill">${ic('pill')}Vademécum</span><button class="iconbtn" id="cls" aria-label="Cerrar">${ic('x')}</button></div>
@@ -717,7 +756,7 @@ function vRepaso(anchor){
   const r=rank();
   const IND=[...R.ind['Particulares'],...R.ind['Generales'],...R.ind['Según base o función'],...R.ind['Ajenos']];
   app.innerHTML=`<div class="fadein" ${cv('repaso')}>
-  <section class="rank"><span class="badge">${ic(r.i>=5?'medal':'trophy')}</span>
+  <section class="rank"><button class="badge" id="ranks" aria-label="Ver todos los rangos" title="Ver todos los rangos">${ic(r.i>=5?'medal':'trophy')}<small>Rangos</small></button>
     <div><h2>${esc(r.cur[1])}</h2><p>${esc(r.cur[2])}${r.nx?` · siguiente rango: <b>${esc(r.nx[1])}</b> a ${r.nx[0]} XP`:' · rango máximo'}</p><div class="bar"><i style="width:${r.pct}%"></i></div></div>
     <div class="big">${S.xp}<small>XP · ${Object.keys(S.done).length}/${P.length} procedimientos estudiados</small></div></section>
   <div class="sechead"><div><h2>Retos rápidos</h2><p>10 preguntas con contrarreloj. Acierta rápido y encadena racha para sumar más XP.</p></div></div>
@@ -761,6 +800,7 @@ function vRepaso(anchor){
       <div class="indout" id="indo">Toca un indicativo para ver quién es.</div></div>
   </div></div>`;
   document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>location.hash='quiz-'+b.dataset.m);
+  $('#ranks').onclick=openRanks;
   document.querySelectorAll('.qamb').forEach(d=>d.ontoggle=()=>{QOPEN[d.dataset.a]=d.open});
   document.querySelectorAll('.flip').forEach(b=>b.onclick=()=>b.classList.toggle('on'));
   document.querySelectorAll('#indb button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#indb button').forEach(x=>x.classList.toggle('on',x===b));const [k,v]=IND[+b.dataset.i];$('#indo').innerHTML=`<b class="mono">${esc(k)}</b> — ${esc(v)}`});

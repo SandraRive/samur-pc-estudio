@@ -5,7 +5,7 @@ for a in D['tree']:
     a['icon']=M.get(a['icon'],a['icon'])
     for g in a['groups']: g['icon']=M.get(g['icon'],g['icon'])
 D['tree'][-1]['icon']='syringe'
-need=set(M.values())|set('search check circle-check ban package info list-checks target git-merge shield-alert book-open gamepad-2 trophy flame shuffle arrow-left arrow-right x chevron-right file-text clock timer star radio ambulance hospital sun moon book-a library thermometer octagon-alert lightbulb house badge-check circle-x rotate-ccw medal crosshair layers heart-pulse pill brain list-ordered map-pin vest bookmark sparkle'.split())
+need=set(M.values())|set('search check circle-check ban package info list-checks target git-merge shield-alert book-open gamepad-2 trophy flame shuffle arrow-left arrow-right x chevron-right file-text clock timer star radio ambulance hospital sun moon book-a library thermometer octagon-alert lightbulb house badge-check circle-x rotate-ccw medal crosshair layers heart-pulse pill brain list-ordered map-pin vest bookmark sparkle lock'.split())
 icons={}
 for n in need:
     f=f'node_modules/lucide-static/icons/{n}.svg'
