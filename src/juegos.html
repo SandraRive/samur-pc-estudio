@@ -67,6 +67,7 @@ h1,h2,h3{text-wrap:balance}
 @media (max-width:440px){.brand>span:last-child{display:none}.brand.pg{padding:5px}}
 .games[data-n="6"]{grid-template-columns:repeat(3,1fr)}
 .games[data-n="1"]{grid-template-columns:1fr}
+.games[data-n="3"]{grid-template-columns:repeat(3,1fr)}
 @media (max-width:820px){.games[data-n]{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}}
 .mc .bk{hyphens:auto}
 
@@ -122,6 +123,7 @@ main{padding-block:22px 60px}
 .timer i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--yellow),var(--red));background-size:300% 100%;transition:width .1s linear}
 .card{border-radius:22px;border:1px solid var(--line2);background:var(--panel);padding:24px;box-shadow:var(--shadow)}
 @media (max-width:520px){.card{padding:18px}}
+.qk .ic{width:15px;height:15px;vertical-align:-2px;margin-right:4px}
 .qk{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--c)}
 .qq{font-family:var(--f-display);font-weight:600;font-size:clamp(17px,2.4vw,22px);line-height:1.3;margin:10px 0 18px}
 .opts{display:grid;gap:10px}
@@ -248,6 +250,67 @@ main{padding-block:22px 60px}
 .boxes b{display:block;font-family:var(--f-mono);font-size:16px;color:var(--fg)}
 .rate{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
 
+
+/* ordena (arrastrar) */
+.sort{display:grid;gap:8px}
+.si{display:flex;align-items:center;gap:10px;min-height:52px;padding:8px 8px 8px 10px;border-radius:12px;border:1px solid var(--line2);background:var(--panel2);font-size:14.5px;line-height:1.3;user-select:none;-webkit-user-select:none;cursor:grab;position:relative}
+.si.drag{z-index:5;box-shadow:0 14px 30px -12px rgba(0,0,0,.5);border-color:var(--c);cursor:grabbing;background:var(--panel)}
+.si .n{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:var(--bg2);font-family:var(--f-mono);font-weight:700;font-size:13px;flex:none}
+.si .tx{flex:1;min-width:0}
+.si .mv{display:flex;gap:4px;flex:none}
+.si .mv button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line2);background:var(--panel);display:grid;place-items:center;padding:0}
+.si .mv .ic{width:18px;height:18px}
+.si .gr{color:var(--fg3);touch-action:none;padding:8px 4px;cursor:grab;display:grid;place-items:center;flex:none}
+.sort.done .si{cursor:default}
+.si.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 13%,var(--panel2))}
+.si.ok .n{background:var(--ok);color:var(--on-accent)} .si.ok>.ic{color:var(--ok)}
+.si.ko{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 11%,var(--panel2))}
+.si.ko .n{background:var(--bad);color:var(--on-accent)}
+.si .should{font-size:12px;font-weight:700;color:var(--bad);white-space:nowrap}
+@media (max-width:520px){.si .mv button{width:30px;height:30px}.si{gap:8px}}
+/* repaso de hoy */
+.today{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:space-between;padding:16px;border-radius:16px;background:color-mix(in srgb,var(--c) 10%,var(--panel));border:1px solid color-mix(in srgb,var(--c) 35%,var(--line))}
+.today b{display:block;font-family:var(--f-display);font-size:16px;line-height:1.3}
+.today small{color:var(--fg2);font-size:13.5px}
+/* qué código */
+.codes{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.codes>*{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:10px 12px;border-radius:12px;border:1px solid var(--line2);background:var(--panel)}
+.codes b{font-family:var(--f-mono);font-size:13.5px;color:var(--c,var(--orange))}
+.codes small{font-size:12px;color:var(--fg3);line-height:1.25}
+.codes button:hover:not(:disabled){border-color:var(--c)}
+.codes button.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 15%,var(--panel))}
+.codes button.ko{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--panel))}
+.codes button:disabled{cursor:default}
+.codes.ref>*{background:var(--panel2)}
+.item.left{text-align:left;font-size:clamp(16px,2.2vw,19px);padding:18px}
+/* triaje */
+.tri-info{display:grid;gap:8px;margin:4px 0 16px}
+.tri-info div{display:flex;gap:10px;font-size:14.5px;color:var(--fg2);line-height:1.45}
+.tri-info .ic{color:var(--c);margin-top:2px}
+.tri-info b{color:var(--fg)}
+.tri-b{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.tri-b>*{display:flex;flex-direction:column;gap:3px;padding:12px;border-radius:14px;border:2px solid var(--c);background:color-mix(in srgb,var(--c) 9%,var(--panel));text-align:left}
+.tri-b b{color:var(--c);font-weight:800;font-size:15px}
+.tri-b small{font-size:12.5px;color:var(--fg2);line-height:1.3}
+.tri-b.pick button{min-height:72px}
+.tri-b.pick button:hover:not(:disabled){filter:brightness(1.08)}
+.tri-b.pick button:disabled{cursor:default;opacity:.55}
+.tri-b.pick button.ok{opacity:1;box-shadow:0 0 0 3px var(--ok)}
+.tri-b.pick button.ko{opacity:1;box-shadow:0 0 0 3px var(--bad)}
+.victim{display:flex;gap:12px;align-items:flex-start;margin:10px 0 12px}
+.victim .vn{width:38px;height:38px;border-radius:50%;background:var(--c);color:var(--on-accent);display:grid;place-items:center;font-family:var(--f-mono);font-weight:700;flex:none}
+.victim p{margin:0;font-family:var(--f-display);font-weight:600;font-size:clamp(16px,2.2vw,19px);line-height:1.35}
+.vit{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:8px;margin:0 0 14px}
+.vit b{overflow-wrap:anywhere}
+.vit div{padding:8px 10px;border-radius:10px;background:var(--panel2);border:1px solid var(--line)}
+.vit small{display:block;font-size:11px;color:var(--fg3);text-transform:uppercase;letter-spacing:.08em;font-family:var(--f-mono)}
+.vit b{font-size:15px}
+.vit .al{border-color:color-mix(in srgb,var(--bad) 40%,var(--line))}
+.vit .al b{color:var(--bad)}
+/* casos */
+.case-intro{margin:8px 0 12px;padding:12px 14px;border-radius:12px;background:var(--panel2);color:var(--fg2);font-size:15px;line-height:1.5}
+.cons{display:flex;gap:10px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--bad) 10%,var(--panel2));border:1px solid color-mix(in srgb,var(--bad) 35%,var(--line));font-size:14.5px;margin:10px 0}
+.cons .ic{color:var(--bad);margin-top:1px}
 .pop{position:fixed;left:50%;top:38%;transform:translate(-50%,-50%);font-family:var(--f-display);font-size:40px;color:var(--yellow);pointer-events:none;animation:pop .8s ease forwards;z-index:95;text-shadow:0 4px 30px rgba(0,0,0,.35)}
 @keyframes pop{0%{opacity:0;transform:translate(-50%,-30%) scale(.6)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}100%{opacity:0;transform:translate(-50%,-90%) scale(1)}}
 .empty{padding:22px;border-radius:16px;border:1px dashed var(--line2);color:var(--fg2);text-align:center}
@@ -362,6 +425,21 @@ const SEQ=[
  {t:'Prioridades de la Central, de P1 a P4',src:'Gestión de recursos',s:['Emergencia','Urgencia','Preferente','Normal']},
  {t:'Asistencia en las vías de RENFE',src:'Coordinación con RENFE',s:['RENFE corta la circulación en ambos sentidos','La Central de Circulación lo comunica a la Central de SAMUR','El Jefe de Estación lo ratifica','El equipo pide confirmación a su Central','Acceso a las vías acompañados por seguridad de RENFE','Se restablece la circulación cuando sale el último sanitario']},
  {t:'Orden de circulación de un convoy',src:'Circulación de unidades en convoy',s:['Vehículo del responsable del convoy (guía)','Unidad o unidades de traslado del paciente','Resto de unidades del convoy']},
+ {t:'RCP instrumental en el adulto (USVB)',src:'SVB instrumental en adultos',s:['Confirmar la seguridad de la escena','Comprobar si el paciente responde','Solicitar USVA y conseguir un DEA','Decúbito supino en superficie dura y comprobar si respira','Comprobar el pulso carotídeo (no más de 10 s)','Comunicar la PCR a la Central y filiar la hora','30 compresiones torácicas','2 ventilaciones con balón y reservorio']},
+ {t:'Uso del DEA por la USVB',src:'Desfibrilación externa automática (DEA)',s:['Conectar los electrodos sin interrumpir las compresiones','Encender el DEA para que analice el ritmo','Asegurar que nadie toca a la víctima ni el cable','Alertar y pulsar el botón de descarga','Reiniciar la RCP de inmediato durante 2 minutos','Nuevo análisis del ritmo por el DEA']},
+ {t:'OVACE grave en el adulto consciente',src:'Obstrucción de la vía aérea (OVACE)',s:['Activar una unidad de USVA','Dar 5 golpes en la espalda, inclinado hacia delante','Hacer 5 compresiones abdominales (Heimlich)','Alternar 5 golpes y 5 compresiones','Si queda inconsciente: al suelo e iniciar RCP 30:2']},
+ {t:'OVACE en el lactante consciente',src:'Obstrucción de la vía aérea (OVACE)',s:['Activar una unidad de USVA','Boca abajo con la cabeza más baja, sujetando la mandíbula','Hasta 5 golpes entre las escápulas','Girarlo boca arriba, con la cabeza más baja','5 compresiones torácicas hacia la cabeza','Repetir hasta que salga el objeto o quede inconsciente']},
+ {t:'OVACE en el niño o lactante inconsciente',src:'Obstrucción de la vía aérea (OVACE)',s:['Situarlo en el suelo y activar USVA si no se hizo','Buscar el objeto en la boca (nunca barrido a ciegas)','Apertura de la vía aérea con frente-mentón','5 ventilaciones de rescate','Compresiones torácicas sin comprobar el pulso']},
+ {t:'Activación del código 13 / 13.1',src:'Códigos 13 / 13.1 · Ictus agudo',s:['El equipo informa a la Central de un código 13 o 13.1','La Central activa al Jefe de Guardia','El Jefe de Guardia, en clave 3, solicita el preaviso hospitalario','La Central contacta con la Unidad o el Centro de Ictus','En clave 4 la Central informa del tiempo de llegada','Un neurólogo recibe al paciente en la puerta de urgencias']},
+ {t:'Gestión de un Código PIC',src:'Incidentes Complejos · Código PIC',s:['Un servicio valora la magnitud y activa el PIC','El mando del servicio más implicado asume la Jefatura de Operaciones','El Jefe de Operaciones comunica los datos al CISEM','La información llega al GIMU y al resto de servicios','Se recogen heridos, muertos, traslados y desalojados (Informe PIC)','Desactivación coordinada cuando se supera la crisis']},
+ {t:'NRBQ químico avisado por una unidad en servicio',src:'Primera respuesta NRBQ',s:['Informar a la Central lo antes posible','Dotarse de los equipos de protección tras valorar el riesgo','Retirarse con los heridos a un punto de refugio seguro','Valorar si los afectados están contaminados','Medidas básicas de reducción de la contaminación','Iniciar la asistencia de los heridos']},
+ {t:'Autodescontaminación del personal (NRBQ)',src:'Primera respuesta NRBQ',s:['Lavado de cara','Sonado y lavado de nariz','Enjuagado de boca','Colocar la máscara con el filtro','Retirar las prendas exteriores','Lavado de pelo']},
+ {t:'Zonas NRBQ, desde el foco hacia fuera',src:'Primera respuesta NRBQ',s:['Zona caliente o de exclusión','Zona templada o de reducción de la contaminación','Zona fría o de apoyo, con el Puesto Médico Avanzado']},
+ {t:'Distancia en incidente químico menor, de menor a mayor',src:'Primera respuesta NRBQ',s:['Agresión con spray','Derrame en edificio (fuera del edificio)','Derrame en vía pública','Escape de gas ciudad']},
+ {t:'Niveles de protección NRBQ, de zona caliente a fría',src:'Primera respuesta NRBQ',s:['Nivel III: traje integral y ERA','Nivel II: buzo naranja sellado y ERA','Nivel I: traje blanco y máscara o FFP']},
+ {t:'T1 del estatus epiléptico, de menor a mayor',src:'Código Crisis',s:['Estatus epiléptico convulsivo','Estatus epiléptico focal','Estatus epiléptico de ausencias']},
+ {t:'Primeros pasos ante un posible ictus (USVB)',src:'Posible ictus',s:['Descartar riesgo vital y pedir clave 16 si procede','Valorar los signos y la hora de inicio','Calcular la escala Madrid-Direct','Informar a la Central del resultado','Reposo absoluto y posición de Fowler a 45º']},
+ {t:'Convulsión: de la crisis a la resolución',src:'Convulsiones (SVB)',s:['Proteger sin sujetar y retirar objetos peligrosos','Oxígeno para SatO2 entre 94 y 96 %','Postcrisis: posición lateral de seguridad si es posible','Valoración secundaria de cabeza a pies','Decidir USVA o traslado en USVB']},
 ];
 
 /* ---------- clasificar ---------- */
@@ -431,11 +509,14 @@ const GAMES=[
  {tray:1,id:'parejas',t:'Parejas',d:'Memory clásico: levanta cartas y une cada término con su significado.',icon:'grid-2x2',c:'--violet'},
  {tray:1,id:'unir',t:'Une columnas',d:'Empareja cinco términos con su definición, ronda tras ronda.',icon:'git-merge',c:'--green'},
  {tray:1,id:'escribe',t:'Escribe la clave',d:'Lee el significado y teclea la clave, el código o la sigla.',icon:'keyboard',c:'--yellow'},
- {tray:1,id:'ordena',t:'Ordena los pasos',d:'Procedimientos que van en un orden concreto. Colócalos bien.',icon:'list-ordered',c:'--cyan'},
+ {tray:1,id:'ordena',t:'Ordena los pasos',d:'Arrastra los pasos de cada protocolo (RCP, DEA, OVACE, ictus, PIC, NRBQ…) hasta dejarlos en orden.',icon:'list-ordered',c:'--cyan'},
  {tray:1,id:'clasifica',t:'Clasifica',d:'Manda cada caso a su cajón: prioridades, zonas, gravedad…',icon:'columns-3',c:'--red'},
- {tray:2,id:'tarjetas',t:'Tarjetas con repaso espaciado',d:'Cinco cajas: lo que te cuesta vuelve antes, lo que sabes, más tarde.',icon:'layers-2',c:'--violet'},
+ {tray:2,id:'tarjetas',t:'Tarjetas con repaso espaciado',d:'Cinco cajas: lo que te cuesta vuelve antes y lo que sabes, más tarde. Con «Repaso de hoy» de todos tus mazos.',icon:'layers-2',c:'--violet'},
+ {tray:3,id:'casos',t:'Casos clínicos',d:'Decide paso a paso qué harías. Si te desvías, el caso cambia y al final ves en qué fallaste.',icon:'stethoscope',c:'--green'},
+ {tray:3,id:'triaje',t:'Simulador de triaje STARS',d:'Un IMV con víctimas y sus datos: clasifícalas a contrarreloj en los tres triajes.',icon:'tags',c:'--red'},
+ {tray:3,id:'codigo',t:'¿Qué código es?',d:'Te describen una situación y activas el código correcto entre los 11 del manual.',icon:'hash',c:'--orange'},
 ];
-const TRAYS=[['Tests','Preguntas tipo examen sacadas del manual'],['Juegos rápidos','Partidas cortas para fijar datos concretos'],['Memorizar','Para estudiar a tu ritmo, día a día']];
+const TRAYS=[['Tests','Preguntas tipo examen sacadas del manual'],['Juegos rápidos','Partidas cortas para fijar datos concretos'],['Memorizar','Para estudiar a tu ritmo, día a día'],['Como en la calle','Casos, triaje y códigos para practicar decisiones reales']];
 function vHome(){const r=rank();const dom=okN(ALLQ);const fails=Object.keys(S.wrong).length;const st=streak();const doneToday=S.daily===today();
   const pct=r.nx?Math.round((S.xp-r.cur[0])/(r.nx[0]-r.cur[0])*100):100;
   app.innerHTML=`<div class="fade"><section class="hero">
@@ -456,13 +537,16 @@ function meta(id){const b=S.best;switch(id){
  case 'examen':{const x=G.exams[0];return `${okN(x.qs)}/${x.qs.length} dominadas`}
  case 'supervivencia':return b.surv?`Récord: ${b.surv} aciertos`:'Sin récord todavía';
  case 'fallos':{const n=Object.keys(S.wrong).length;return n?`${n} pendientes`:'Nada pendiente'}
- case 'verdadero-falso':return b.vf?`Récord: ${b.vf} aciertos`:'Sin récord todavía';
+ case 'verdadero-falso':return b.vf2?`Récord: ${b.vf2} aciertos`:'Sin récord todavía';
  case 'parejas':return `${DECKS.length} mazos`;
  case 'unir':return `${DECKS.length} mazos`;
  case 'escribe':return `${DECKS.filter(d=>d.typ).length} mazos`;
  case 'ordena':return `${SEQ.length} secuencias`;
  case 'clasifica':return `${CLS.length} juegos`;
- case 'tarjetas':{const n=Object.keys(S.lt).reduce((a,k)=>a+Object.keys(S.lt[k]).length,0);return n?`${n} tarjetas en tus cajas`:'Empieza tu primera caja'}
+ case 'tarjetas':{const n=Object.keys(S.lt).reduce((a,k)=>a+Object.keys(S.lt[k]).length,0);const d=n?dueAll().length:0;return n?`${d} para hoy · ${n} en tus cajas`:'Empieza tu primera caja'}
+ case 'casos':{const n=CASES.filter(c=>S.best['case.'+c.id]!==undefined).length;return `${CASES.length} casos${n?' · '+n+' hechos':''}`}
+ case 'triaje':return b.tri!==undefined?`Récord: ${b.tri}/${TRIN.reduce((x,y)=>x+y)}`:'3 triajes · sin récord';
+ case 'codigo':return b.cod!==undefined?`Récord: ${b.cod}/10`:`${CQ.length} situaciones`;
 }return''}
 
 /* tests por bloque */
@@ -550,20 +634,33 @@ function playType(d){const items=shuf(d.cards).slice(0,10);let i=0,ok=0;const wr
       $('#fb').innerHTML=`<span class="msg ${good?'ok':'ko'}">${ic(good?'circle-check':'circle-x')}${good?'¡Exacto!':'No es esa'}</span><div class="exp">${ic('lightbulb')}<span>La respuesta es <b class="mono">${esc(c.k)}</b></span></div><button class="btn sm pri nx" id="nx" ${cv(d.c)}>Siguiente${ic('arrow-right')}</button>`;
       $('#nx').onclick=()=>{i++;draw()};$('#nx').focus()}};draw()}
 
-/* ordena */
+/* ordena: arrastra los pasos (o usa las flechas) hasta dejarlos en orden */
 function vOrder(){app.innerHTML=frame('--cyan','list-ordered','Ordena los pasos');
-  $('#pb').innerHTML=`<div class="setup"><h2>Elige una secuencia</h2><p>Toca los pasos en el orden correcto. Si te equivocas al colocar uno, tócalo otra vez para devolverlo.</p><div class="list" ${cv('--cyan')}>${SEQ.map((s,k)=>`<button class="li" data-q="${k}"><b>${esc(s.t)}</b><small>${s.s.length} pasos · ${esc(s.src)}${S.best['ord.'+k]?' · '+ic('check')+' superada':''}</small></button>`).join('')}</div></div>`;
+  const done=SEQ.filter((s,k)=>S.best['ord.'+k]).length;
+  $('#pb').innerHTML=`<div class="setup"><h2>Elige una secuencia</h2><p>Los pasos salen desordenados. Arrástralos desde el asa ${ic('grip-vertical')} (o usa las flechas) hasta dejarlos en el orden correcto y pulsa Comprobar. Llevas ${done} de ${SEQ.length} superadas.</p><div class="list" ${cv('--cyan')}>${SEQ.map((s,k)=>`<button class="li" data-q="${k}"><b>${esc(s.t)}</b><small>${s.s.length} pasos · ${esc(s.src)}${S.best['ord.'+k]?' · '+ic('check')+' superada':''}</small></button>`).join('')}</div></div>`;
   document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>playOrder(+b.dataset.q))}
-function playOrder(k){const s=SEQ[k];let placed=[];const pool=shuf(s.s.map((x,i)=>i));
+function playOrder(k){const s=SEQ[k];let ord=shuf(s.s.map((x,i)=>i));
+  if(s.s.length>1)while(ord.every((p,i)=>p===i))ord=shuf(ord);
   app.innerHTML=frame('--cyan','list-ordered',s.t);
-  const draw=(checked)=>{$('#pb').innerHTML=`<div class="card"><div class="qk">${esc(s.src)}</div><div class="qq">Coloca los ${s.s.length} pasos en orden</div>
-    <div class="ord">${s.s.map((_,i)=>{const p=placed[i];const cls=p===undefined?'':' fill'+(checked?(p===i?' ok':' ko'):'');return `<div class="slot${cls}" data-p="${i}"><span class="n">${i+1}</span><span>${p===undefined?'':esc(s.s[p])}</span></div>`}).join('')}</div>
-    ${checked?'':`<div class="pool">${pool.filter(i=>!placed.includes(i)).map(i=>`<button data-i="${i}">${esc(s.s[i])}</button>`).join('')}</div>`}
-    <div class="fb">${checked?`<span class="msg ${placed.every((p,i)=>p===i)?'ok':'ko'}">${placed.every((p,i)=>p===i)?ic('circle-check')+'¡Orden perfecto!':ic('circle-x')+'Hay pasos fuera de sitio'}</span>${placed.every((p,i)=>p===i)?'':`<div class="exp">${ic('lightbulb')}<span>Orden correcto: ${s.s.map((x,i)=>`<b>${i+1}.</b> ${esc(x)}`).join(' · ')}</span></div>`}<button class="btn sm" id="rt">${ic('rotate-ccw')}Repetir</button><button class="btn sm pri nx" id="nx">Otra secuencia${ic('arrow-right')}</button>`:`<button class="btn sm pri nx" id="ck" ${placed.length<s.s.length?'disabled':''}>${ic('check')}Comprobar</button>`}</div></div>`;
+  const draw=(checked)=>{const perfect=checked&&ord.every((p,i)=>p===i);
+    $('#pb').innerHTML=`<div class="card"><div class="qk">${esc(s.src)}</div><div class="qq">${checked?(perfect?'¡Orden perfecto!':'Así lo has dejado'):'Ordena los '+s.s.length+' pasos'}</div>
+    <div class="sort${checked?' done':''}" id="sl">${ord.map((p,i)=>`<div class="si${checked?(p===i?' ok':' ko'):''}" data-p="${p}"><span class="n">${i+1}</span><span class="tx">${esc(s.s[p])}</span>${checked?(p===i?ic('check'):`<span class="should">es el ${p+1}.º</span>`):`<span class="mv"><button class="up" aria-label="Subir">${ic('chevron-up')}</button><button class="dn" aria-label="Bajar">${ic('chevron-down')}</button></span><span class="gr" aria-hidden="true">${ic('grip-vertical')}</span>`}</div>`).join('')}</div>
+    <div class="fb">${checked?`${perfect?`<span class="msg ok">${ic('circle-check')}+5 XP</span>`:`<span class="msg ko">${ic('circle-x')}${ord.filter((p,i)=>p===i).length} de ${s.s.length} en su sitio</span><div class="exp">${ic('lightbulb')}<span>Orden correcto: ${s.s.map((x,i)=>`<b>${i+1}.</b> ${esc(x)}`).join(' · ')}</span></div>`}<button class="btn sm" id="rt">${ic('rotate-ccw')}Repetir</button><button class="btn sm pri nx" id="nx">Otra secuencia${ic('arrow-right')}</button>`:`<button class="btn sm pri nx" id="ck">${ic('check')}Comprobar</button>`}</div></div>`;
     if(checked){$('#rt').onclick=()=>playOrder(k);$('#nx').onclick=()=>playOrder((k+1)%SEQ.length);return}
-    document.querySelectorAll('.pool button').forEach(b=>b.onclick=()=>{placed.push(+b.dataset.i);draw()});
-    document.querySelectorAll('.slot.fill').forEach(b=>b.onclick=()=>{placed.splice(+b.dataset.p,1);draw()});
-    $('#ck').onclick=()=>{const perfect=placed.every((p,i)=>p===i);if(perfect){addXP(5);S.best['ord.'+k]=1;save();popup('+5 XP')}else{const n=placed.filter((p,i)=>p===i).length;addXP(Math.max(0,n-1))}draw(true)}};draw()}
+    const sl=$('#sl');
+    const sync=()=>{ord=[...sl.children].map(e=>+e.dataset.p);[...sl.children].forEach((e,i)=>e.querySelector('.n').textContent=i+1)};
+    sl.querySelectorAll('.up').forEach(b=>b.onclick=()=>{const el=b.closest('.si');if(el.previousElementSibling){sl.insertBefore(el,el.previousElementSibling);sync();b.focus()}});
+    sl.querySelectorAll('.dn').forEach(b=>b.onclick=()=>{const el=b.closest('.si');if(el.nextElementSibling){sl.insertBefore(el.nextElementSibling,el);sync();b.focus()}});
+    sl.querySelectorAll('.si').forEach(el=>{
+      el.addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;if(e.pointerType!=='mouse'&&!e.target.closest('.gr'))return;
+        e.preventDefault();el.setPointerCapture(e.pointerId);let y0=e.clientY;el.classList.add('drag');
+        const mv=ev=>{let dy=ev.clientY-y0;const pv=el.previousElementSibling,nx=el.nextElementSibling;
+          if(nx&&dy>nx.offsetHeight/2){sl.insertBefore(nx,el);y0+=nx.offsetHeight+8;dy=ev.clientY-y0}
+          else if(pv&&dy<-pv.offsetHeight/2){sl.insertBefore(el,pv);y0-=pv.offsetHeight+8;dy=ev.clientY-y0}
+          el.style.transform=`translateY(${dy}px)`};
+        const up=()=>{el.classList.remove('drag');el.style.transform='';el.removeEventListener('pointermove',mv);el.removeEventListener('pointerup',up);el.removeEventListener('pointercancel',up);sync()};
+        el.addEventListener('pointermove',mv);el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up)})});
+    $('#ck').onclick=()=>{sync();const ok=ord.every((p,i)=>p===i);if(ok){addXP(5);S.best['ord.'+k]=1;save();popup('+5 XP')}else{const n=ord.filter((p,i)=>p===i).length;addXP(Math.max(0,n-1))}draw(true)}};draw()}
 
 /* clasifica */
 function vClass(){app.innerHTML=frame('--red','columns-3','Clasifica');
@@ -580,30 +677,396 @@ function playClass(k){const c=CLS[k];const items=shuf(c.i);let i=0,ok=0;const wr
 
 /* tarjetas con repaso espaciado (Leitner) */
 const BOXD=[0,1,3,7,14];
-const flashSources=()=>[...DECKS.map(d=>({id:'d.'+d.id,t:d.t,icon:d.icon,c:d.c,cards:d.cards.map(x=>({id:x.id,f:x.k,b:x.v,key:1}))})),
-  ...G.sets.map(s=>({id:'s.'+s.id,t:s.t,icon:AICON[s.amb]||'layers',c:COL[s.amb],amb:s.amb,cards:s.qs.map(q=>({id:q.id,f:q.q,b:q.a,e:q.e}))}))];
-function vFlash(){const src=flashSources();app.innerHTML=frame('--violet','layers-2','Tarjetas con repaso espaciado');
-  const row=x=>{const st=S.lt[x.id]||{};const n=Object.keys(st).length;const due=x.cards.filter(c=>!st[c.id]||st[c.id].due<=Date.now()).length;return `<button class="li" data-f="${x.id}" ${cv(x.c)}><b>${ic(x.icon)} ${esc(x.t)}</b><small>${x.cards.length} tarjetas${n?` · ${due} para hoy`:''}</small>${n?`<div class="bar"><i style="width:${x.cards.filter(c=>st[c.id]&&st[c.id].box>=4).length/x.cards.length*100}%"></i></div>`:''}</button>`};
-  $('#pb').innerHTML=`<div class="setup"><h2>Elige un mazo</h2><p>Cada tarjeta empieza en la caja 1. Si la sabes, sube de caja y tarda más en volver (1, 3, 7 y 14 días). Si no, vuelve a la caja 1.</p>
-   <h3 style="font-family:var(--f-display);font-size:15px;margin:16px 0 10px">Claves, códigos y escalas</h3><div class="list">${src.filter(x=>x.id.startsWith('d.')).map(row).join('')}</div>
+const flashSources=()=>[...DECKS.map(d=>({id:'d.'+d.id,t:d.t,icon:d.icon,c:d.c,cards:d.cards.map(x=>({id:x.id,sid:'d.'+d.id,f:x.k,b:x.v,key:1}))})),
+  ...G.sets.map(s=>({id:'s.'+s.id,t:s.t,icon:AICON[s.amb]||'layers',c:COL[s.amb],amb:s.amb,cards:s.qs.map(q=>({id:q.id,sid:'s.'+s.id,f:q.q,b:q.a,e:q.e}))}))];
+const stOf=c=>S.lt[c.sid]=S.lt[c.sid]||{};
+/* tarjetas ya empezadas que tocan hoy, de todos los mazos */
+function dueAll(){const now=Date.now(),out=[];flashSources().forEach(x=>{const st=S.lt[x.id];if(!st)return;x.cards.forEach(c=>{if(st[c.id]&&st[c.id].due<=now)out.push(c)})});return out}
+function vFlash(){const src=flashSources();const due=dueAll();app.innerHTML=frame('--violet','layers-2','Tarjetas con repaso espaciado');
+  const row=x=>{const st=S.lt[x.id]||{};const n=Object.keys(st).length;const d=x.cards.filter(c=>!st[c.id]||st[c.id].due<=Date.now()).length;return `<button class="li" data-f="${x.id}" ${cv(x.c)}><b>${ic(x.icon)} ${esc(x.t)}</b><small>${x.cards.length} tarjetas${n?` · ${d} para hoy`:''}</small>${n?`<div class="bar"><i style="width:${x.cards.filter(c=>st[c.id]&&st[c.id].box>=4).length/x.cards.length*100}%"></i></div>`:''}</button>`};
+  const boxN=[0,0,0,0,0];Object.values(S.lt).forEach(st=>Object.values(st).forEach(v=>boxN[v.box-1]++));
+  $('#pb').innerHTML=`<div class="setup"><h2>Repaso espaciado</h2><p>Cada tarjeta empieza en la caja 1. Si la sabes, sube de caja y tarda más en volver: al día siguiente, a los 3, 7 y 14 días. Si la fallas, vuelve a la caja 1 y te sale otra vez pronto. Entra un ratito cada día y ve a «Repaso de hoy».</p>
+   <div class="today" ${cv('--violet')}><div><b>${due.length?`${due.length} ${due.length===1?'tarjeta te toca':'tarjetas te tocan'} hoy`:'Hoy no tienes repasos pendientes'}</b><small>${due.length?'Mezcla todos los mazos que ya has empezado. Primero lo que más te cuesta.':'Empieza un mazo nuevo o adelanta tarjetas de los que ya tienes.'}</small></div>${due.length?`<button class="btn pri" id="hoy">${ic('calendar-check')}Repaso de hoy</button>`:''}</div>
+   <div class="boxes">${boxN.map((v,k)=>`<div><b>${v}</b>Caja ${k+1}</div>`).join('')}</div>
+   <h3 style="font-family:var(--f-display);font-size:15px;margin:18px 0 10px">Claves, códigos y escalas</h3><div class="list">${src.filter(x=>x.id.startsWith('d.')).map(row).join('')}</div>
    <h3 style="font-family:var(--f-display);font-size:15px;margin:20px 0 10px">Preguntas del manual por bloque</h3><div class="list">${src.filter(x=>x.id.startsWith('s.')).map(row).join('')}</div></div>`;
+  if($('#hoy'))$('#hoy').onclick=()=>playFlash({id:'hoy',t:'Repaso de hoy',c:'--violet',icon:'calendar-check',cards:due,mix:1});
   document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>playFlash(src.find(x=>x.id===b.dataset.f)))}
-function playFlash(x){const st=S.lt[x.id]=S.lt[x.id]||{};const due=shuf(x.cards.filter(c=>!st[c.id]||st[c.id].due<=Date.now()));
-  const queue=[...due.filter(c=>st[c.id]),...due.filter(c=>!st[c.id])].slice(0,20);let i=0,known=0;
+function playFlash(x){const now=Date.now();const due=x.cards.filter(c=>{const s=stOf(c)[c.id];return !s||s.due<=now});
+  const seen=due.filter(c=>stOf(c)[c.id]).sort((a,b)=>stOf(a)[a.id].box-stOf(b)[b.id].box||Math.random()-.5);
+  const queue=[...seen,...shuf(due.filter(c=>!stOf(c)[c.id]))].slice(0,x.mix?40:20);let i=0,known=0;
   app.innerHTML=frame(x.c,'layers-2',x.t,`<span class="pill" id="fp"></span>`);
-  const boxes=()=>{const n=[0,0,0,0,0];x.cards.forEach(c=>{if(st[c.id])n[st[c.id].box-1]++});return `<div class="boxes">${n.map((v,k)=>`<div><b>${v}</b>Caja ${k+1}</div>`).join('')}</div>`};
-  const draw=()=>{if(i>=queue.length){addXP(known);save();$('#pb').innerHTML=`<div class="card res fade" ${cv(x.c)}><div class="qk">${ic('trophy')} Sesión terminada</div><div class="big">${known}/${queue.length}</div><p>${queue.length?'tarjetas que ya sabías':'No tienes tarjetas pendientes hoy en este mazo.'} · <b>+${known} XP</b></p>${boxes()}<div class="row"><button class="btn pri" id="more">${ic('plus')}Seguir con este mazo</button><button class="btn" id="other">${ic('layers-2')}Otro mazo</button></div></div>`;
-      $('#more').onclick=()=>{x.cards.forEach(c=>{if(st[c.id]&&st[c.id].due>Date.now()&&st[c.id].box<3)st[c.id].due=0});playFlash(x)};$('#other').onclick=vFlash;return}
-    const c=queue[i];$('#fp').innerHTML=`${ic('list-ordered')}${i+1} / ${queue.length}`;
-    $('#pb').innerHTML=`<button class="fc" id="fc" aria-label="Dar la vuelta"><span class="in"><span class="fa"><span class="hint">Toca para ver la respuesta</span><span class="main ${c.key?'key':''}">${esc(c.f)}</span><span class="hint">Caja ${st[c.id]?st[c.id].box:1}</span></span><span class="bk"><span class="hint">Respuesta</span><span class="main">${esc(c.b)}</span>${c.e?`<span class="sub">${esc(c.e)}</span>`:''}</span></span></button>
+  const boxes=()=>{const n=[0,0,0,0,0];x.cards.forEach(c=>{const s=stOf(c)[c.id];if(s)n[s.box-1]++});return `<div class="boxes">${n.map((v,k)=>`<div><b>${v}</b>Caja ${k+1}</div>`).join('')}</div>`};
+  const draw=()=>{if(i>=queue.length){addXP(known);save();$('#pb').innerHTML=`<div class="card res fade" ${cv(x.c)}><div class="qk">${ic('trophy')} Sesión terminada</div><div class="big">${known}/${queue.length}</div><p>${queue.length?'tarjetas que ya sabías':'No tienes tarjetas pendientes hoy aquí.'} · <b>+${known} XP</b></p>${boxes()}<div class="row">${x.mix?'':`<button class="btn pri" id="more">${ic('plus')}Seguir con este mazo</button>`}<button class="btn" id="other">${ic('layers-2')}Volver a los mazos</button></div></div>`;
+      if($('#more'))$('#more').onclick=()=>{x.cards.forEach(c=>{const s=stOf(c)[c.id];if(s&&s.due>Date.now()&&s.box<3)s.due=0});playFlash(x)};$('#other').onclick=vFlash;return}
+    const c=queue[i];const s0=stOf(c)[c.id];$('#fp').innerHTML=`${ic('list-ordered')}${i+1} / ${queue.length}`;
+    const from=x.mix?(flashSources().find(z=>z.id===c.sid)||{}).t:'';
+    $('#pb').innerHTML=`<button class="fc" id="fc" aria-label="Dar la vuelta"><span class="in"><span class="fa"><span class="hint">${from?esc(from):'Toca para ver la respuesta'}</span><span class="main ${c.key?'key':''}">${esc(c.f)}</span><span class="hint">${s0?'Caja '+s0.box:'Nueva'}${from?' · toca para girar':''}</span></span><span class="bk"><span class="hint">Respuesta</span><span class="main">${esc(c.b)}</span>${c.e?`<span class="sub">${esc(c.e)}</span>`:''}</span></span></button>
       <div class="rate" id="rt" hidden><button class="btn" id="no" style="--c:var(--bad)">${ic('x')}No lo sabía</button><button class="btn pri" id="si" style="--c:var(--ok)">${ic('check')}Lo sabía</button></div>${boxes()}`;
     $('#fc').onclick=()=>{$('#fc').classList.toggle('on');$('#rt').hidden=false};
-    const rate=good=>{const cur=st[c.id]||{box:1};const box=good?Math.min(5,(st[c.id]?cur.box+1:2)):1;st[c.id]={box,due:Date.now()+BOXD[box-1]*864e5};if(good){known++;S.ok[c.id]=1}save();i++;draw()};
+    const rate=good=>{const st=stOf(c);const box=good?Math.min(5,(st[c.id]?st[c.id].box+1:2)):1;st[c.id]={box,due:Date.now()+BOXD[box-1]*864e5};if(good){known++;S.ok[c.id]=1}else if(x.mix){queue.splice(Math.min(queue.length,i+4),0,c)}save();i++;draw()};
     $('#no').onclick=()=>rate(false);$('#si').onclick=()=>rate(true)};draw()}
 
+/* ---------- simulación: ¿qué código es? ---------- */
+const CODES=[['Código 9','Donación en asistolia'],['Código 11','PCR no traumática'],['Código 13 / 13.1','Ictus agudo'],['Código 15','Politraumatizado'],['Código 15.1','Traumático potencialmente grave'],['Código 16','SCASEST'],['Código 18','Sepsis'],['Código 19','TEP'],['Código 33','Síncope post esfuerzo'],['Código Crisis','Crisis epiléptica urgente'],['Código Infarto','SCACEST']];
+const CQ=[
+ ['Varón de unos 45 años en PCR presenciada por testigos. La RCP avanzada empezó a los 12 minutos y tras 25 minutos sin éxito sigue en asistolia. El test de antígeno COVID es negativo.',0,'Edad entre 16 y 60 años, PCR presenciada con menos de 20 min hasta la RCP avanzada, asistolia y más de 20 min de RCP avanzada sin éxito: criterios del Código 9.'],
+ ['Mujer de 38 años que no recupera pulso tras 22 minutos de RCP avanzada. Ritmo en asistolia, parada presenciada en la calle. Sin signos de consumo de drogas por vía parenteral ni traumatismo torácico o abdominal.',0,'Cumple los criterios de inclusión del Código 9 (donación en asistolia no controlada) y no tiene criterios de exclusión.'],
+ ['Hombre de 58 años que se desploma en un centro comercial. No responde, no respira y no tiene pulso. No ha sufrido ningún golpe ni traumatismo.',1,'Es una parada cardiorrespiratoria de origen no traumático: Código 11.'],
+ ['Corredor de 30 años que entra en parada cardiaca en plena carrera popular.',1,'Trampa: la PCR producida durante el esfuerzo se cursa como Código 11, no como Código 33 (así se recoge en el propio procedimiento del Código 33).'],
+ ['Mujer de 70 años, autónoma, con debilidad brusca de brazo y pierna derechos y dificultad para hablar desde hace 2 horas.',2,'Déficit neurológico focal agudo de menos de 24 h en un paciente con buena situación basal: código 13 (NIHSS < 10) o 13.1 (NIHSS ≥ 10).'],
+ ['Varón de 64 años con pérdida brusca de visión de un ojo y dificultad repentina para caminar desde hace 40 minutos. Vive solo y es independiente.',2,'Pérdida de visión brusca y alteración repentina de la marcha son criterios clínicos de ictus agudo de menos de 24 h: código 13 / 13.1.'],
+ ['Motorista tras una colisión: TAS 80 mmHg y FC 130 lpm.',3,'Inestabilidad hemodinámica en el adulto (TAS < 90 mmHg, FC > 120 lpm): criterio de inclusión del Código 15.'],
+ ['Joven con herida por arma blanca en el tórax.',3,'Las heridas penetrantes en cabeza, cuello o torso son criterio de Código 15.'],
+ ['Adulto con quemaduras de 2.º grado en el 20 % de la superficie corporal.',3,'Quemaduras de 2.º o 3.º grado de más del 15 % de SCQ en adultos: Código 15.'],
+ ['Trabajador con amputación traumática de la pierna por encima del tobillo.',3,'Las amputaciones traumáticas proximales a muñeca o tobillo entran en el Código 15.'],
+ ['Víctima de un accidente con GCS de 10 por el traumatismo.',3,'Nivel de conciencia alterado por el trauma con GCS < 12: Código 15.'],
+ ['Conductor de un turismo que circulaba a 80 km/h. Consciente, TAS 115 mmHg y FC 105 lpm, sin heridas penetrantes.',4,'Bloque A (accidente a más de 65 km/h) + bloque B (FC > 100 lpm), sin criterios de Código 15: Código 15.1.'],
+ ['Caída desde 3 metros de altura. GCS 13 y constantes estables.',4,'Precipitación de más de 2 m (bloque A) + GCS 12-14 (bloque B): Código 15.1.'],
+ ['Ciclista atropellado y desplazado varios metros. Fractura abierta de tibia, TAS 125 mmHg, FC 88 lpm.',4,'Atropello a ciclista con desplazamiento (A) + fractura abierta en hueso largo (B): Código 15.1.'],
+ ['Varón de 62 años con dolor torácico opresivo de 40 minutos que mejora con nitroglicerina. El ECG muestra descenso del ST.',5,'Dolor isquémico de más de 20 min con respuesta a nitratos y descenso del ST: Código 16 (SCASEST).'],
+ ['Mujer diabética de 80 años con disnea y fatiga extrema, ECG patológico y sospecha de causa isquémica, sin elevación persistente del ST.',5,'Cuadro atípico en mayor de 75 años, mujer y diabética, con ECG patológico: Código 16.'],
+ ['Anciano con fiebre e infección de orina. FR 24 rpm, TAS 95 mmHg y GCS 14.',6,'Historia sugestiva de infección y qSOFA ≥ 2 (FR ≥ 22, TAS ≤ 100, alteración mental): Código 18, Código Sepsis.'],
+ ['Mujer de 75 años, encamada, con fiebre por neumonía, desorientada y con TAS de 92 mmHg.',6,'Infección probable con qSOFA de 2 o más (alteración mental y TAS ≤ 100): Código 18.'],
+ ['Mujer operada de cadera hace 2 semanas con disnea brusca, desaturación, taquicardia sinusal en el ECG y sobrecarga de ventrículo derecho en la ecoscopia.',7,'Un criterio de cada bloque (síntomas, semiología y ecoscopia): Código 19.1, alta probabilidad de TEP.'],
+ ['Varón con cáncer activo que presenta dolor torácico, síncope, desaturación y ECG con patrón SIQIIITIII; la ecoscopia muestra hipocinesia del VD.',7,'Sintomatología, semiología y ecoscopia compatibles con TEP: Código 19.'],
+ ['Chico de 22 años que se desmaya al terminar un partido de fútbol. No es diabético ni epiléptico y no tiene cardiopatía conocida.',8,'Menor de 45 años con síncope asociado al esfuerzo, sin criterios de exclusión: Código 33.'],
+ ['Mujer de 35 años con presíncope 15 minutos después de una clase de spinning.',8,'El esfuerzo cuenta hasta 30 minutos antes del cuadro: Código 33.'],
+ ['Paciente que lleva 7 minutos convulsionando de forma generalizada sin recuperar la conciencia.',9,'Estatus epiléptico generalizado de más de 5 minutos: Código Crisis.'],
+ ['Varón con dos crisis tónico-clónicas en las últimas 6 horas, sin criterios de estatus.',9,'Crisis en acúmulos (2 o más en menos de 24 h): Código Crisis.'],
+ ['Recién nacido de 2 semanas que presenta su primera crisis.',9,'La primera crisis en menores de 1 mes es criterio de Código Crisis.'],
+ ['Tras una crisis, el paciente presenta una debilidad de un brazo que no tenía antes.',9,'Déficit neurológico focal postcrítico de nueva aparición: Código Crisis.'],
+ ['Dolor precordial de 1 hora que persiste 5 minutos después de la nitroglicerina. ECG con elevación del ST de más de 1 mm en II, III y aVF.',10,'Dolor coronario de más de 20 min, menos de 12 h de evolución, que persiste tras nitroglicerina con elevación del ST en 2 derivaciones contiguas: Código Infarto.'],
+ ['PCR recuperada en la que el ECG posterior muestra elevación del ST.',10,'La PCR recuperada con elevación del ST post recuperación es un perfil del Código Infarto.'],
+ ['Dolor torácico persistente de 30 minutos con bloqueo completo de rama izquierda en el ECG.',10,'El BCRIHH (o ritmo de marcapasos) que impide valorar el ST con dolor persistente entra en el Código Infarto.'],
+];
+let CQS=null;
+function vCode(){app.innerHTML=frame('--orange','hash','¿Qué código es?');
+  $('#pb').innerHTML=`<div class="setup"><h2>Activa el código correcto</h2><p>Te describimos una situación real y tienes que elegir cuál de los 11 códigos de activación del manual corresponde. Después verás el criterio exacto.</p>
+   <div class="codes ref">${CODES.map(([c,d])=>`<div><b>${esc(c)}</b><small>${esc(d)}</small></div>`).join('')}</div>
+   <div class="row" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px"><button class="btn pri" id="g10" ${cv('--orange')}>${ic('play')}10 situaciones al azar</button><button class="btn" id="gall">Las ${CQ.length} seguidas</button></div>${S.best.cod!==undefined?`<p style="margin-top:12px;color:var(--fg2)">Tu mejor ronda de 10: <b>${S.best.cod}/10</b></p>`:''}</div>`;
+  $('#g10').onclick=()=>playCode(shuf(CQ).slice(0,10));$('#gall').onclick=()=>playCode(shuf(CQ))}
+function playCode(items){let i=0,ok=0;const wr=[];
+  app.innerHTML=frame('--orange','hash','¿Qué código es?',`<span class="pill" id="cp"></span>`);
+  const draw=()=>{if(i>=items.length){addXP(ok*2);if(items.length===10)S.best.cod=Math.max(S.best.cod||0,ok);save();
+      $('#pb').innerHTML=`<div class="card res fade" ${cv('--orange')}><div class="qk">${ic('trophy')} Resultado</div><div class="big">${ok}/${items.length}</div><p><b>+${ok*2} XP</b></p><div class="row"><button class="btn pri" id="again">${ic('rotate-ccw')}Otra ronda</button><a class="btn" href="#inicio">${ic('house')}Inicio</a></div>${wr.length?`<div class="rv"><h3>Repasa estos</h3>${wr.map(([q,c,e])=>`<div>${esc(q)}<br>→ <b>${esc(CODES[c][0])}</b><em>${esc(e)}</em></div>`).join('')}</div>`:''}</div>`;
+      $('#again').onclick=()=>playCode(shuf(CQ).slice(0,items.length===CQ.length?CQ.length:10));return}
+    const [q,c,e]=items[i];$('#cp').innerHTML=`${ic('list-ordered')}${i+1} / ${items.length} · ${ic('check')}${ok}`;
+    $('#pb').innerHTML=`<div class="card" ${cv('--orange')}><div class="qk">${ic('radio')} Situación</div><div class="item left">${esc(q)}</div><div class="codes">${CODES.map(([n,d],j)=>`<button data-c="${j}"><b>${esc(n)}</b><small>${esc(d)}</small></button>`).join('')}</div><div class="fb" id="fb"></div></div>`;
+    document.querySelectorAll('[data-c]').forEach(x=>x.onclick=()=>{const j=+x.dataset.c;document.querySelectorAll('[data-c]').forEach(y=>{y.disabled=true;if(+y.dataset.c===c)y.classList.add('ok')});
+      const right=j===c;if(right)ok++;else{x.classList.add('ko');wr.push(items[i])}
+      $('#fb').innerHTML=`<span class="msg ${right?'ok':'ko'}">${ic(right?'circle-check':'circle-x')}${right?'¡Correcto!':'Era el '+esc(CODES[c][0])}</span><div class="exp">${ic('lightbulb')}<span>${esc(e)}</span></div><button class="btn sm pri nx" id="nx">${i+1>=items.length?'Ver resultado':'Siguiente'}${ic('arrow-right')}</button>`;
+      $('#nx').onclick=()=>{i++;draw()};$('#nx').focus()})};draw()}
+
+/* ---------- simulación: triaje STARS en un IMV ---------- */
+/* f: datos de la víctima [etiqueta, valor, alerta]. a: índice del grupo correcto */
+const TRI=[
+ {n:'1.er triaje · Rescate',where:'En el foco del incidente, autorizado por los responsables de la seguridad (FFCCSE o Bomberos).',who:'Uno de los primeros TATS en llegar: el Oficial de rescate sanitario, con peto morado «Rescate sanitario».',goal:'Dar prioridad al rescate y la evacuación hacia el PRV. Separa a los graves y moderados con posibilidad de recuperación de los ilesos y de los fallecidos o sin posibilidad de recuperación.',
+  b:[['Rescatar primero','Grave o moderado recuperable','--red'],['No prioritario','Ileso o muy leve','--green'],['No prioritario','Fallecido o sin posibilidad de recuperación','--fg3']],
+  v:[
+   ['Varón atrapado bajo cascotes, se queja de un dolor intenso en la pierna',[['Camina','No',1],['Habla','Sí'],['Respira','Sí · FR 28'],['Pulso radial','Rápido',1]],0,'Grave o moderado con posibilidad de recuperación: prioridad para el rescate.'],
+   ['Mujer que sale del edificio por su propio pie con una erosión en la mano',[['Camina','Sí'],['Habla','Sí'],['Lesiones','Erosión leve']],1,'Ilesa o muy leve: no consume recursos de rescate y se dirige al PRV.'],
+   ['Joven inconsciente con una herida que sangra en el muslo',[['Camina','No',1],['Habla','No',1],['Respira','Sí · FR 32',1],['Pulso radial','Débil',1]],0,'Grave con posibilidad de recuperación: es el perfil que debe salir primero del foco.'],
+   ['Persona con lesiones incompatibles con la vida',[['Respira','No',1],['Pulso','No',1]],2,'Fallecido: en el primer triaje se descarta junto a los ilesos para centrar el rescate en los recuperables.'],
+   ['Mujer ilesa que intenta ayudar a otros heridos',[['Camina','Sí'],['Habla','Sí'],['Lesiones','Ninguna']],1,'Ilesa: se controla la dispersión de víctimas válidas y se envía al PRV.'],
+   ['Niño de 8 años que llora y no puede mover el brazo',[['Camina','Sí'],['Habla','Sí, llora'],['Lesiones','Brazo doloroso']],1,'Camina y habla: es leve y puede salir por su pie acompañado. El rescate se reserva para los graves y moderados.'],
+   ['Varón aplastado por una viga, pálido y sudoroso, con el abdomen muy doloroso',[['Camina','No',1],['Habla','Sí'],['Respira','Sí · FR 30',1],['Pulso radial','Débil',1]],0,'Signos de shock con posibilidad de recuperación: prioridad de rescate.'],
+   ['Víctima que no respira tras abrir la vía aérea, sin pulso, en un derrumbe con muchos heridos',[['Respira','No',1],['Pulso','No',1]],2,'Sin posibilidad de recuperación en este contexto: no es prioritaria para el rescate.'],
+   ['Mujer con quemaduras extensas en tórax y brazos, consciente',[['Camina','No',1],['Habla','Sí'],['Lesiones','Quemaduras extensas',1]],0,'Grave con posibilidad de recuperación: prioridad para sacarla del foco.'],
+   ['Varón con un corte superficial en la frente que apenas sangra',[['Camina','Sí'],['Habla','Sí'],['Lesiones','Corte superficial']],1,'Muy leve: puede ir andando al PRV.'],
+   ['Embarazada atrapada en el vehículo con dolor abdominal',[['Camina','No',1],['Habla','Sí'],['Respira','Sí · FR 24']],0,'Moderada o grave y recuperable: prioridad de rescate.'],
+   ['Anciano con livideces y rigidez',[['Respira','No',1],['Signos','Livideces y rigidez',1]],2,'Signos evidentes de muerte: no se prioriza en el rescate.'],
+  ]},
+ {n:'2.º triaje · Asistencia',where:'Fuera del foco, en zona templada, a la llegada de los pacientes al Punto de Reunión de Víctimas (PRV).',who:'Preferentemente un médico o enfermero, con peto morado «Triaje». A su lado, el Numerador asigna un número a cada paciente.',goal:'Triaje bipolar sencillo: anda o no anda, habla o no habla y lesiones aparentes. Separa a los graves y moderados (asistencia que no puede demorarse) de los leves.',
+  b:[['Graves y moderados','Al puesto sanitario de graves / moderados','--red'],['Leves','Al puesto de leves (peto verde «verde»)','--green']],
+  v:[
+   ['Llega caminando, habla con normalidad y tiene una contusión en el hombro',[['Anda','Sí'],['Habla','Sí'],['Lesiones','Contusión leve']],1,'Anda, habla y no tiene lesiones aparentes graves: leve.'],
+   ['Lo traen en camilla, no habla y respira muy rápido',[['Anda','No',1],['Habla','No',1],['Respira','FR 34',1]],0,'No anda y no habla: grave o moderado, necesita asistencia sin demora.'],
+   ['Anda, pero tiene una herida profunda en el abdomen que sangra',[['Anda','Sí'],['Habla','Sí'],['Lesiones','Herida abdominal sangrante',1]],0,'Aunque ande, la lesión aparente es grave: va al puesto de graves y moderados.'],
+   ['Anda y habla, con erosiones en las rodillas',[['Anda','Sí'],['Habla','Sí'],['Lesiones','Erosiones']],1,'Leve: su asistencia puede demorarse.'],
+   ['No puede andar por dolor de cadera; habla y está orientado',[['Anda','No',1],['Habla','Sí'],['Lesiones','Dolor de cadera']],0,'No anda: entra en el grupo de graves y moderados.'],
+   ['Camina y habla, muy nervioso, sin lesiones',[['Anda','Sí'],['Habla','Sí'],['Lesiones','Ninguna']],1,'Sin lesiones y anda: leve (puede necesitar apoyo psicológico).'],
+   ['No puede andar: deformidad evidente en el muslo',[['Anda','No',1],['Habla','Sí'],['Lesiones','Deformidad en el muslo',1]],0,'No anda y tiene una lesión aparente importante: grave o moderado.'],
+   ['Camina y habla, pero tiene quemaduras en la cara y la voz ronca',[['Anda','Sí'],['Habla','Sí, ronca',1],['Lesiones','Quemaduras faciales',1]],0,'Lesión aparente con riesgo para la vía aérea: grave o moderado.'],
+   ['Llega cojeando por su pie con un esguince de tobillo',[['Anda','Sí'],['Habla','Sí'],['Lesiones','Esguince']],1,'Anda y habla: leve.'],
+   ['Lo traen los bomberos y solo responde con quejidos',[['Anda','No',1],['Habla','No',1]],0,'No anda y no habla: grave o moderado.'],
+   ['Camina y habla, con un corte en el antebrazo ya vendado que no sangra',[['Anda','Sí'],['Habla','Sí'],['Lesiones','Corte controlado']],1,'Leve: lesión controlada.'],
+   ['Habla pero no puede andar: le falta el aire y se lleva la mano al pecho',[['Anda','No',1],['Habla','Sí'],['Respira','Dificultad',1]],0,'No anda y tiene dificultad respiratoria: grave o moderado.'],
+  ]},
+ {n:'3.er triaje · Estabilización',where:'En el Puesto Sanitario Avanzado (PSA), en el puesto médico de graves y moderados.',who:'El Responsable del PSA (peto verde «Jefe PSA») o la persona en quien delegue, si es posible un médico.',goal:'Criterios mixtos, funcionales y lesionales. Detecta cuanto antes el pronóstico vital tiempo dependiente, que suele marcar el tiempo quirúrgico: quién necesita estabilización inmediata y traslado urgente y quién necesita sobre todo traslado urgente, estabilizando en ruta.',
+  b:[['Estabilizar ya','Estabilización inmediata y traslado urgente','--orange'],['Trasladar ya','Traslado urgente, estabilización en ruta','--red']],
+  v:[
+   ['Varón con abdomen distendido y doloroso: sangrado interno que no se puede controlar aquí',[['TAS','80 mmHg',1],['FC','130 lpm',1],['Abdomen','Distendido',1]],1,'Su vida depende del quirófano: prioridad de traslado urgente, estabilizando en ruta.'],
+   ['Mujer inconsciente que ronca y desatura',[['Vía aérea','Comprometida',1],['SatO2','82 %',1],['Glasgow','8',1]],0,'Sin asegurar la vía aérea no aguanta el traslado: estabilización inmediata.'],
+   ['Herido con una hemorragia que sale a chorro de la pierna',[['Hemorragia','Externa masiva',1],['Pulso radial','Débil',1]],0,'La hemorragia externa masiva se controla primero (compresión, torniquete) y luego se traslada.'],
+   ['Pelvis inestable con signos de shock pese a la faja pélvica',[['TAS','78 mmHg',1],['FC','128 lpm',1],['Pelvis','Inestable',1]],1,'Sangrado pélvico que necesita control definitivo: traslado urgente, estabilizando en ruta.'],
+   ['Disnea intensa: un hemitórax no se expande y las yugulares están ingurgitadas',[['Respiración','Muy dificultosa',1],['Tórax','Asimétrico',1],['Yugulares','Ingurgitadas',1]],0,'Sospecha de neumotórax a tensión: hay que resolverlo antes de mover al paciente.'],
+   ['Herida penetrante en el tórax ya con parche oclusivo y vía aérea estable, pero con shock',[['TAS','85 mmHg',1],['FC','125 lpm',1],['Vía aérea','Estable']],1,'Lo que necesita ahora es cirugía: traslado urgente.'],
+   ['TCE grave que no protege la vía aérea',[['Glasgow','7',1],['Vía aérea','No protegida',1]],0,'Aislar la vía aérea antes del traslado: estabilización inmediata.'],
+   ['Embarazada de 34 semanas con dolor abdominal y sangrado vaginal tras el impacto; las constantes empeoran',[['TAS','90 mmHg',1],['FC','118 lpm',1],['Sangrado','Vaginal',1]],1,'Pronóstico dependiente de la cirugía: traslado urgente.'],
+  ]},
+];
+const TRIN=[6,6,5],TRIT=20;
+function vTri(){app.innerHTML=frame('--red','tags','Simulador de triaje STARS');
+  $('#pb').innerHTML=`<div class="setup"><h2>Un IMV, tres triajes</h2><p>El sistema STARS (Sistema de Triaje de Alto Rendimiento SAMUR) hace tres triajes seguidos para detectar cuanto antes a los pacientes que más cuidados necesitan. Irás pasando por los tres con víctimas distintas en cada partida. Tienes ${TRIT} segundos por víctima.</p>
+   <div class="list" ${cv('--red')}><button class="li all" data-t="all"><b>${ic('play')} Simulacro completo</b><small>Los tres triajes seguidos · ${TRIN.reduce((a,b)=>a+b)} víctimas${S.best.tri!==undefined?' · récord '+S.best.tri+'/'+TRIN.reduce((a,b)=>a+b):''}</small></button>${TRI.map((t,k)=>`<button class="li" data-t="${k}"><b>${esc(t.n)}</b><small>${esc(t.where)}</small></button>`).join('')}</div>
+   <p style="margin-top:14px;color:var(--fg3);font-size:13.5px">El manual describe los grupos de cada triaje, pero no da cifras de corte. Los datos de cada víctima te ayudan a decidir; las explicaciones siguen el criterio del manual.</p></div>`;
+  document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{const a=b.dataset.t;playTri(a==='all'?[0,1,2]:[+a],a==='all')})}
+function playTri(phases,full){let pi=0,ok=0,tot=0;const wr=[];
+  app.innerHTML=frame('--red','tags','Triaje STARS',`<span class="pill" id="tt"></span><span class="pill" id="ts"></span>`);
+  $('#ts').innerHTML=`${ic('check')}0`;$('#tt').innerHTML=`${ic('clock')}--`;
+  const intro=()=>{stopT();if(pi>=phases.length)return end();const P=TRI[phases[pi]];
+    $('#pb').innerHTML=`<div class="card fade" ${cv('--red')}><div class="qk">${ic('tags')} Fase ${pi+1} de ${phases.length}</div><div class="qq">${esc(P.n)}</div>
+     <div class="tri-info"><div>${ic('map-pin')}<span><b>Dónde:</b> ${esc(P.where)}</span></div><div>${ic('user-round')}<span><b>Quién:</b> ${esc(P.who)}</span></div><div>${ic('route')}<span><b>Objetivo:</b> ${esc(P.goal)}</span></div></div>
+     <div class="tri-b">${P.b.map(([a,b,c])=>`<div style="--c:var(${c})"><b>${esc(a)}</b><small>${esc(b)}</small></div>`).join('')}</div>
+     <div class="fb"><button class="btn pri nx" id="go" ${cv('--red')}>${ic('play')}Empezar: ${TRIN[phases[pi]]} víctimas</button></div></div>`;
+    $('#go').onclick=()=>run(P,shuf(P.v).slice(0,TRIN[phases[pi]]))};
+  const run=(P,vs)=>{let i=0,dead=false,got=false;const v0=APPV;const total=vs.length*TRIT*1000;const end0=performance.now()+total;
+    const tick=()=>{const left=Math.max(0,end0-performance.now());const tb=$('#tb');if(tb)tb.style.width=(left/total*100)+'%';$('#tt').innerHTML=`${ic('clock')}${Math.ceil(left/1000)} s`;
+      if(left<=0&&!dead){dead=true;stopT();for(let k=i+(got?1:0);k<vs.length;k++){tot++;wr.push([P,vs[k],-1])}popup('¡Tiempo!');setTimeout(()=>{if(v0!==APPV)return;pi++;intro()},900)}};
+    const draw=()=>{if(dead||v0!==APPV)return;if(i>=vs.length){dead=true;stopT();pi++;return intro()}got=false;const [d,f,a,e]=vs[i];
+      $('#pb').innerHTML=`<div class="timer"><i id="tb" style="width:100%"></i></div><div class="card" ${cv('--red')}><div class="qk">${esc(P.n)} · víctima ${i+1} de ${vs.length}</div><div class="victim"><span class="vn">${i+1}</span><p>${esc(d)}</p></div>
+       <div class="vit">${f.map(([k,v,al])=>`<div class="${al?'al':''}"><small>${esc(k)}</small><b>${esc(v)}</b></div>`).join('')}</div>
+       <div class="tri-b pick">${P.b.map(([x,y,c],j)=>`<button data-j="${j}" style="--c:var(${c})"><b>${esc(x)}</b><small>${esc(y)}</small></button>`).join('')}</div><div class="fb" id="fb"></div></div>`;tick();
+      document.querySelectorAll('[data-j]').forEach(b=>b.onclick=()=>{if(dead)return;got=true;const j=+b.dataset.j;tot++;document.querySelectorAll('[data-j]').forEach(y=>{y.disabled=true;if(+y.dataset.j===a)y.classList.add('ok')});
+        const right=j===a||(P.b[j][0]===P.b[a][0]&&phases[pi]===0&&j>0&&a>0);
+        if(right){ok++;$('#ts').innerHTML=`${ic('check')}${ok}`;$('#fb').innerHTML=`<span class="msg ok">${ic('circle-check')}Bien</span><span style="color:var(--fg2);font-size:14px">${esc(e)}</span>`;setTimeout(()=>{i++;draw()},1300)}
+        else{b.classList.add('ko');wr.push([P,vs[i],j]);$('#fb').innerHTML=`<span class="msg ko">${ic('circle-x')}Era «${esc(P.b[a][1])}»</span><div class="exp">${ic('lightbulb')}<span>${esc(e)}</span></div><button class="btn sm pri nx" id="nx">Siguiente${ic('arrow-right')}</button>`;$('#nx').onclick=()=>{i++;draw()};$('#nx').focus()}})};
+    TT=setInterval(tick,200);draw()};
+  const end=()=>{stopT();addXP(ok*2);if(full){S.best.tri=Math.max(S.best.tri||0,ok)}save();
+    $('#tt').innerHTML=`${ic('clock')}fin`;
+    $('#pb').innerHTML=`<div class="card res fade" ${cv('--red')}><div class="qk">${ic('trophy')} Fin del simulacro</div><div class="big">${ok}/${tot}</div><p>víctimas bien clasificadas · <b>+${ok*2} XP</b></p><div class="row"><button class="btn pri" id="again">${ic('rotate-ccw')}Otro simulacro</button><button class="btn" id="menu">${ic('tags')}Elegir triaje</button></div>${wr.length?`<div class="rv"><h3>Revisa estas víctimas</h3>${wr.map(([P,v,j])=>`<div><small style="color:var(--fg3)">${esc(P.n)}</small><br>${esc(v[0])}<br>→ <b>${esc(P.b[v[2]][1])}</b>${j<0?' <span style="color:var(--bad)">(sin triar a tiempo)</span>':''}<em>${esc(v[3])}</em></div>`).join('')}</div>`:''}</div>`;
+    $('#again').onclick=()=>playTri(phases,full);$('#menu').onclick=vTri};
+  intro()}
+
+/* ---------- simulación: casos clínicos interactivos ---------- */
+/* Cada paso: q (situación), v (constantes opcionales), o: [texto, correcta(1/0), explicación, consecuencia si fallas] */
+const CASES=[
+ {id:'dt',t:'Dolor torácico en un portal',src:'Patologías de origen cardiovascular (SVB)',icon:'heart-pulse',c:'--red',
+  intro:'Aviso para un varón de 58 años con dolor en el pecho. Lo encontráis sentado en el portal, pálido y sudoroso. Dice que el dolor es opresivo, en el centro del pecho, se le va al brazo izquierdo y empezó hace 40 minutos.',
+  steps:[
+   {q:'¿Qué haces primero?',o:[
+     ['Reposo absoluto, anotar la hora de inicio del dolor y la de clave 3, y tener preparado el desfibrilador',1,'El manual pide reposo absoluto, reseñar la hora de inicio del dolor y del primer contacto (clave 3), tener preparado el desfibrilador y evitar el movimiento activo del paciente.'],
+     ['Pedirle que camine hasta la ambulancia para ganar tiempo',0,'Hay que evitar el movimiento activo del paciente con dolor de origen coronario.','Al levantarse se marea y tenéis que sentarlo de nuevo en el suelo.'],
+     ['Esperar unos minutos a ver si el dolor cede antes de valorar',0,'Es una patología tiempo dependiente: reposo, filiar horas y valorar sin esperar.']]},
+   {q:'Monitorizas: SatO2 93 %, sin disnea. ¿Oxígeno?',v:[['SatO2','93 %'],['FC','96 lpm'],['TA','135/85']],o:[
+     ['No por ahora: el procedimiento da oxígeno si la SatO2 es menor del 90 %',1,'Si SatO2 < 90 % se administra oxígeno de alto flujo (Venturi) o de bajo flujo (mascarilla con reservorio) a 10-12 l/min.'],
+     ['Mascarilla con reservorio a 15 l/min a todos los dolores torácicos',0,'El criterio del manual es la SatO2 < 90 %.'],
+     ['Gafas nasales a 2 l/min siempre',0,'El criterio del manual es la SatO2 < 90 %.']]},
+   {q:'¿Qué recurso pides?',o:[
+     ['Una USVA lo antes posible',1,'Ante la sospecha de patología coronaria aguda se solicita USVA lo más precozmente posible, en todos los casos.'],
+     ['Ninguno: lo trasladas tú en USVB al hospital de referencia',0,'Con sospecha coronaria siempre se pide USVA.','La espera se alarga y el dolor no cede.'],
+     ['Una USVA solo si el dolor dura más de una hora',0,'No hay que esperar: se pide en cuanto hay sospecha.']]},
+   {q:'El paciente quiere tomarse su nitroglicerina sublingual. TA 85/50 y FC 48.',v:[['TA','85/50'],['FC','48 lpm']],o:[
+     ['Desaconsejárselo: tiene la TAS por debajo de 90 y la FC por debajo de 50',1,'Si quiere autoadministrársela, se desaconseja con TAS < 90 mmHg y/o FC < 50 lpm.'],
+     ['Dejar que se la tome, es su medicación habitual',0,'Con TAS < 90 o FC < 50 hay que desaconsejarla.','Tras tomarla se marea más y la TA baja todavía.'],
+     ['Dársela tú mismo para que haga efecto antes',0,'No es una actuación del TATS y además está desaconsejada con estas cifras.']]},
+   {q:'De repente deja de responder. No respira y no tiene pulso.',o:[
+     ['Comunicar la PCR, compresiones de alta calidad 30:2 y usar el DEA en cuanto esté',1,'Se comunica la PCR, se pide recurso avanzado, se empieza por las compresiones (CAB) y se usa el DEA en cuanto está disponible.'],
+     ['Comprobar el pulso durante 30 segundos para asegurarte',0,'El pulso carotídeo se comprueba no más de 10 segundos.'],
+     ['Ponerlo en posición lateral de seguridad',0,'La PLS es para el paciente inconsciente que respira adecuadamente.']]},
+  ]},
+ {id:'pcr',t:'Parada en plena calle',src:'SVB instrumental en adultos · DEA',icon:'activity',c:'--red',
+  intro:'Un hombre de unos 60 años se desploma en una plaza. Al llegar con la USVB lo encontráis en el suelo, rodeado de gente.',
+  steps:[
+   {q:'¿Qué es lo primero?',o:[
+     ['Confirmar la seguridad de la escena',1,'El SVB instrumental empieza por confirmar la seguridad de la escena.'],
+     ['Empezar compresiones sin mirar nada más',0,'Antes de actuar se confirma que la escena es segura.'],
+     ['Preguntar a los testigos por sus antecedentes',0,'La historia es importante, pero lo primero es la seguridad y la valoración.']]},
+   {q:'No responde. ¿Qué haces?',o:[
+     ['Pedir USVA, conseguir el DEA, ponerlo boca arriba en superficie dura y ver si respira',1,'Si no responde: se solicita USVA, se consigue un DEA, se coloca en decúbito supino sobre superficie dura y se comprueba la respiración.'],
+     ['Darle palmadas fuertes y agua en la cara',0,'No forma parte del procedimiento.'],
+     ['Sentarlo para que respire mejor',0,'Debe colocarse en decúbito supino sobre una superficie dura y lisa.']]},
+   {q:'Boquea de forma irregular. ¿Y ahora?',o:[
+     ['Tratarlo como si no respirara: comprobar el pulso carotídeo no más de 10 segundos',1,'Si no respira o lo hace inadecuadamente (boquea o jadea), o hay dudas, se comprueba el pulso carotídeo no más de 10 s.'],
+     ['Esperar: si boquea es que respira',0,'Boquear es una respiración inadecuada y hay que actuar.','Pierdes un minuto valioso antes de empezar.'],
+     ['Ponerle oxígeno con mascarilla y esperar',0,'Boquear es una respiración inadecuada: hay que comprobar el pulso.']]},
+   {q:'No tiene pulso. ¿Cómo son las compresiones?',o:[
+     ['En la mitad inferior del esternón, unos 5 cm (no más de 6) y a 100-120 por minuto',1,'Talón de la mano en la mitad inferior del esternón, profundidad de unos 5 cm sin pasar de 6 y frecuencia de 100-120 cpm, dejando que el tórax se expanda.'],
+     ['Sobre el apéndice xifoides, 3 cm y a 80 por minuto',0,'Se evita el xifoides; profundidad de unos 5 cm y 100-120 cpm.'],
+     ['Lo más profundo posible y a 150 por minuto',0,'Unos 5 cm sin pasar de 6 y 100-120 cpm.']]},
+   {q:'Llega el DEA y lo enciendes. Está analizando el ritmo.',o:[
+     ['Que nadie toque a la víctima ni el cable mientras analiza',1,'Durante el análisis nadie toca a la víctima ni el cable, y se alejan emisoras y móviles.'],
+     ['Seguir ventilando mientras analiza',0,'Durante el análisis nadie debe tocar a la víctima.','El análisis se interrumpe por artefactos y se retrasa la descarga.'],
+     ['Mover al paciente a la ambulancia mientras analiza',0,'Si está en la ambulancia en marcha, hay que parar y apagar el motor para analizar.']]},
+   {q:'El DEA indica descarga y la das. ¿Qué sigue?',o:[
+     ['Reiniciar la RCP de inmediato durante 2 minutos',1,'Tras la descarga única se reinicia la RCP inmediatamente durante otros 2 minutos (5 ciclos de 30:2).'],
+     ['Comprobar el pulso durante 10 segundos',0,'Tras la descarga se reanuda la RCP sin pausas; el DEA volverá a analizar a los 2 minutos.'],
+     ['Esperar a que el DEA vuelva a analizar',0,'Hay que reanudar la RCP inmediatamente.']]},
+   {q:'Lleváis casi 2 minutos de compresiones con el mismo reanimador.',o:[
+     ['Cambiar de compresor, como máximo cada 2 minutos y en menos de 5 segundos',1,'El compresor se cambia como máximo cada 2 minutos y sin emplear más de 5 segundos en el cambio.'],
+     ['Seguir con el mismo hasta que llegue la USVA',0,'El cansancio reduce la calidad: se cambia como máximo cada 2 minutos.'],
+     ['Parar un minuto para descansar',0,'Hay que evitar las interrupciones de las compresiones.']]},
+  ]},
+ {id:'ictus',t:'Debilidad repentina en casa',src:'Posible ictus (SVB)',icon:'brain',c:'--violet',
+  intro:'Mujer de 72 años, independiente para todo. Su marido cuenta que hace una hora empezó a hablar raro y no puede levantar el brazo derecho.',
+  steps:[
+   {q:'¿Qué dato tienes que conseguir sí o sí del entorno?',o:[
+     ['La hora de inicio de los síntomas, la forma de inicio y su evolución',1,'Hay que preguntar por la forma de inicio, el curso evolutivo y confirmar la hora de inicio: el tiempo es cerebro.'],
+     ['El nombre de su médico de cabecera',0,'Lo esencial es la hora de inicio y la evolución del cuadro.'],
+     ['Qué ha comido hoy',0,'Lo esencial es la hora de inicio y la evolución del cuadro.']]},
+   {q:'Madrid-Direct: el brazo no vence la gravedad, la pierna sí, no desvía la mirada, obedece órdenes, reconoce el déficit, TAS 185 y 72 años. ¿Puntuación?',v:[['TAS','185 mmHg'],['Edad','72 años']],o:[
+     ['0 puntos: brazo +1 y TAS 180-189 −1',1,'Paresia del brazo suma 1 y una TAS de 180-189 resta 1: total 0. Con 0-1 el traslado es a la Unidad de Ictus más cercana.'],
+     ['1 punto',0,'Recuerda que la TAS de 180-189 resta 1 punto.'],
+     ['2 puntos',0,'Solo puntúa el brazo y la TAS de 180-189 resta 1: total 0.']]},
+   {q:'Con esa puntuación, ¿a dónde iría?',o:[
+     ['A la Unidad de Ictus más cercana',1,'0-1 puntos: Unidad de Ictus más cercana. 2 o más: probable oclusión de gran vaso y Centro de Intervencionismo.'],
+     ['A un Centro de Intervencionismo',0,'Eso corresponde a 2 o más puntos en la Madrid-Direct.'],
+     ['Al centro de salud de su zona',0,'Un posible ictus va a una Unidad o Centro de Ictus.']]},
+   {q:'¿En qué posición la colocas?',o:[
+     ['Semiincorporada, con la cabeza a 45º (Fowler), salvo hipotensión',1,'Se coloca semiincorporada con la cabeza elevada 45º (Fowler), salvo contraindicación como la hipotensión.'],
+     ['Trendelenburg',0,'En el ictus la cabeza va elevada a 45º.','Empeora su dolor de cabeza y está más intranquila.'],
+     ['Decúbito prono',0,'La posición es Fowler a 45º.']]},
+   {q:'La SatO2 es del 97 %. ¿Oxígeno?',v:[['SatO2','97 %']],o:[
+     ['No: se garantiza un mínimo del 92 % y no se da si supera el 96 %',1,'Se administra oxígeno para mantener al menos un 92 %, pero no si la SatO2 es superior al 96 %.'],
+     ['Sí, mascarilla con reservorio a 15 l/min',0,'Con SatO2 > 96 % no se administra oxígeno.'],
+     ['Sí, gafas nasales a 3 l/min por si acaso',0,'Con SatO2 > 96 % no se administra oxígeno.']]},
+   {q:'¿Qué transmites a la Central?',o:[
+     ['Pido clave 16 y USVA: hora de inicio, Madrid-Direct, alteraciones neurológicas, edad y constantes',1,'Se informa precozmente a la Central y se pide clave 16 con hora de inicio, puntuación Madrid-Direct, principales alteraciones, edad y constantes.'],
+     ['Solo que es un ictus y que vamos para allá',0,'La Central necesita la hora, la escala, las alteraciones, la edad y las constantes.'],
+     ['Nada hasta llegar al hospital',0,'La información precoz a la Central es clave para activar el código.']]},
+   {q:'Durante el traslado...',o:[
+     ['Fowler, baja velocidad, suave en aceleraciones y frenadas y mínimo uso de señales acústicas',1,'Traslado semisentada a 45º, a baja velocidad, cuidando aceleraciones y deceleraciones e intentando hacer un uso mínimo de señales acústicas.'],
+     ['Lo más rápido posible con sirena continua',0,'El manual pide traslado suave y mínimo uso de señales acústicas.'],
+     ['Tumbada del todo para que descanse',0,'Se traslada en posición de Fowler a 45º.']]},
+  ]},
+ {id:'ovace',t:'Atragantamiento en un restaurante',src:'Obstrucción de la vía aérea (OVACE)',icon:'wind',c:'--orange',
+  intro:'Un hombre de 50 años se ha atragantado comiendo. Está de pie, se lleva las manos al cuello, no puede hablar y la tos no le sale.',
+  steps:[
+   {q:'¿Cómo de grave es la obstrucción?',o:[
+     ['Severa: tos ineficaz, no puede hablar y hace el signo universal',1,'Tos silenciosa o ineficaz, imposibilidad de hablar y manos al cuello son signos de obstrucción severa.'],
+     ['Parcial: hay que animarle a toser',0,'En la parcial el paciente tose y respira de forma efectiva. Aquí no.','Pierdes unos segundos mientras empeora la cianosis.'],
+     ['No es una obstrucción, es ansiedad',0,'El cuadro es típico de OVACE severa.']]},
+   {q:'¿Cuál es tu primera maniobra?',o:[
+     ['Activar USVA y dar 5 golpes en la espalda con él inclinado hacia delante',1,'En la obstrucción severa con paciente consciente: activar USVA y 5 golpes entre las escápulas, inclinado hacia delante.'],
+     ['Hacer el barrido digital a ciegas',0,'El barrido a ciegas no está indicado.'],
+     ['Darle agua para que trague',0,'No forma parte del procedimiento.']]},
+   {q:'Los golpes no funcionan.',o:[
+     ['5 compresiones abdominales (Heimlich) y seguir alternando 5 y 5',1,'Si no se desobstruye: 5 compresiones abdominales y alternar 5 golpes con 5 compresiones.'],
+     ['Seguir solo con golpes en la espalda hasta que salga',0,'Se alternan 5 golpes con 5 compresiones abdominales.'],
+     ['Tumbarlo y empezar RCP aunque esté consciente',0,'La RCP se inicia si queda inconsciente.']]},
+   {q:'Pierde el conocimiento.',o:[
+     ['Bajarlo con cuidado al suelo, confirmar la USVA y empezar RCP: 30 compresiones y 2 ventilaciones',1,'Si queda inconsciente: al suelo con cuidado, USVA si no se activó y RCP con 30 compresiones y 2 ventilaciones de rescate.'],
+     ['Seguir con compresiones abdominales en el suelo',0,'Inconsciente: se empieza la RCP.'],
+     ['Esperar a la USVA sin tocarle',0,'Hay que iniciar la RCP de inmediato.']]},
+  ]},
+ {id:'lact',t:'Lactante que se atraganta',src:'Obstrucción de la vía aérea (OVACE)',icon:'baby',c:'--yellow',
+  intro:'Una madre os da a su bebé de 8 meses. Estaba comiendo fruta y ahora tose sin fuerza, apenas hace ruido y empieza a ponerse azulado. Está consciente.',
+  steps:[
+   {q:'¿Qué haces?',o:[
+     ['Activar USVA y dar hasta 5 golpes en la espalda, boca abajo y con la cabeza más baja',1,'Tos ineficaz y consciente: activar USVA y hasta 5 golpes secos entre las escápulas con el lactante en prono y la cabeza más baja.'],
+     ['Dejar que siga tosiendo sin intervenir',0,'Eso es para la tos efectiva. Aquí la tos es ineficaz.','La cianosis aumenta.'],
+     ['Compresiones abdominales como en el adulto',0,'En el lactante no se hacen compresiones abdominales.']]},
+   {q:'¿Cómo le sujetas la cabeza?',o:[
+     ['Pulgar en un ángulo de la mandíbula y uno o dos dedos en el otro, sin apretar los tejidos blandos',1,'Así se sujeta sin comprimir los tejidos blandos bajo la mandíbula, que aumentaría la obstrucción.'],
+     ['Apretando por debajo de la barbilla',0,'Comprimir los tejidos blandos puede aumentar la obstrucción.'],
+     ['Por el cuello',0,'Se sujeta por los ángulos de la mandíbula.']]},
+   {q:'No sale el objeto con los golpes.',o:[
+     ['Girarlo boca arriba con la cabeza más baja y dar 5 compresiones torácicas',1,'Se pone en supino con la cabeza más baja y se dan 5 compresiones torácicas un dedo por debajo de la línea intermamilar, hacia la cabeza.'],
+     ['Hacer compresiones abdominales',0,'En el lactante se hacen compresiones torácicas.'],
+     ['Meter el dedo hasta el fondo de la garganta',0,'Nunca barrido a ciegas.']]},
+   {q:'Queda inconsciente.',o:[
+     ['Al suelo, mirar la boca, apertura frente-mentón y 5 ventilaciones de rescate',1,'Se busca el objeto en la boca (nunca a ciegas), apertura frente-mentón, 5 ventilaciones de rescate y compresiones sin comprobar el pulso.'],
+     ['Comprobar el pulso durante 10 segundos antes de nada',0,'En la OVACE inconsciente se hacen las compresiones sin comprobar el pulso previamente.'],
+     ['Seguir con golpes en la espalda',0,'Inconsciente: ventilaciones de rescate y RCP.']]},
+  ]},
+ {id:'conv',t:'Convulsión en el metro',src:'Convulsiones (SVB)',icon:'zap',c:'--violet',
+  intro:'Joven de 25 años, epiléptico conocido según su pareja, que está convulsionando en el andén. Lleva convulsionando un par de minutos cuando llegáis.',
+  steps:[
+   {q:'¿Qué haces en la fase convulsiva?',o:[
+     ['No sujetarlo: protegerlo, retirar objetos peligrosos y dejarlo boca arriba en zona segura',1,'No se intenta sujetar ni inmovilizar. Se le protege, se retiran objetos peligrosos y se sitúa en decúbito supino en zona segura.'],
+     ['Sujetarle brazos y piernas con fuerza',0,'No hay que sujetarlo ni inmovilizarlo.','Se golpea el brazo contra el suelo al forcejear.'],
+     ['Meterle algo entre los dientes para que no se muerda',0,'No se fuerza la introducción de objetos en la boca.']]},
+   {q:'¿Oxígeno?',o:[
+     ['Mascarilla con reservorio a 10-12 l/min para mantener SatO2 entre 94 y 96 %',1,'En la fase convulsiva se administra oxígeno a bajo flujo con reservorio a 10-12 l/min para SatO2 del 94-96 %.'],
+     ['No, nunca durante la crisis',0,'Sí se administra oxígeno a bajo flujo.'],
+     ['Ventilar con balón aunque respire',0,'Mientras respira, oxígeno con mascarilla.']]},
+   {q:'Ya lleva más de 5 minutos convulsionando.',o:[
+     ['Solicitar USVA',1,'En el epiléptico conocido se pide USVA si el episodio dura más de 5 minutos, se repite o no recupera la alerta.'],
+     ['Esperar, es epiléptico y ya se le pasará',0,'Más de 5 minutos es criterio de USVA (y de Código Crisis).'],
+     ['Trasladar en USVB sin avisar',0,'Más de 5 minutos es criterio de USVA.']]},
+   {q:'Termina la crisis. Está adormilado, respira bien y no tiene sospecha de lesión.',o:[
+     ['Posición lateral de seguridad y aspirador preparado por si vomita',1,'En la fase postcrítica: PLS si el nivel de conciencia lo permite y aspirador preparado para evitar la broncoaspiración.'],
+     ['Sentarlo para que se despierte',0,'Lo indicado es la PLS con aspirador preparado.'],
+     ['Estimularlo con fuerza para que despierte',0,'No se hacen estimulaciones bruscas: podrían desencadenar otra crisis.']]},
+   {q:'Se recupera del todo y no quiere ir al hospital.',o:[
+     ['No dejarlo solo: a cargo de un acompañante que firme el informe y aconsejarle no conducir',1,'Aunque se recupere del todo no debe quedarse solo: traslado o a cargo de un acompañante que firme, y se aconseja no conducir y avisar a su médico.'],
+     ['Dejar que se vaya solo, conoce su enfermedad',0,'Aunque diga que conoce su enfermedad, no debe quedarse solo.'],
+     ['Obligarle a ir en la ambulancia',0,'Se respeta su decisión documentándola y con un acompañante responsable.']]},
+  ]},
+ {id:'moto',t:'Motorista contra un turismo',src:'Politraumatizado · Shock hipovolémico (SVB)',icon:'car',c:'--orange',
+  intro:'Colisión de una moto contra un turismo. El motorista está tendido en la calzada, consciente pero muy pálido. La policía ya ha cortado el tráfico.',
+  steps:[
+   {q:'Aseguráis la escena. ¿Qué haces en el primer grupo de actuaciones?',o:[
+     ['Vía aérea con control cervical, collarín y control de las hemorragias masivas',1,'Primer grupo: vía aérea con control cervical (elevación mandibular), Guedel si está inconsciente, collarín, control de hemorragias masivas, oxígeno y pulsioxímetro.'],
+     ['Tomar la tensión arterial antes que nada',0,'La TA va en el segundo grupo de actuaciones.','Sigue sangrando por una herida de la pierna mientras tanto.'],
+     ['Explorarlo de la cabeza a los pies',0,'Eso es la valoración secundaria.']]},
+   {q:'No le notas el pulso radial, pero sí el femoral. ¿Qué TAS estimas?',v:[['Pulso radial','No'],['Pulso femoral','Sí']],o:[
+     ['Entre 70 y 80 mmHg aproximadamente',1,'Radial presente: TAS > 80. Femoral presente: > 70. Carotídeo presente: > 60.'],
+     ['Más de 80 mmHg',0,'Sin pulso radial la TAS sería menor de 80.'],
+     ['Menos de 60 mmHg',0,'Si hay pulso femoral, la TAS es mayor de 70.']]},
+   {q:'Sospechas fractura de pelvis y está inestable (TAS menor de 90).',o:[
+     ['Colocar la faja pélvica, retirando antes la ropa',1,'Ante sospecha de pelvis en paciente inestable (TAS < 90 y circulación alterada) se coloca la faja pélvica, retirando previamente la ropa.'],
+     ['Explorar la pelvis abriéndola para confirmar la fractura',0,'No se fuerza la pelvis: se coloca la faja.'],
+     ['Esperar a la USVA para no tocarle',0,'La faja pélvica es una actuación del segundo grupo.']]},
+   {q:'Tiene signos de shock. ¿Qué medidas aplicas?',o:[
+     ['USVA, oxígeno, piernas elevadas 15-30º y protegerlo del frío',1,'Ante alteraciones hemodinámicas: USVA si no se pidió, oxígeno, piernas ligeramente elevadas 15-30º y protección térmica.'],
+     ['Darle de beber para reponer líquidos',0,'No es una medida del procedimiento.'],
+     ['Sentarlo para que respire mejor',0,'En shock se elevan ligeramente las piernas.']]},
+   {q:'Con TAS 80 y FC 130, ¿qué código le corresponderá cuando llegue la USVA?',v:[['TAS','80 mmHg'],['FC','130 lpm']],o:[
+     ['Código 15: inestabilidad hemodinámica (TAS < 90, FC > 120)',1,'La inestabilidad hemodinámica del adulto es criterio de inclusión del Código 15.'],
+     ['Código 15.1',0,'El 15.1 excluye a los que cumplen criterios del Código 15.'],
+     ['Código 16',0,'El Código 16 es el SCASEST.']]},
+   {q:'¿Cómo lo movilizas y trasladas?',o:[
+     ['Camilla de cuchara con correas y en Trendelenburg a 30º si no hay TCE',1,'Se moviliza con camilla de cuchara fijado con correas y se traslada en Trendelenburg (30º), salvo lesiones que lo contraindiquen como el TCE.'],
+     ['Sentado para vigilarlo mejor',0,'En el shock se traslada en Trendelenburg salvo TCE.'],
+     ['Lo levantáis entre dos sin inmovilizar',0,'Hay que inmovilizar y movilizar con camilla de cuchara.']]},
+  ]},
+ {id:'epoc',t:'Falta de aire en un EPOC',src:'Posible patología de origen respiratorio (SVB)',icon:'wind',c:'--cyan',
+  intro:'Mujer de 74 años con EPOC conocida. Desde ayer tiene más tos y hoy le cuesta mucho respirar. La encontráis sentada en el sofá.',
+  steps:[
+   {q:'¿En qué posición la dejas?',o:[
+     ['Semisentada, en reposo absoluto',1,'Reposo absoluto, tranquilizar y posición semisentada.'],
+     ['Tumbada boca arriba',0,'En la patología respiratoria se coloca semisentada.','Al tumbarla, la disnea empeora.'],
+     ['De pie para que tosa mejor',0,'Reposo absoluto y semisentada.']]},
+   {q:'SatO2 85 %. ¿Qué objetivo de saturación buscas con el oxígeno?',v:[['SatO2','85 %'],['FR','28 rpm']],o:[
+     ['Entre el 88 y el 92 %',1,'En la EPOC se limita la administración de oxígeno hasta conseguir una SatO2 entre el 88 y el 92 %.'],
+     ['Entre el 94 y el 96 %',0,'Ese es el objetivo general, pero en la EPOC se busca 88-92 %.'],
+     ['El 100 %',0,'En la EPOC se busca 88-92 %.']]},
+   {q:'¿Qué más tienes que descartar en la valoración primaria?',o:[
+     ['Una hiperventilación por ansiedad',1,'El procedimiento pide descartar un cuadro de hiperventilación por ansiedad.'],
+     ['Un esguince',0,'No tiene relación con el cuadro.'],
+     ['Nada más, es su EPOC',0,'Hay que descartar la hiperventilación por ansiedad y valorar ABCD completo.']]},
+   {q:'Con oxígeno la saturación no pasa del 89 % y está agotada. ¿Recurso?',o:[
+     ['Solicitar USVA: hay compromiso vital',1,'Se solicita USVA en todos los casos de patología respiratoria con compromiso vital.'],
+     ['Trasladarla tumbada en USVB sin avisar',0,'Con compromiso vital se pide USVA y el traslado es semisentada.'],
+     ['Dejarla en casa con su oxígeno',0,'Hay compromiso vital: USVA.']]},
+  ]},
+];
+function vCases(){app.innerHTML=frame('--green','stethoscope','Casos clínicos');
+  $('#pb').innerHTML=`<div class="setup"><h2>Como en la calle</h2><p>Lee la situación y decide qué harías en cada paso. Si te desvías del procedimiento, el caso cambia y al final verás en qué te saliste y qué dice el manual.</p><div class="list" ${cv('--green')}>${CASES.map(c=>`<button class="li" data-c="${c.id}" ${cv(c.c)}><b>${ic(c.icon)} ${esc(c.t)}</b><small>${c.steps.length} decisiones · ${esc(c.src)}${S.best['case.'+c.id]!==undefined?' · récord '+S.best['case.'+c.id]+'/'+c.steps.length:''}</small></button>`).join('')}</div></div>`;
+  document.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>playCase(CASES.find(c=>c.id===b.dataset.c)))}
+function playCase(C){let i=0,ok=0,cons='';const dev=[];
+  app.innerHTML=frame(C.c,'stethoscope',C.t,`<span class="pill" id="kp"></span>`);
+  const draw=()=>{if(i>=C.steps.length)return end();const st=C.steps[i];const opts=shuf(st.o.map((o,j)=>({o,j})));
+    $('#kp').innerHTML=`${ic('list-ordered')}${i+1} / ${C.steps.length}`;
+    $('#pb').innerHTML=`<div class="card fade" ${cv(C.c)}><div class="qk">${esc(C.src)}</div>${i===0?`<p class="case-intro">${esc(C.intro)}</p>`:''}${cons?`<div class="cons">${ic('triangle-alert')}<span>${esc(cons)}</span></div>`:''}
+      ${st.v?`<div class="vit">${st.v.map(([k,v])=>`<div><small>${esc(k)}</small><b>${esc(v)}</b></div>`).join('')}</div>`:''}
+      <div class="qq">${esc(st.q)}</div><div class="opts">${opts.map(({o},k)=>`<button class="opt" data-k="${k}"><span class="k">${'ABC'[k]}</span><span>${esc(o[0])}</span></button>`).join('')}</div><div class="fb" id="fb"></div></div>`;
+    document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const k=+b.dataset.k;const ch=opts[k].o;const good=opts.findIndex(x=>x.o[1]);
+      document.querySelectorAll('.opt').forEach((x,j)=>{x.disabled=true;if(j===good)x.classList.add('ok')});
+      if(ch[1]){ok++;cons=''}else{b.classList.add('ko');cons=ch[3]||'';dev.push({q:st.q,you:ch[0],why:ch[2],right:opts[good].o})}
+      $('#fb').innerHTML=`<span class="msg ${ch[1]?'ok':'ko'}">${ic(ch[1]?'circle-check':'circle-x')}${ch[1]?'Correcto':'Te has desviado del procedimiento'}</span><div class="exp">${ic('lightbulb')}<span>${esc(ch[1]?ch[2]:ch[2]+' Lo indicado: '+opts[good].o[0]+'.')}</span></div><button class="btn sm pri nx" id="nx">${i+1>=C.steps.length?'Ver resumen':'Continuar'}${ic('arrow-right')}</button>`;
+      $('#nx').onclick=()=>{i++;draw()};$('#nx').focus()})};
+  const end=()=>{const n=C.steps.length;addXP(ok*2);const k='case.'+C.id;S.best[k]=Math.max(S.best[k]||0,ok);save();
+    $('#pb').innerHTML=`<div class="card res fade" ${cv(C.c)}><div class="qk">${ic('trophy')} Caso terminado</div><div class="big">${ok}/${n}</div><p>${ok===n?'Has seguido el procedimiento de principio a fin.':'decisiones según el procedimiento'} · <b>+${ok*2} XP</b></p><div class="row"><button class="btn pri" id="again">${ic('rotate-ccw')}Repetir caso</button><button class="btn" id="menu">${ic('stethoscope')}Otro caso</button></div>${dev.length?`<div class="rv"><h3>Dónde te desviaste</h3>${dev.map(d=>`<div><b style="color:var(--fg)">${esc(d.q)}</b><br><span style="color:var(--bad)">Elegiste:</span> ${esc(d.you)}<br><span style="color:var(--ok)">Procedimiento:</span> ${esc(d.right[0])}<em>${esc(d.right[2])}</em></div>`).join('')}</div>`:''}</div>`;
+    $('#again').onclick=()=>playCase(C);$('#menu').onclick=vCases};
+  draw()}
+
 /* ---------- router y tema ---------- */
-function route(){stopT();const h=location.hash.slice(1)||'inicio';
-  ({inicio:vHome,reto:vDaily,tests:vTests,examen:vExam,supervivencia:vSurv,fallos:vFails,'verdadero-falso':vVF,parejas:vPairs,unir:vMatch,escribe:vType,ordena:vOrder,clasifica:vClass,tarjetas:vFlash}[h]||vHome)();
+let APPV=0;
+function route(){APPV++;stopT();const h=location.hash.slice(1)||'inicio';
+  ({inicio:vHome,reto:vDaily,tests:vTests,examen:vExam,supervivencia:vSurv,fallos:vFails,'verdadero-falso':vVF,parejas:vPairs,unir:vMatch,escribe:vType,ordena:vOrder,clasifica:vClass,tarjetas:vFlash,casos:vCases,triaje:vTri,codigo:vCode}[h]||vHome)();
   drawTop();scrollTo(0,0)}
 addEventListener('hashchange',route);
 addEventListener('keydown',e=>{if(!/^[1-4a-d]$/i.test(e.key)||document.activeElement.tagName==='INPUT')return;const k='1234'.includes(e.key)?'1234'.indexOf(e.key):'abcd'.indexOf(e.key.toLowerCase());const b=document.querySelectorAll('.opt')[k];b&&!b.disabled&&b.click()});
