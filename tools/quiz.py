@@ -1,6 +1,7 @@
 """Convierte las preguntas de quiz/*.py en data/quiz.json.
 
 Cada fichero de quiz/ define QUIZ = {clave: [(pregunta, correcta, [3 distractores], explicación), ...]}
+Si la misma clave aparece en varios ficheros, sus preguntas se suman.
 La clave es el id de un procedimiento (p. ej. 'convulsiones432') o un bloque entero
 con el formato 'g:<ámbito>:<nombre del bloque>' (p. ej. 'g:tecnicas:Vasculares').
 Uso (desde la raíz del repo):  python3 tools/quiz.py
@@ -22,8 +23,8 @@ for f in sorted(glob.glob(os.path.join(root, 'quiz', '*.py'))):
     g = {}
     exec(open(f, encoding='utf-8').read(), g)
     for k, v in g['QUIZ'].items():
-        if k in Q: sys.exit(f'Clave repetida {k} en {f}')
-        Q[k] = (v, os.path.basename(f))
+        if k in Q: Q[k] = (Q[k][0] + v, Q[k][1] + '+' + os.path.basename(f))   # la misma clave en otro fichero añade preguntas
+        else: Q[k] = (list(v), os.path.basename(f))
 
 err = []
 sets = []
@@ -36,11 +37,13 @@ for k, (items, fn) in Q.items():
         if k not in procs: err.append(f'{fn}: procedimiento desconocido {k}'); continue
         p = procs[k]
         s = dict(id=k, amb=p['amb'], g=p['grp'], p=k, t=p['title'])
-    qs = []
+    qs = []; seen = set()
     for n, it in enumerate(items):
         if len(it) != 4 or len(it[2]) != 3: err.append(f'{fn} {k} #{n+1}: formato incorrecto'); continue
         q, a, d, e = it
         if a in d or len(set(d)) != 3: err.append(f'{fn} {k} #{n+1}: opciones repetidas'); continue
+        if q in seen: err.append(f'{fn} {k} #{n+1}: pregunta repetida'); continue
+        seen.add(q)
         qs.append([q, a, list(d), e])
     s['q'] = qs
     sets.append(s)

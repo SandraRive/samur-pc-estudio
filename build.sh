@@ -19,4 +19,5 @@ cp data/quiz.json data/examenes.json work/
 ln -sfn ../node_modules work/node_modules
 (cd work && python3 assemble.py)
 cp work/samur-manual.html dist/index.html
+python3 tools/juegos.py
 echo "OK -> dist/index.html"

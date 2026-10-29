@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Entreno SAMUR-PC</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Tests, juegos y actividades para memorizar el Manual de Procedimientos SAMUR-Protección Civil 2026.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23FF6B1A'/%3E%3Cpath d='M16 7v18M7 16h18' stroke='%23160700' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: consola de entrenamiento — cabecera fija con nivel y racha, reto del día como protagonista y tres bandejas de juegos (Tests · Juegos rápidos · Memorizar). */
+:root{
+  --bg:#F3F5FA; --bg2:#E7EBF3; --panel:#FFFFFF; --panel2:#F1F4F9; --line:#DCE2EC; --line2:#C9D1DE;
+  --fg:#101828; --fg2:#3F4A5E; --fg3:#6B778C;
+  --orange:#E0520A; --cyan:#0A86B5; --violet:#7A45D6; --green:#0D9E6E; --red:#D61F45; --yellow:#B98A00;
+  --ok:#0D9E6E; --bad:#D61F45; --on-accent:#FFFFFF; --shadow:0 10px 30px -18px rgba(16,24,40,.35);
+  --f-display:'Unbounded',ui-rounded,'Segoe UI',system-ui,sans-serif;
+  --f-body:'Figtree',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --f-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0A0E19; --bg2:#070A12; --panel:#121A2B; --panel2:#18213A; --line:#222D47; --line2:#2E3B5C;
+  --fg:#EEF2FA; --fg2:#B5C0D6; --fg3:#7F8BA6;
+  --orange:#FF6B1A; --cyan:#2EC4F1; --violet:#B98CFF; --green:#2EE6A6; --red:#FF4D6A; --yellow:#FFD23F;
+  --ok:#2EE6A6; --bad:#FF4D6A; --on-accent:#0A0E19; --shadow:0 18px 40px -24px rgba(0,0,0,.8); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0A0E19; --bg2:#070A12; --panel:#121A2B; --panel2:#18213A; --line:#222D47; --line2:#2E3B5C;
+  --fg:#EEF2FA; --fg2:#B5C0D6; --fg3:#7F8BA6;
+  --orange:#FF6B1A; --cyan:#2EC4F1; --violet:#B98CFF; --green:#2EE6A6; --red:#FF4D6A; --yellow:#FFD23F;
+  --ok:#2EE6A6; --bad:#FF4D6A; --on-accent:#0A0E19; --shadow:0 18px 40px -24px rgba(0,0,0,.8); color-scheme:dark}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--fg)}
+body{margin:0;font-family:var(--f-body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--c,var(--orange));outline-offset:2px;border-radius:8px}
+.ic{width:20px;height:20px;flex:none}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{text-wrap:balance}
+.mono{font-family:var(--f-mono)}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:12px;padding-block:10px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0}
+.brand .mk{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--orange);color:var(--on-accent);flex:none}
+.brand b{font-family:var(--f-display);font-size:15px;letter-spacing:.01em;white-space:nowrap}
+.brand small{display:block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;color:var(--fg3);text-transform:uppercase}
+.top .sp{flex:1}
+.chip{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:var(--panel);font-weight:700;font-size:13.5px;white-space:nowrap}
+.chip .ic{width:17px;height:17px}
+.chip.fire .ic{color:var(--orange)}
+.chip.lv .n{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--yellow);color:var(--on-accent);font-size:12px;font-family:var(--f-mono)}
+.iconbtn{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--panel);display:grid;place-items:center}
+@media (max-width:560px){.brand small,.chip.lv .t{display:none}}
+@media (max-width:440px){.brand>span:last-child{display:none}}
+.games[data-n="6"]{grid-template-columns:repeat(3,1fr)}
+.games[data-n="1"]{grid-template-columns:1fr}
+@media (max-width:820px){.games[data-n]{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}}
+.mc .bk{hyphens:auto}
+
+/* home */
+main{padding-block:22px 60px}
+.hero{display:grid;grid-template-columns:1.25fr 1fr;gap:16px;align-items:stretch}
+@media (max-width:820px){.hero{grid-template-columns:1fr}}
+.daily{position:relative;overflow:hidden;border-radius:22px;padding:24px;background:linear-gradient(135deg,color-mix(in srgb,var(--orange) 22%,var(--panel)),var(--panel) 70%);border:1px solid color-mix(in srgb,var(--orange) 45%,var(--line));display:flex;flex-direction:column;gap:12px}
+.daily .ey{font-family:var(--f-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:8px}
+.daily h1{font-family:var(--f-display);font-size:clamp(26px,4.2vw,40px);line-height:1.05;margin:0;letter-spacing:-.01em}
+.daily p{margin:0;color:var(--fg2);max-width:52ch}
+.daily .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:auto;padding-top:6px}
+.daily .ecg{position:absolute;right:-6px;top:16px;width:170px;height:46px;opacity:.35;color:var(--orange);pointer-events:none}
+.daily .ecg path{stroke-dasharray:420;stroke-dashoffset:420;animation:ecg 3.2s linear infinite}
+@keyframes ecg{to{stroke-dashoffset:-420}}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{border-radius:16px;padding:14px 16px;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;gap:2px;min-width:0}
+.stat b{font-family:var(--f-display);font-size:26px;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{color:var(--fg3);font-size:13px}
+.stat .bar{margin-top:8px}
+.stat.wide{grid-column:1/-1}
+.bar{height:6px;border-radius:999px;background:var(--bg2);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:inherit;background:var(--c,var(--orange));transition:width .4s ease}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:12px;border:1px solid var(--line2);background:var(--panel2);font-weight:800;font-size:15px;text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:var(--c,var(--fg3))}
+.btn.pri{background:var(--c,var(--orange));border-color:var(--c,var(--orange));color:var(--on-accent)}
+.btn.pri:hover{filter:brightness(1.07)}
+.btn.sm{height:36px;padding:0 13px;font-size:13.5px;border-radius:10px}
+.btn:disabled{opacity:.45;cursor:default}
+
+.tray{margin-top:34px}
+.tray>header{display:flex;align-items:baseline;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.tray h2{font-family:var(--f-display);font-size:clamp(19px,2.6vw,24px);margin:0}
+.tray>header p{margin:0;color:var(--fg3);font-size:14px}
+.games{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.game{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto 1fr auto;gap:6px 14px;padding:16px;border-radius:18px;background:var(--panel);border:1px solid var(--line);text-align:left;text-decoration:none;transition:transform .15s,border-color .15s}
+.game:hover{border-color:var(--c);transform:translateY(-2px)}
+.game .tile{grid-row:1/4;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c)}
+.game b{font-family:var(--f-display);font-size:15px;line-height:1.25;font-weight:600}
+.game small{color:var(--fg2);font-size:13.5px;line-height:1.4}
+.game .meta{font-family:var(--f-mono);font-size:11.5px;color:var(--fg3)}
+
+/* play shell */
+.play{max-width:780px;margin:0 auto}
+.ptop{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.ptop .ttl{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-size:17px;margin-right:auto;min-width:0}
+.ptop .ttl .tile{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--c);color:var(--on-accent);flex:none}
+.pill{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 11px;border-radius:999px;background:var(--panel);border:1px solid var(--line);font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+.pill .ic{width:15px;height:15px;color:var(--c)}
+.pill.lives .ic{color:var(--red)}
+.timer{height:8px;border-radius:999px;background:var(--panel2);overflow:hidden;margin-bottom:16px}
+.timer i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--yellow),var(--red));background-size:300% 100%;transition:width .1s linear}
+.card{border-radius:22px;border:1px solid var(--line2);background:var(--panel);padding:24px;box-shadow:var(--shadow)}
+@media (max-width:520px){.card{padding:18px}}
+.qk{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--c)}
+.qq{font-family:var(--f-display);font-weight:600;font-size:clamp(17px,2.4vw,22px);line-height:1.3;margin:10px 0 18px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:center;text-align:left;padding:13px 15px;border-radius:14px;border:1px solid var(--line2);background:var(--panel2);font-size:15.5px;line-height:1.35;transition:transform .1s}
+.opt:hover:not(:disabled){border-color:var(--c);transform:translateX(3px)}
+.opt .k{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--bg2);font-family:var(--f-mono);font-weight:700;font-size:13px;flex:none}
+.opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 15%,var(--panel2))}
+.opt.ok .k{background:var(--ok);color:var(--on-accent)}
+.opt.ko{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 13%,var(--panel2))}
+.opt.ko .k{background:var(--bad);color:var(--on-accent)}
+.opt:disabled{cursor:default}
+.fb{margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.fb .msg{font-weight:800;display:flex;gap:8px;align-items:center}
+.fb .msg.ok{color:var(--ok)} .fb .msg.ko{color:var(--bad)}
+.fb .exp{flex:1 1 100%;display:flex;gap:10px;padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--c) 9%,var(--panel2));border:1px solid color-mix(in srgb,var(--c) 28%,var(--line));color:var(--fg2);font-size:14.5px}
+.fb .exp .ic{color:var(--yellow);margin-top:2px}
+.fb .nx{margin-left:auto}
+
+/* setup */
+.setup h2{font-family:var(--f-display);font-size:22px;margin:0 0 4px}
+.setup>p{color:var(--fg2);margin:0 0 16px}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.seg button{height:36px;padding:0 13px;border-radius:999px;border:1px solid var(--line2);background:var(--panel);font-weight:700;font-size:13.5px}
+.seg button.on{background:var(--c);border-color:var(--c);color:var(--on-accent)}
+.list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.li{display:flex;flex-direction:column;gap:4px;text-align:left;padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:var(--panel);min-width:0}
+.li:hover{border-color:var(--c)}
+.li b{font-size:14.5px;line-height:1.3}
+.li small{color:var(--fg3);font-size:12.5px}
+.li .bar{height:4px;margin-top:6px}
+.li.all{background:color-mix(in srgb,var(--c) 12%,var(--panel));border-color:color-mix(in srgb,var(--c) 40%,var(--line))}
+
+/* result */
+.res{text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center}
+.res .big{font-family:var(--f-display);font-size:60px;line-height:1;color:var(--c)}
+.res p{margin:0;color:var(--fg2)}
+.res .row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.fb .rf{flex:1 1 100%}
+.rf{text-align:left;padding:12px 14px 13px;border-radius:14px;background:color-mix(in srgb,var(--cyan) 7%,var(--panel2));border:1px solid color-mix(in srgb,var(--cyan) 26%,var(--line));border-left-width:4px;font-size:14px;color:var(--fg2)}
+.rf .rft{display:flex;align-items:center;gap:7px;font-family:var(--f-display);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg)}
+.rf .rfs{display:flex;align-items:center;gap:6px;margin:6px 0 4px;font-size:12.5px;color:var(--fg3);font-weight:600}
+.rf .rfs .ic,.rf summary .ic{width:14px;height:14px;flex:none}
+.rf p{margin:0;line-height:1.55}
+.rf mark{background:color-mix(in srgb,var(--yellow) 38%,transparent);color:inherit;border-radius:4px;padding:0 2px}
+.rv div .rf{margin-top:8px;padding:8px 11px;background:var(--panel)}
+.rf.mini summary{cursor:pointer;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--fg2);list-style:none}
+.rf.mini summary::-webkit-details-marker{display:none}
+.rf.mini[open] summary{margin-bottom:2px}
+.rv{width:100%;text-align:left;display:grid;gap:8px;margin-top:10px}
+.rv h3{font-family:var(--f-display);font-size:15px;margin:6px 0 0}
+.rv div{padding:11px 13px;border-radius:12px;background:var(--panel2);font-size:14px}
+.rv div b{color:var(--ok)}
+.rv div em{display:block;font-style:normal;color:var(--fg3);font-size:13px;margin-top:4px}
+
+/* V/F */
+.vf{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.vf button{height:64px;border-radius:16px;border:2px solid;font-weight:800;font-size:17px;display:flex;align-items:center;justify-content:center;gap:10px;background:var(--panel2)}
+.vf .t{border-color:var(--ok);color:var(--ok)} .vf .f{border-color:var(--bad);color:var(--bad)}
+.vf button:hover{filter:brightness(1.08)}
+.stmt .lbl{font-size:13px;color:var(--fg3);font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+.stmt .ans{font-size:17px;font-weight:700;padding:12px 14px;border-radius:12px;background:var(--panel2);border:1px dashed var(--line2);margin-top:6px}
+.flash-ok{animation:fok .35s} .flash-ko{animation:fko .35s}
+@keyframes fok{50%{box-shadow:0 0 0 4px var(--ok)}} @keyframes fko{0%,100%{transform:none}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+/* memory */
+.mem{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media (max-width:520px){.mem{grid-template-columns:repeat(3,1fr)}}
+.mc{perspective:700px;border:0;background:none;padding:0;aspect-ratio:3/4;max-width:100%}
+.mc .in{display:block;position:relative;width:100%;height:100%;transition:transform .4s;transform-style:preserve-3d}
+.mc.on .in,.mc.done .in{transform:rotateY(180deg)}
+.mc .fa,.mc .bk{position:absolute;inset:0;border-radius:14px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:grid;place-items:center;padding:8px;border:1px solid var(--line2)}
+.mc .fa{background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--c) 22%,var(--panel)) 0 10px,var(--panel) 10px 20px);color:var(--c)}
+.mc .fa .ic{width:28px;height:28px}
+.mc .bk{transform:rotateY(180deg);background:var(--panel2);font-size:12.5px;line-height:1.25;text-align:center;overflow:hidden;overflow-wrap:anywhere}
+.mc .bk.key{font-family:var(--f-mono);font-weight:700;font-size:15px;color:var(--c)}
+.mc.done .bk{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,var(--panel2))}
+
+/* match columns */
+.cols{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:10px}
+.cols .col{display:grid;gap:8px;align-content:start}
+.mt{min-height:54px;padding:10px 12px;border-radius:12px;border:1px solid var(--line2);background:var(--panel2);text-align:left;font-size:13.5px;line-height:1.3;overflow-wrap:anywhere}
+.mt.key{font-family:var(--f-mono);font-weight:700;font-size:14px}
+.mt.sel{border-color:var(--c);box-shadow:0 0 0 2px var(--c)}
+.mt.done{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 13%,var(--panel2));color:var(--fg3);cursor:default}
+.mt.bad{animation:fko .35s;border-color:var(--bad)}
+
+/* type */
+.typ{display:flex;gap:10px;flex-wrap:wrap}
+.typ input{flex:1 1 200px;min-width:0;height:52px;border-radius:12px;border:1px solid var(--line2);background:var(--panel2);color:var(--fg);font-family:var(--f-mono);font-size:20px;padding:0 14px}
+.typ input:focus{outline:2px solid var(--c);outline-offset:1px}
+
+/* order */
+.ord{display:grid;gap:8px}
+.ord .slot{display:flex;gap:10px;align-items:center;min-height:50px;padding:10px 12px;border-radius:12px;border:1px dashed var(--line2);color:var(--fg3);font-size:14.5px}
+.ord .slot.fill{border-style:solid;background:var(--panel2);color:var(--fg);cursor:pointer}
+.ord .slot .n{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:var(--bg2);font-family:var(--f-mono);font-weight:700;font-size:13px;flex:none}
+.ord .slot.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 13%,var(--panel2))}
+.ord .slot.ok .n{background:var(--ok);color:var(--on-accent)}
+.ord .slot.ko{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 11%,var(--panel2))}
+.ord .slot.ko .n{background:var(--bad);color:var(--on-accent)}
+.pool{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.pool button{padding:10px 12px;border-radius:12px;border:1px solid var(--c);background:color-mix(in srgb,var(--c) 10%,var(--panel));font-size:14px;text-align:left;max-width:100%}
+
+/* classify */
+.item{font-family:var(--f-display);font-weight:600;font-size:clamp(17px,2.6vw,22px);line-height:1.3;text-align:center;padding:26px 16px;border-radius:16px;background:var(--panel2);border:1px solid var(--line2);margin:10px 0 14px}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.bins button{min-height:56px;padding:10px;border-radius:14px;border:1px solid var(--line2);background:var(--panel);font-weight:800;font-size:14.5px;line-height:1.25}
+.bins button:hover:not(:disabled){border-color:var(--c)}
+.bins button.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 15%,var(--panel))}
+.bins button.ko{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--panel))}
+
+/* flashcards */
+.fc{perspective:1200px;width:100%;border:0;background:none;padding:0;min-height:260px;display:block}
+.fc .in{display:block;position:relative;min-height:260px;transition:transform .5s;transform-style:preserve-3d}
+.fc.on .in{transform:rotateY(180deg)}
+.fc .fa,.fc .bk{position:absolute;inset:0;border-radius:22px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;padding:24px;text-align:center;border:1px solid var(--line2);background:var(--panel);box-shadow:var(--shadow);overflow:auto}
+.fc .bk{transform:rotateY(180deg);background:color-mix(in srgb,var(--c) 8%,var(--panel))}
+.fc .main{font-family:var(--f-display);font-weight:600;font-size:clamp(17px,2.6vw,23px);line-height:1.3}
+.fc .main.key{font-family:var(--f-mono);font-size:clamp(26px,5vw,40px);color:var(--c)}
+.fc .hint{font-size:12.5px;color:var(--fg3);font-family:var(--f-mono);letter-spacing:.1em;text-transform:uppercase}
+.fc .sub{color:var(--fg2);font-size:14.5px;max-width:52ch}
+.boxes{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:14px 0 4px}
+.boxes div{border-radius:10px;background:var(--panel);border:1px solid var(--line);padding:6px;text-align:center;font-size:11.5px;color:var(--fg3)}
+.boxes b{display:block;font-family:var(--f-mono);font-size:16px;color:var(--fg)}
+.rate{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+
+.pop{position:fixed;left:50%;top:38%;transform:translate(-50%,-50%);font-family:var(--f-display);font-size:40px;color:var(--yellow);pointer-events:none;animation:pop .8s ease forwards;z-index:95;text-shadow:0 4px 30px rgba(0,0,0,.35)}
+@keyframes pop{0%{opacity:0;transform:translate(-50%,-30%) scale(.6)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}100%{opacity:0;transform:translate(-50%,-90%) scale(1)}}
+.empty{padding:22px;border-radius:16px;border:1px dashed var(--line2);color:var(--fg2);text-align:center}
+footer{border-top:1px solid var(--line);color:var(--fg3);font-size:13px}
+footer .wrap{padding-block:18px}
+.fade{animation:fade .25s ease}
+@keyframes fade{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="#inicio"><span class="mk" id="mk"></span><span><b>Entreno SAMUR·PC</b><small>Tests · juegos · memoria</small></span></a>
+  <span class="sp"></span>
+  <span class="chip fire" id="streak" title="Días seguidos entrenando"></span>
+  <span class="chip lv" id="level"></span>
+  <button class="iconbtn" id="theme" aria-label="Cambiar tema"></button>
+</div></header>
+<main class="wrap" id="app"></main>
+<footer><div class="wrap">Basado en el Manual de Procedimientos SAMUR-Protección Civil 2026 v1.0 y en el examen oficial TATS 2024. Tu progreso se guarda solo en este navegador.</div></footer>
+
+<script id="gdata" type="application/json">/*GDATA*/</script>
+<script>
+const G=JSON.parse(document.getElementById('gdata').textContent);
+const ICONS=/*ICONS*/;
+/* iconos usados de forma dinámica: ic('radio') ic('hash') ic('siren') ic('users') ic('map-pin') ic('book-a') ic('pill') ic('baby') ic('heart-pulse') ic('activity') ic('thermometer') ic('wind') ic('car') ic('shield-check') ic('gauge') ic('brain') ic('clipboard-list') ic('headset') ic('heart-handshake') ic('heart') ic('briefcase-medical') ic('syringe') ic('file-text') ic('flame') ic('layers') ic('sun') ic('moon') ic('plus') */
+const $=s=>document.querySelector(s), app=$('#app');
+const ic=(n,c='')=>`<svg class="ic ${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||''}</svg>`;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const nz=s=>String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+const hsh=s=>{let h=5381;for(let i=0;i<s.length;i++)h=(h*33^s.charCodeAt(i))>>>0;return h.toString(36)};
+const clip=(s,n)=>s.length>n?s.slice(0,n).replace(/\s\S*$/,'')+'…':s;
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const COL={admin:'--violet',central:'--cyan',operativos:'--orange',psico:'--violet',sva:'--red',svb:'--yellow',tecnicas:'--green'};
+const cv=v=>`style="--c:var(${v})"`;
+const AICON={admin:'clipboard-list',central:'headset',operativos:'siren',psico:'heart-handshake',sva:'heart',svb:'briefcase-medical',tecnicas:'syringe'};
+
+/* ---------- estado (solo en este navegador) ---------- */
+let S={xp:0,ok:{},wrong:{},best:{},days:[],daily:'',lt:{},played:0};
+try{const s=JSON.parse(localStorage.getItem('samurpc-juegos-v1')||'null');if(s)S=Object.assign(S,s)}catch(e){}
+const save=()=>{try{localStorage.setItem('samurpc-juegos-v1',JSON.stringify(S))}catch(e){}};
+const RANKS=[[0,'Aspirante'],[60,'Voluntario/a PC'],[180,'TATS'],[400,'Enfermero/a'],[750,'Médico/a SVA'],[1200,'Charly'],[1800,'Supervisor/a'],[2600,'Directivo/a de Guardia']];
+function rank(){let i=0;RANKS.forEach((r,k)=>{if(S.xp>=r[0])i=k});return{i,cur:RANKS[i],nx:RANKS[i+1]}}
+function streak(){const ds=[...new Set(S.days)].sort();let n=0;let d=new Date();const key=x=>x.toISOString().slice(0,10);
+  const has=k=>ds.includes(k);const loc=x=>{const y=new Date(x);return y.getFullYear()+'-'+String(y.getMonth()+1).padStart(2,'0')+'-'+String(y.getDate()).padStart(2,'0')};
+  if(!has(loc(d))){d.setDate(d.getDate()-1);if(!has(loc(d)))return 0}
+  while(has(loc(d))){n++;d.setDate(d.getDate()-1)}return n}
+function addXP(n){S.xp=Math.max(0,S.xp+n);const t=today();if(!S.days.includes(t)){S.days.push(t);S.days=S.days.slice(-400)}save();drawTop()}
+function drawTop(){const r=rank();$('#level').innerHTML=`<span class="n">${r.i+1}</span><span class="t">${esc(r.cur[1])} · </span>${S.xp} XP`;$('#streak').innerHTML=`${ic('flame')}${streak()} ${streak()===1?'día':'días'}`}
+function popup(t){const d=document.createElement('div');d.className='pop';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),850)}
+
+/* ---------- datos: preguntas ---------- */
+const AMB={};G.tree.forEach(a=>AMB[a.id]=a);
+const REF={};
+G.sets.forEach(s=>{s.qs=s.q.map(([q,a,d,e,r])=>{const id=s.id+'|'+hsh(q);if(r>=0)REF[id]=G.refs[r];return{id,k:s.t,q,a,d,e,amb:s.amb}})});
+const ALLQ=G.sets.flatMap(s=>s.qs);
+G.exams.forEach(x=>{x.qs=x.q.map(([n,q,o,c,r])=>({id:(r>=0&&(REF['ex.'+x.id+'|'+n]=G.refs[r]),'ex.'+x.id+'|'+n),k:x.t+' · pregunta '+n,q,a:o[c],o,fixed:1,e:`Respuesta correcta según la plantilla oficial: ${'abc'[c]})`}))});
+/* refuerzo: párrafo del temario donde sale la respuesta, con sus palabras resaltadas */
+const fold=w=>w.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+function refHTML(id,ans,mini){const r=REF[id];if(!r)return'';const[pt,h,x]=r;
+  const keys=new Set((fold(ans||'').match(/[a-z0-9ñ]+(?:[.,][0-9]+)?/g)||[]).filter(w=>w.length>3||/\d/.test(w)));
+  const body=esc(x).replace(/[A-Za-zÀ-ÿ0-9]+(?:[.,][0-9]+)?/g,w=>keys.has(fold(w))?`<mark>${w}</mark>`:w);
+  const src=`<span class="rfs">${ic('book-open')}${esc(pt)}${h?' › '+esc(h):''}</span>`;
+  return mini?`<details class="rf mini"><summary>${ic('book-open')}Ver en el temario</summary>${src}<p>${body}</p></details>`
+             :`<div class="rf"><div class="rft">${ic('book-open')}Del temario</div>${src}<p>${body}</p></div>`}
+const okN=l=>l.filter(x=>S.ok[x.id]).length;
+
+/* ---------- mazos de parejas ---------- */
+const uniq=p=>{const sk=new Set(),sv=new Set();return p.filter(([k,v])=>{const a=nz(k),b=nz(v);if(sk.has(a)||sv.has(b))return false;sk.add(a);sv.add(b);return true})};
+const DECKS=[
+ {id:'claves',t:'Claves de radio',icon:'radio',c:'--cyan',kind:'Clave',typ:1,p:G.claves},
+ {id:'codigos',t:'Códigos de incidente',icon:'hash',c:'--orange',kind:'Código',typ:1,p:G.codigos.map(x=>[x[0],x[1]])},
+ {id:'esp',t:'Códigos específicos',icon:'siren',c:'--red',kind:'Código',typ:1,p:G.esp},
+ {id:'ind',t:'Indicativos',icon:'users',c:'--violet',kind:'Indicativo',typ:1,p:G.ind},
+ {id:'bases',t:'Bases SAMUR',icon:'map-pin',c:'--green',kind:'Base',p:G.bases},
+ {id:'abbr',t:'Abreviaturas',icon:'book-a',c:'--yellow',kind:'Sigla',typ:1,p:G.abbr},
+ {id:'drugs',t:'Fármacos y su función',icon:'pill',c:'--violet',kind:'Fármaco',p:G.drugs},
+ {id:'tep',t:'Triángulo de Evaluación Pediátrica',icon:'baby',c:'--yellow',kind:'Lados alterados',p:[['Solo el aspecto','Disfunción del SNC o problema sistémico'],['Solo la respiración','Dificultad respiratoria'],['Solo la circulación','Shock compensado'],['Aspecto y respiración','Insuficiencia respiratoria, parada inminente'],['Aspecto y circulación','Shock descompensado'],['Los tres lados','Insuficiencia cardiorrespiratoria, PCR']]},
+ {id:'killip',t:'Clasificación Killip',icon:'heart-pulse',c:'--red',kind:'Killip',p:[['Killip I','Sin evidencia de insuficiencia cardiaca'],['Killip II','Crepitantes en la mitad inferior de los campos pulmonares'],['Killip III','Edema agudo de pulmón'],['Killip IV','Shock cardiogénico']]},
+ {id:'cormack',t:'Laringoscopia Cormack-Lehane',icon:'activity',c:'--cyan',kind:'Grado',p:[['Grado I','Glotis visible con comisura anterior y posterior'],['Grado II','Solo el aspecto posterior de la glotis'],['Grado III','Solo la epiglotis'],['Grado IV','Solo el paladar duro']]},
+ {id:'pulsos',t:'Pulsos y TAS estimada',icon:'activity',c:'--red',kind:'Pulso',p:[['Pulso radial presente','TAS mayor de 80 mmHg'],['Pulso femoral presente','TAS mayor de 70 mmHg'],['Pulso carotídeo presente','TAS mayor de 60 mmHg']]},
+ {id:'hipo',t:'Grados de hipotermia',icon:'thermometer',c:'--cyan',kind:'Grado',p:[['Hipotermia leve','De 32 a 35 ºC'],['Hipotermia moderada','De 28 a 32 ºC'],['Hipotermia grave','Menos de 28 ºC']]},
+ {id:'cohb',t:'Cooximetría (COHb) y clínica',icon:'wind',c:'--orange',kind:'COHb',p:[['COHb < 10 %','Asintomático'],['COHb 10-20 %','Asintomático o cefalea'],['COHb 20-30 %','Mareo, vértigo, náuseas, vómitos, disnea'],['COHb 30-40 %','Alteraciones visuales'],['COHb 40-50 %','Confusión, desorientación, síncope'],['COHb > 50 %','Coma, disfunción cardiopulmonar, exitus']]},
+ {id:'atrap',t:'Niveles de atrapamiento',icon:'car',c:'--orange',kind:'Nivel',p:[['Mecánico','No puede salir por el colapso de las puertas'],['Físico I','No puede salir debido a sus lesiones'],['Físico II','Sus lesiones y el colapso de elementos sobre la víctima']]},
+ {id:'prio',t:'Prioridades de la Central',icon:'siren',c:'--red',kind:'Prioridad',p:[['P1','Emergencia: urgencia vital, activación en emergencia'],['P2','Urgencia no vital, activación en emergencia'],['P3','Preferente: no vital con condicionante social'],['P4','Normal: no urgencia, sin activación en emergencia']]},
+ {id:'perfiles',t:'Perfiles SAMUR Social',icon:'users',c:'--violet',kind:'Perfil',p:[['Perfil A','Mayor de 18 y menor de 65, sin domicilio, ciudadano UE'],['Perfil B','Mayor de 65, sin domicilio o sin poder comunicarlo, ciudadano UE'],['Perfil C','Mayor de 18, sin domicilio, no ciudadano UE'],['Perfil D','Menor de 18 años sin alojamiento']]},
+ {id:'ramsay',t:'Escala de Ramsay',icon:'brain',c:'--violet',kind:'Nivel',p:[['Ramsay 1','Despierto, ansioso o agitado'],['Ramsay 2','Despierto, tranquilo, orientado y colaborador'],['Ramsay 3','Despierto, pero solo responde a órdenes'],['Ramsay 4','Dormido con respuesta rápida a órdenes'],['Ramsay 5','Dormido con respuesta tardía'],['Ramsay 6','Sin respuesta']]},
+ {id:'apgar',t:'Test de Apgar',icon:'baby',c:'--green',kind:'Puntuación',p:[['Apgar 0-3','Depresión severa'],['Apgar 4-6','Depresión moderada'],['Apgar 7-10','Recién nacido en buenas condiciones']]},
+ {id:'fcped',t:'FC normal por edad (niño)',icon:'heart-pulse',c:'--yellow',kind:'Edad',p:[['1 mes','100-180 lpm'],['1 año','100-170 lpm'],['5 años','70-140 lpm'],['10 años','60-120 lpm']]},
+];
+DECKS.forEach(d=>{d.p=uniq(d.p);d.cards=d.p.map(([k,v])=>({id:'dk.'+d.id+'|'+hsh(k),k,v}))});
+const DK={};DECKS.forEach(d=>DK[d.id]=d);
+const BIG=DECKS.filter(d=>d.p.length>=10), SMALL=DECKS.filter(d=>d.p.length<10);
+
+/* ---------- secuencias para ordenar ---------- */
+const SEQ=[
+ {t:'Liberación de una víctima atrapada',src:'Coordinación con Bomberos',s:['Consolidación: estabilizar el vehículo','Accesibilidad: abrir huecos para los sanitarios','Estabilización médica de la víctima','Liberación: corte y separación por Bomberos','Extracción coordinada de la víctima']},
+ {t:'Asistencia al politraumatizado (SVB)',src:'Valoración inicial del paciente politraumatizado',s:['Valoración de la escena','Estimación inicial de gravedad','Valoración primaria y soporte vital','Traslado primario a la unidad','Valoración secundaria y estabilización','Traslado a centro útil o transferencia a SVA']},
+ {t:'Grupos de actuaciones en el trauma',src:'Valoración inicial del paciente politraumatizado',s:['Vía aérea con control cervical, collarín y hemorragias masivas','Respiración, circulación, TA y faja pélvica si procede','Valoración neurológica: pupilas, Glasgow, sensibilidad y movilidad']},
+ {t:'Valoración inicial del adulto (SVB)',src:'Valoración del paciente adulto',s:['Nivel de conciencia (AVDN)','Estado respiratorio','Estado circulatorio','Estado neurológico','Exposición']},
+ {t:'Valoración del niño grave',src:'Valoración del niño grave',s:['Estimación inicial con el TEP (30-60 s)','Valoración primaria ABCDE','Valoración secundaria: historia dirigida y exploración']},
+ {t:'Niveles de la reanimación neonatal',src:'Asistencia al recién nacido',s:['Pasos iniciales y estabilización','Ventilación','Masaje cardiaco','Medicación y fluidos']},
+ {t:'Triaje STARS en un IMV',src:'Incidentes con múltiples víctimas',s:['1er triaje: rescate en el foco','2º triaje: asistencia en zona templada','3er triaje: estabilización en el PSA']},
+ {t:'Fases del atropello',src:'Valoración inicial del paciente politraumatizado',s:['Golpe con el parachoques: miembros inferiores','Golpe contra capó y parabrisas: TCE, tórax, abdomen','Caída al suelo: lesiones impredecibles']},
+ {t:'Tratamiento del estatus epiléptico',src:'Crisis / Estatus epiléptico',s:['Monitorización y resucitación inicial','1ª línea: benzodiacepinas','2ª línea: levetiracetam','3ª línea: coma farmacológico']},
+ {t:'Inserción de la cánula de Guedel (adulto)',src:'Permeabilización básica de la vía aérea',s:['Limpiar boca y faringe de secreciones','Medir de la comisura bucal al ángulo mandibular','Introducir invertida por el paladar duro','Rotar 180º y terminar la inserción']},
+ {t:'Escala AVDN, de más a menos consciente',src:'Valoración del paciente adulto',s:['Alerta','Responde a estímulos verbales','Responde a estímulos dolorosos','No responde']},
+ {t:'COHb de menor a mayor gravedad',src:'Medición de COHb',s:['Asintomático','Cefalea','Mareo, náuseas, vómitos, disnea','Alteraciones visuales','Confusión y síncope','Coma y disfunción cardiopulmonar']},
+ {t:'Escala de Ramsay, de 1 a 6',src:'Analgesia y sedación',s:['Despierto, ansioso o agitado','Despierto, tranquilo y colaborador','Despierto, solo responde a órdenes','Dormido, respuesta rápida','Dormido, respuesta tardía','Sin respuesta']},
+ {t:'Prioridades de la Central, de P1 a P4',src:'Gestión de recursos',s:['Emergencia','Urgencia','Preferente','Normal']},
+ {t:'Asistencia en las vías de RENFE',src:'Coordinación con RENFE',s:['RENFE corta la circulación en ambos sentidos','La Central de Circulación lo comunica a la Central de SAMUR','El Jefe de Estación lo ratifica','El equipo pide confirmación a su Central','Acceso a las vías acompañados por seguridad de RENFE','Se restablece la circulación cuando sale el último sanitario']},
+ {t:'Orden de circulación de un convoy',src:'Circulación de unidades en convoy',s:['Vehículo del responsable del convoy (guía)','Unidad o unidades de traslado del paciente','Resto de unidades del convoy']},
+];
+
+/* ---------- clasificar ---------- */
+const CLS=[
+ {t:'Prioridades con Policía Municipal',src:'Coordinación con Policía Municipal',b:['P0','P1','P2','P3','P4'],i:[['Agresión o peligro de agresión al personal de SAMUR',0],['Accidente con heridos de las dotaciones',0],['Reyerta',1],['Accidente en vía preferente de alta velocidad',1],['Amenaza de bomba, a petición de Policía',1],['Presión social con riesgo (poblado marginal)',1],['Código 90: escolta a pacientes críticos',2],['Enfermo no colaborador',2],['Atención a menores',2],['Accidente de tráfico en vía no preferente',2],['Servicio preventivo',3],['Enfermo en vía pública sin presión social',3],['Asistencia a víctimas pedida por la UAPF',3],['Valoración médica de detenidos no lesionados',4]]},
+ {t:'Zonas en un incidente NRBQ',src:'Coordinación con Bomberos',b:['Zona caliente','Zona templada','Zona fría'],i:[['Zona de máximo riesgo',0],['Solo trabajan Bomberos con la protección adecuada',0],['Puesto de mando',1],['Línea de Descontaminación de Intervención (LDI)',1],['Triaje tras el rescate de las víctimas',1],['Descontaminación de víctimas por equipo mixto',1],['Puesto Médico Avanzado',2],['Medios de evacuación en espera',2],['Seguimiento sanitario de todo el personal actuante',2]]},
+ {t:'Gravedad de la crisis asmática',src:'Crisis asmática aguda',b:['Leve','Moderada','Grave'],i:[['Habla con oraciones',0],['Disnea al caminar',0],['SatO2 mayor del 95 %',0],['FC menor de 100 lpm',0],['Habla con frases cortas',1],['Disnea al hablar',1],['SatO2 del 91 al 95 %',1],['FC de 100 a 120 lpm',1],['Habla con palabras sueltas',2],['Disnea en reposo',2],['SatO2 menor del 90 %',2],['FC mayor de 120 lpm',2]]},
+ {t:'Tipos de brote alimentario',src:'Coordinación con SEAM',b:['Familiar','Colectivo','Mixto'],i:[['Tortilla hecha y comida en casa',0],['Conservas caseras consumidas en el domicilio',0],['Menú de un comedor escolar con cocina central',1],['Banquete elaborado y servido en un comedor colectivo',1],['Bocadillos de un obrador comidos en una excursión',2],['Pasteles de una pastelería industrial comidos en casa',2]]},
+ {t:'Urgencia o emergencia hipertensiva',src:'Crisis hipertensivas',b:['Urgencia hipertensiva','Emergencia hipertensiva'],i:[['Sin lesión en órganos diana',0],['Corrección gradual en 24-48 horas',0],['Frecuente en hipertensos crónicos',0],['Asintomático o síntomas inespecíficos',0],['Lesión grave de órganos diana',1],['Resolución en minutos u horas',1],['Suelen debutar así los normotensos',1],['Compromiso vital inmediato o a corto plazo',1]]},
+ {t:'Riesgo del síncope',src:'Síncope',b:['Alto riesgo','Riesgo medio','Bajo riesgo'],i:[['Síncope durante el esfuerzo',0],['Síncope con dolor torácico o disnea',0],['Paciente portador de marcapasos o DAI',0],['Síncope tras palpitaciones rápidas',0],['Mayor de 70 años con síncope vasovagal',1],['Historia familiar de muerte súbita',1],['Traumatismo secundario importante',1],['Síncope inexplicado tras la evaluación inicial',1],['Menor de 30 años con síncope neuromediado',2],['Síncope al toser, defecar u orinar',2],['Tras mucho tiempo de pie en un lugar caluroso',2],['Síncope posprandial',2]]},
+ {t:'Signos de shock: precoces u obvios',src:'Shock',b:['Precoces y sutiles','Obvios e inmediatos'],i:[['Palidez',0],['Relleno capilar mayor de 2 s',0],['Diaforesis',0],['Taquipnea',0],['Hipotensión (TAS < 90)',1],['Taquicardia',1],['Pulsos periféricos débiles',1],['Alteración del estado mental',1]]},
+ {t:'Perfiles de SAMUR Social',src:'Coordinación con SAMUR Social',b:['Perfil A','Perfil B','Perfil C','Perfil D'],i:[['Española de 40 años sin hogar',0],['Italiano de 50 años sin domicilio',0],['Francés de 70 años que no sabe decir su domicilio',1],['Española de 80 años sin alojamiento',1],['Marroquí de 30 años sin alojamiento',2],['Colombiana de 25 años sin domicilio',2],['Chico de 15 años sin alojamiento',3],['Chica de 17 años, no europea, sin alojamiento',3]]},
+ {t:'Torsión testicular u orquiepididimitis',src:'Síndrome escrotal agudo',b:['Torsión testicular','Orquiepididimitis'],i:[['Dolor súbito e incapacitante',0],['Reflejo cremastérico ausente',0],['Prehn negativo: no mejora al elevar',0],['Signo de Governeur positivo',0],['Sin cuadro miccional',0],['Dolor de instauración progresiva',1],['Fiebre y malestar general',1],['Reflejo cremastérico conservado',1],['Prehn positivo: mejora al elevar',1],['Síndrome miccional asociado',1]]},
+ {t:'Ruidos respiratorios en el niño',src:'Valoración del niño grave',b:['Vía aérea alta','Vía aérea baja'],i:[['Estridor',0],['Tos perruna',0],['Voz gangosa',0],['Ronquido',0],['Disfonía',0],['Sibilancias',1],['Broncoespasmo',1],['Bronquiolitis',1]]},
+];
+
+/* ---------- motor de preguntas tipo test ---------- */
+function deckMCQ(d,c){const k=Math.random()<.55;const others=shuf(d.cards.filter(x=>x!==c)).slice(0,3);
+  return k?{id:c.id,k:d.t,q:`${d.kind} «${c.k}»: ¿qué es?`,a:c.v,d:others.map(x=>x.v)}:{id:c.id,k:d.t,q:`«${clip(c.v,140)}» ¿a qué corresponde?`,a:c.k,d:others.map(x=>x.k)}}
+const pick=(pool,n)=>{const s=shuf(pool);return[...s.filter(x=>!S.ok[x.id]),...s.filter(x=>S.ok[x.id])].slice(0,n)};
+let T=null,TT=null;const stopT=()=>{clearInterval(TT);TT=null};
+function frame(c,icon,title,right=''){return `<div class="play fade" ${cv(c)}><div class="ptop"><span class="ttl"><span class="tile">${ic(icon)}</span>${esc(title)}</span>${right}<a class="btn sm" href="#inicio">${ic('x')}Salir</a></div><div id="pb"></div></div>`}
+function runMCQ(cfg){stopT();
+  T={...cfg,i:0,ok:0,score:0,streak:0,best:0,wrong:[],lives:cfg.lives||0};T.items=(cfg.items||[]).map(x=>({...x,opts:null}));
+  app.innerHTML=frame(cfg.c,cfg.icon,cfg.title,`<span class="pill" id="pp"></span>${cfg.lives?'<span class="pill lives" id="pl"></span>':''}<span class="pill" id="ps"></span>`);
+  nextQ()}
+function nextQ(){stopT();const t=T;
+  if(t.gen&&t.lives<=0)return endMCQ();
+  let it=t.items[t.i];if(!it&&t.gen){it=t.gen();t.items.push(it)}
+  if(!it)return endMCQ();
+  if(!it.opts)it.opts=it.fixed?it.o:shuf([it.a,...it.d]);
+  $('#pp').innerHTML=`${ic('list-ordered')}${t.i+1}${t.gen?'':' / '+t.items.length}`;
+  $('#ps').innerHTML=`${ic('star')}${t.score}`;if(t.lives)$('#pl').innerHTML=ic('heart').repeat(t.lives);
+  $('#pb').innerHTML=`${t.timer?'<div class="timer"><i id="tb" style="width:100%"></i></div>':''}<div class="card"><div class="qk">${esc(it.k)}</div><div class="qq">${esc(it.q)}</div>
+   <div class="opts">${it.opts.map((o,k)=>`<button class="opt" data-k="${k}"><span class="k">${'ABCD'[k]}</span><span>${esc(o)}</span></button>`).join('')}</div><div class="fb" id="fb"></div></div>`;
+  const t0=performance.now();let done=false;
+  const ans=k=>{if(done)return;done=true;stopT();const good=it.opts.indexOf(it.a);
+    document.querySelectorAll('.opt').forEach((b,j)=>{b.disabled=true;if(j===good)b.classList.add('ok');if(j===k&&k!==good)b.classList.add('ko')});
+    const right=k===good;let msg;
+    if(right){t.ok++;t.streak++;t.best=Math.max(t.best,t.streak);const pts=10+(t.timer?Math.max(0,Math.round(t.timer-(performance.now()-t0)/1000)):0)+(t.streak>=3?5:0);t.score+=pts;S.ok[it.id]=1;if(S.wrong[it.id]){delete S.wrong[it.id]}msg=`<span class="msg ok">${ic('circle-check')}¡Correcto!${t.streak>=3?' Racha x'+t.streak:''}</span>`}
+    else{t.streak=0;t.wrong.push(it);S.wrong[it.id]={id:it.id,k:it.k,q:it.q,a:it.a,d:it.d||[],o:it.fixed?it.o:null,e:it.e||''};if(t.lives)t.lives--;msg=`<span class="msg ko">${ic('circle-x')}${k<0?'Se acabó el tiempo':'Incorrecto'}</span>`}
+    save();$('#ps').innerHTML=`${ic('star')}${t.score}`;if($('#pl'))$('#pl').innerHTML=t.lives>0?ic('heart').repeat(t.lives):'Sin vidas';
+    const last=(!t.gen&&t.i+1>=t.items.length)||(!!t.gen&&t.lives<=0);
+    $('#fb').innerHTML=msg+(it.e?`<div class="exp">${ic('lightbulb')}<span>${esc(it.e)}</span></div>`:(!right?`<div class="exp">${ic('lightbulb')}<span>Respuesta correcta: <b>${esc(it.a)}</b></span></div>`:''))+(!right?refHTML(it.id,it.a):'')+`<button class="btn sm pri nx" id="nx">${last?'Ver resultado':'Siguiente'}${ic('arrow-right')}</button>`;
+    $('#nx').onclick=()=>{t.i++;nextQ()};$('#nx').focus();
+  };
+  document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>ans(+b.dataset.k));
+  if(t.timer){TT=setInterval(()=>{const el=(performance.now()-t0)/1000,tb=$('#tb');if(!tb){stopT();return}tb.style.width=Math.max(0,100-el/t.timer*100)+'%';tb.style.backgroundPosition=(el/t.timer*100)+'% 0';if(el>=t.timer)ans(-1)},100)}
+}
+function endMCQ(){stopT();const t=T;const n=t.gen?t.i+(t.lives>0?0:1):t.items.length;const total=t.gen?t.ok+t.wrong.length:t.items.length;
+  let xp=t.ok*2+(t.ok===total&&total>=5?10:0);if(t.onDone)xp+=t.onDone(t)||0;addXP(xp);S.played++;
+  const rec=t.key&&t.score>(S.best[t.key]||0);if(rec)S.best[t.key]=t.score;save();
+  const nota=total?(t.ok/total*10):0;
+  $('#pb').innerHTML=`<div class="card res fade"><div class="qk">${ic('trophy')} Resultado</div><div class="big">${t.gen?t.ok:t.ok+'/'+total}</div>
+   <p>${t.gen?'preguntas acertadas antes de quedarte sin vidas':`${t.ok} aciertos · nota ${nota.toFixed(1).replace('.',',')} sobre 10`} · mejor racha ${t.best} · <b>+${xp} XP</b>${rec?' · ¡nuevo récord!':''}</p>
+   <div class="row"><button class="btn pri" id="again">${ic('rotate-ccw')}Otra ronda</button><a class="btn" href="#inicio">${ic('house')}Inicio</a></div>
+   ${t.wrong.length?`<div class="rv"><h3>Para repasar (${t.wrong.length})</h3>${t.wrong.map(w=>`<div>${esc(w.q)}<br>→ <b>${esc(w.a)}</b>${w.e?`<em>${esc(w.e)}</em>`:''}${refHTML(w.id,w.a,1)}</div>`).join('')}</div>`:''}</div>`;
+  $('#again').onclick=()=>t.again();if(t.ok===total&&total>=5)popup('¡Pleno!');}
+
+/* ---------- vistas ---------- */
+const GAMES=[
+ {tray:0,id:'tests',t:'Test por bloque',d:'Elige ámbito y bloque. Con explicación en cada respuesta.',icon:'layers',c:'--cyan'},
+ {tray:0,id:'examen',t:'Examen oficial TATS 2024',d:'Las 95 preguntas reales, en orden o 20 al azar.',icon:'file-text',c:'--cyan'},
+ {tray:0,id:'supervivencia',t:'Supervivencia',d:'Preguntas sin fin con 3 vidas y 20 segundos cada una.',icon:'heart',c:'--red'},
+ {tray:0,id:'fallos',t:'Repaso de fallos',d:'Solo las preguntas que has fallado en cualquier juego.',icon:'rotate-ccw',c:'--orange'},
+ {tray:1,id:'verdadero-falso',t:'Verdadero o falso',d:'60 segundos: ¿esta respuesta es correcta?',icon:'timer',c:'--orange'},
+ {tray:1,id:'parejas',t:'Parejas',d:'Memory clásico: levanta cartas y une cada término con su significado.',icon:'grid-2x2',c:'--violet'},
+ {tray:1,id:'unir',t:'Une columnas',d:'Empareja cinco términos con su definición, ronda tras ronda.',icon:'git-merge',c:'--green'},
+ {tray:1,id:'escribe',t:'Escribe la clave',d:'Lee el significado y teclea la clave, el código o la sigla.',icon:'keyboard',c:'--yellow'},
+ {tray:1,id:'ordena',t:'Ordena los pasos',d:'Procedimientos que van en un orden concreto. Colócalos bien.',icon:'list-ordered',c:'--cyan'},
+ {tray:1,id:'clasifica',t:'Clasifica',d:'Manda cada caso a su cajón: prioridades, zonas, gravedad…',icon:'columns-3',c:'--red'},
+ {tray:2,id:'tarjetas',t:'Tarjetas con repaso espaciado',d:'Cinco cajas: lo que te cuesta vuelve antes, lo que sabes, más tarde.',icon:'layers-2',c:'--violet'},
+];
+const TRAYS=[['Tests','Preguntas tipo examen sacadas del manual'],['Juegos rápidos','Partidas cortas para fijar datos concretos'],['Memorizar','Para estudiar a tu ritmo, día a día']];
+function vHome(){const r=rank();const dom=okN(ALLQ);const fails=Object.keys(S.wrong).length;const st=streak();const doneToday=S.daily===today();
+  const pct=r.nx?Math.round((S.xp-r.cur[0])/(r.nx[0]-r.cur[0])*100):100;
+  app.innerHTML=`<div class="fade"><section class="hero">
+   <div class="daily"><svg class="ecg" viewBox="0 0 260 70" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M0 40h70l10-14 10 14h20l8-34 12 60 10-26h120"/></svg>
+    <span class="ey">${ic('flame')}Reto del día</span>
+    <h1>${doneToday?'Reto de hoy completado':'10 preguntas, una de cada bloque'}</h1>
+    <p>${doneToday?'Vuelve mañana para mantener la racha. Mientras, prueba cualquier juego de abajo.':'Una mezcla de todos los ámbitos y del examen oficial. Completarlo suma 20 XP extra y mantiene tu racha de días.'}</p>
+    <div class="row"><a class="btn pri" href="#reto">${ic(doneToday?'rotate-ccw':'play')}${doneToday?'Repetir el reto':'Empezar el reto'}</a><span class="chip">${ic('flame')}${st} ${st===1?'día':'días'} seguidos</span></div></div>
+   <div class="stats">
+    <div class="stat wide" ${cv('--yellow')}><span>Rango ${r.i+1} de ${RANKS.length}</span><b>${esc(r.cur[1])}</b><div class="bar"><i style="width:${pct}%"></i></div><span>${r.nx?`${r.nx[0]-S.xp} XP para ${esc(r.nx[1])}`:'Rango máximo alcanzado'}</span></div>
+    <div class="stat"><b>${dom}</b><span>de ${ALLQ.length} preguntas dominadas</span></div>
+    <div class="stat"><b>${fails}</b><span>fallos pendientes de repasar</span></div>
+   </div></section>
+   ${TRAYS.map(([h,p],k)=>`<section class="tray"><header><h2>${h}</h2><p>${p}</p></header><div class="games" data-n="${GAMES.filter(g=>g.tray===k).length}">${GAMES.filter(g=>g.tray===k).map(g=>`<a class="game" href="#${g.id}" ${cv(g.c)}><span class="tile">${ic(g.icon)}</span><b>${g.t}</b><small>${g.d}</small><span class="meta">${meta(g.id)}</span></a>`).join('')}</div></section>`).join('')}
+  </div>`}
+function meta(id){const b=S.best;switch(id){
+ case 'tests':return `${G.sets.length} tests · ${ALLQ.length} preguntas`;
+ case 'examen':{const x=G.exams[0];return `${okN(x.qs)}/${x.qs.length} dominadas`}
+ case 'supervivencia':return b.surv?`Récord: ${b.surv} aciertos`:'Sin récord todavía';
+ case 'fallos':{const n=Object.keys(S.wrong).length;return n?`${n} pendientes`:'Nada pendiente'}
+ case 'verdadero-falso':return b.vf?`Récord: ${b.vf} aciertos`:'Sin récord todavía';
+ case 'parejas':return `${DECKS.length} mazos`;
+ case 'unir':return `${DECKS.length} mazos`;
+ case 'escribe':return `${DECKS.filter(d=>d.typ).length} mazos`;
+ case 'ordena':return `${SEQ.length} secuencias`;
+ case 'clasifica':return `${CLS.length} juegos`;
+ case 'tarjetas':{const n=Object.keys(S.lt).reduce((a,k)=>a+Object.keys(S.lt[k]).length,0);return n?`${n} tarjetas en tus cajas`:'Empieza tu primera caja'}
+}return''}
+
+/* tests por bloque */
+let AMBSEL=null;
+function vTests(){const sel=AMBSEL||G.tree[0].id;const sets=G.sets.filter(s=>s.amb===sel);
+  app.innerHTML=frame('--cyan','layers','Test por bloque');
+  $('#pb').innerHTML=`<div class="setup"><h2>Elige qué quieres preguntar</h2><p>10 preguntas por ronda. Salen primero las que aún no has acertado nunca.</p>
+   <div class="seg">${G.tree.filter(a=>G.sets.some(s=>s.amb===a.id)).map(a=>`<button class="${a.id===sel?'on':''}" data-a="${a.id}">${esc(a.name)}</button>`).join('')}</div>
+   <div class="list" ${cv(COL[sel])}><button class="li all" data-s="*"><b>Todo ${esc(AMB[sel].name)}</b><small>15 preguntas mezcladas</small></button>${sets.map(s=>{const n=okN(s.qs);return `<button class="li" data-s="${s.id}"><b>${esc(s.t)}</b><small>${s.qs.length} preguntas · ${n} dominadas</small><div class="bar"><i style="width:${n/s.qs.length*100}%"></i></div></button>`}).join('')}</div></div>`;
+  document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{AMBSEL=b.dataset.a;vTests()});
+  document.querySelectorAll('.li').forEach(b=>b.onclick=()=>{const id=b.dataset.s;const pool=id==='*'?sets.flatMap(s=>s.qs):G.sets.find(s=>s.id===id).qs;const n=id==='*'?15:10;
+    const go=()=>runMCQ({title:id==='*'?'Todo '+AMB[sel].name:G.sets.find(s=>s.id===id).t,c:COL[sel],icon:AICON[sel]||'layers',items:pick(pool,n),key:'t.'+id,again:go});go()})}
+function vExam(){const x=G.exams[0];app.innerHTML=frame('--cyan','file-text',x.t);
+  $('#pb').innerHTML=`<div class="setup"><h2>${esc(x.t)} · ${esc(x.sub)}</h2><p>Las opciones salen en el mismo orden que en el examen, así que «a y b son correctas» tiene sentido. La respuesta correcta es la marcada en la plantilla oficial.</p>
+   <div class="list" ${cv('--cyan')}><button class="li all" data-m="20"><b>20 preguntas al azar</b><small>Primero las que aún no dominas</small></button><button class="li" data-m="all"><b>Examen completo</b><small>${x.qs.length} preguntas en orden</small><div class="bar"><i style="width:${okN(x.qs)/x.qs.length*100}%"></i></div></button></div></div>`;
+  document.querySelectorAll('.li').forEach(b=>b.onclick=()=>{const all=b.dataset.m==='all';const go=()=>runMCQ({title:x.t,c:'--cyan',icon:'file-text',items:all?x.qs.slice():pick(x.qs,20),key:'x.'+b.dataset.m,again:go});go()})}
+function mixGen(){const r=Math.random();if(r<.7)return shuf(ALLQ)[0];if(r<.85)return shuf(G.exams[0].qs)[0];const d=shuf(BIG)[0];return deckMCQ(d,shuf(d.cards)[0])}
+function vSurv(){const go=()=>runMCQ({title:'Supervivencia',c:'--red',icon:'heart',gen:()=>({...mixGen(),opts:null}),lives:3,timer:20,again:go,onDone:t=>{S.best.surv=Math.max(S.best.surv||0,t.ok);return 0}});go()}
+function vFails(){const list=Object.values(S.wrong);app.innerHTML=frame('--orange','rotate-ccw','Repaso de fallos');
+  if(!list.length){$('#pb').innerHTML=`<div class="empty">No tienes fallos pendientes. Cada pregunta que falles en cualquier juego aparecerá aquí hasta que la aciertes.</div>`;return}
+  const go=()=>{const l=Object.values(S.wrong);if(!l.length)return vFails();runMCQ({title:'Repaso de fallos',c:'--orange',icon:'rotate-ccw',items:shuf(l).slice(0,10).map(w=>({...w,fixed:!!w.o,opts:null,d:w.d&&w.d.length?w.d:[]})).filter(w=>w.fixed||w.d.length),again:go})};go()}
+function vDaily(){const items=[];const byAmb=G.tree.map(a=>G.sets.filter(s=>s.amb===a.id).flatMap(s=>s.qs)).filter(l=>l.length);
+  byAmb.forEach(l=>items.push(pick(l,1)[0]));items.push(pick(G.exams[0].qs,1)[0]);while(items.length<10)items.push(pick(ALLQ,1)[0]);
+  const go=()=>runMCQ({title:'Reto del día',c:'--orange',icon:'flame',items:shuf(items).slice(0,10),key:'daily',again:vDaily,onDone:()=>{if(S.daily!==today()){S.daily=today();return 20}return 0}});go()}
+
+/* verdadero o falso */
+function vVF(){stopT();app.innerHTML=frame('--orange','timer','Verdadero o falso',`<span class="pill" id="vt"></span><span class="pill" id="vs"></span>`);
+  $('#pb').innerHTML=`<div class="setup"><h2>60 segundos</h2><p>Verás una pregunta y una respuesta. Di si esa respuesta es la correcta. Cada acierto suma 1 punto, cada fallo resta 1 segundo.</p><button class="btn pri" id="go" ${cv('--orange')}>${ic('play')}Empezar</button>${S.best.vf?`<p style="margin-top:12px">Tu récord: <b>${S.best.vf}</b></p>`:''}</div>`;
+  $('#go').onclick=()=>{let ok=0,ko=0,end=performance.now()+60000;const wr=[];
+    const draw=()=>{const it=Math.random()<.85?shuf(ALLQ)[0]:shuf(G.exams[0].qs)[0];const truth=Math.random()<.5;const dis=it.fixed?it.o.filter(o=>o!==it.a):it.d;const shown=truth?it.a:shuf(dis)[0];
+      $('#pb').innerHTML=`<div class="timer"><i id="tb" style="width:100%"></i></div><div class="card stmt" id="vc"><div class="qk">${esc(it.k)}</div><div class="qq">${esc(it.q)}</div><div class="lbl">Respuesta propuesta</div><div class="ans">${esc(shown)}</div><div class="vf"><button class="t" id="bt">${ic('check')}Verdadero</button><button class="f" id="bf">${ic('x')}Falso</button></div></div>`;
+      const a=v=>{const good=v===truth;if(good){ok++;$('#vc').classList.add('flash-ok')}else{ko++;end-=1000;wr.push({...it});$('#vc').classList.add('flash-ko')}$('#vs').innerHTML=`${ic('check')}${ok}`;setTimeout(draw,good?160:420)};
+      $('#bt').onclick=()=>a(true);$('#bf').onclick=()=>a(false)};
+    $('#vs').innerHTML=`${ic('check')}0`;draw();
+    TT=setInterval(()=>{const left=Math.max(0,end-performance.now());const tb=$('#tb');if(tb)tb.style.width=(left/600)+'%';$('#vt').innerHTML=`${ic('clock')}${Math.ceil(left/1000)} s`;
+      if(left<=0){stopT();const rec=ok>(S.best.vf||0);if(rec)S.best.vf=ok;addXP(ok);
+        $('#pb').innerHTML=`<div class="card res fade"><div class="qk">${ic('trophy')} Tiempo</div><div class="big">${ok}</div><p>aciertos · ${ko} fallos · <b>+${ok} XP</b>${rec?' · ¡nuevo récord!':''}</p><div class="row"><button class="btn pri" id="again">${ic('rotate-ccw')}Otra vez</button><a class="btn" href="#inicio">${ic('house')}Inicio</a></div>${wr.length?`<div class="rv"><h3>Preguntas en las que dudaste</h3>${wr.slice(0,12).map(w=>`<div>${esc(w.q)}<br>→ <b>${esc(w.a)}</b>${refHTML(w.id,w.a,1)}</div>`).join('')}</div>`:''}</div>`;
+        $('#again').onclick=vVF}},100)}}
+
+/* selector de mazos */
+function deckPicker(c,icon,title,intro,filter,onPick){app.innerHTML=frame(c,icon,title);
+  const sets=[['Mazos grandes',DECKS.filter(d=>filter(d)&&d.p.length>=10)],['Escalas y clasificaciones',DECKS.filter(d=>filter(d)&&d.p.length<10)]].filter(x=>x[1].length);
+  $('#pb').innerHTML=`<div class="setup"><h2>Elige un mazo</h2><p>${intro}</p>${sets.map(([h,l])=>`<h3 style="font-family:var(--f-display);font-size:15px;margin:16px 0 10px">${h}</h3><div class="list">${l.map(d=>`<button class="li" data-d="${d.id}" ${cv(d.c)}><b>${ic(d.icon)} ${esc(d.t)}</b><small>${d.p.length} elementos</small></button>`).join('')}</div>`).join('')}</div>`;
+  document.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>onPick(DK[b.dataset.d]))}
+
+/* parejas (memory) */
+function vPairs(){deckPicker('--violet','grid-2x2','Parejas','Encuentra cada término y su significado. Gana quien lo haga en menos intentos.',d=>d.p.length>=3,playPairs)}
+function playPairs(d){const n=Math.min(6,d.cards.length);const cs=shuf(d.cards).slice(0,n);
+  const tiles=shuf(cs.flatMap(c=>[{c,key:1,txt:c.k},{c,key:0,txt:clip(c.v,90)}]));let open=[],moves=0,found=0,lock=false;const t0=Date.now();
+  app.innerHTML=frame(d.c,'grid-2x2','Parejas · '+d.t,`<span class="pill" id="mv"></span>`);
+  $('#pb').innerHTML=`<div class="mem">${tiles.map((x,i)=>`<button class="mc" data-i="${i}" aria-label="Carta ${i+1}"><span class="in"><span class="fa">${ic(d.icon)}</span><span class="bk ${x.key?'key':''}">${esc(x.txt)}</span></span></button>`).join('')}</div>`;
+  const upd=()=>$('#mv').innerHTML=`${ic('rotate-ccw')}${moves} intentos`;upd();
+  document.querySelectorAll('.mc').forEach(b=>b.onclick=()=>{if(lock||b.classList.contains('on')||b.classList.contains('done'))return;b.classList.add('on');open.push(b);
+    if(open.length===2){moves++;upd();const[a,c]=open.map(x=>tiles[+x.dataset.i]);
+      if(a.c===c.c&&a.key!==c.key){open.forEach(x=>{x.classList.remove('on');x.classList.add('done')});open=[];found++;
+        if(found===n){const secs=Math.round((Date.now()-t0)/1000);const xp=10+(moves<=n+2?5:0);addXP(xp);const k='pairs.'+d.id;const rec=!S.best[k]||moves<S.best[k];if(rec)S.best[k]=moves;save();
+          setTimeout(()=>{$('#pb').innerHTML=`<div class="card res fade" ${cv(d.c)}><div class="qk">${ic('trophy')} ¡Todas encontradas!</div><div class="big">${moves}</div><p>intentos en ${secs} s · <b>+${xp} XP</b>${rec?' · ¡mejor marca en este mazo!':''}</p><div class="row"><button class="btn pri" id="again">${ic('rotate-ccw')}Otra partida</button><button class="btn" id="other">${ic('layers')}Otro mazo</button></div><div class="rv"><h3>Las parejas de esta partida</h3>${cs.map(c=>`<div><b>${esc(c.k)}</b> — ${esc(c.v)}</div>`).join('')}</div></div>`;$('#again').onclick=()=>playPairs(d);$('#other').onclick=vPairs},500)}}
+      else{lock=true;setTimeout(()=>{open.forEach(x=>x.classList.remove('on'));open=[];lock=false},900)}}})}
+
+/* une columnas */
+function vMatch(){deckPicker('--green','git-merge','Une columnas','Toca un término y después su definición. Tres rondas de cinco.',d=>d.p.length>=4,d=>playMatch(d,0,0,0))}
+function playMatch(d,round,ok,ko){const per=Math.min(5,d.cards.length);const cs=shuf(d.cards).slice(0,per);const L=shuf(cs),Rr=shuf(cs);let sel=null,left=per;
+  app.innerHTML=frame(d.c,'git-merge','Une columnas · '+d.t,`<span class="pill">${ic('list-ordered')}Ronda ${round+1} / 3</span><span class="pill" id="mk2"></span>`);
+  const upd=()=>$('#mk2').innerHTML=`${ic('check')}${ok} · ${ic('x')}${ko}`;
+  $('#pb').innerHTML=`<div class="cols"><div class="col">${L.map(c=>`<button class="mt key" data-l="${c.id}">${esc(c.k)}</button>`).join('')}</div><div class="col">${Rr.map(c=>`<button class="mt" data-r="${c.id}">${esc(clip(c.v,110))}</button>`).join('')}</div></div>`;upd();
+  document.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;document.querySelectorAll('[data-l]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b.dataset.l});
+  document.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{if(!sel||b.classList.contains('done'))return;
+    if(b.dataset.r===sel){ok++;b.classList.add('done');const l=document.querySelector(`[data-l="${sel}"]`);l.classList.remove('sel');l.classList.add('done');sel=null;left--;addXP(1);
+      if(!left){if(round<2)setTimeout(()=>playMatch(d,round+1,ok,ko),500);else{const k='match.'+d.id;S.best[k]=Math.max(S.best[k]||0,ok-ko);save();
+        $('#pb').innerHTML=`<div class="card res fade" ${cv(d.c)}><div class="qk">${ic('trophy')} Terminado</div><div class="big">${ok}/${ok+ko}</div><p>emparejamientos acertados al primer intento o después de fallar · <b>+${ok} XP</b></p><div class="row"><button class="btn pri" id="again">${ic('rotate-ccw')}Otra vez</button><button class="btn" id="other">${ic('layers')}Otro mazo</button></div></div>`;$('#again').onclick=()=>playMatch(d,0,0,0);$('#other').onclick=vMatch}}}
+    else{ko++;b.classList.remove('bad');void b.offsetWidth;b.classList.add('bad')}upd()})}
+
+/* escribe la clave */
+const keyNorm=s=>nz(s).replace(/\b(clave|codigo|cod|indicativo|perfil|base)\b/g,'').replace(/[\s\.\-_,]+/g,(m)=>m.includes('.')?'.':'').replace(/^\.+|\.+$/g,'').trim();
+function vType(){deckPicker('--yellow','keyboard','Escribe la clave','Lee el significado y escribe la clave, el código o la sigla. No importan las mayúsculas ni las tildes.',d=>d.typ,playType)}
+function playType(d){const items=shuf(d.cards).slice(0,10);let i=0,ok=0;const wr=[];
+  app.innerHTML=frame(d.c,'keyboard','Escribe · '+d.t,`<span class="pill" id="tp"></span>`);
+  const draw=()=>{if(i>=items.length){const xp=ok*3;addXP(xp);const k='type.'+d.id;S.best[k]=Math.max(S.best[k]||0,ok);save();
+      $('#pb').innerHTML=`<div class="card res fade" ${cv(d.c)}><div class="qk">${ic('trophy')} Resultado</div><div class="big">${ok}/${items.length}</div><p><b>+${xp} XP</b></p><div class="row"><button class="btn pri" id="again">${ic('rotate-ccw')}Otra ronda</button><button class="btn" id="other">${ic('layers')}Otro mazo</button></div>${wr.length?`<div class="rv"><h3>Para repasar</h3>${wr.map(c=>`<div>${esc(c.v)}<br>→ <b>${esc(c.k)}</b></div>`).join('')}</div>`:''}</div>`;$('#again').onclick=()=>playType(d);$('#other').onclick=vType;return}
+    const c=items[i];$('#tp').innerHTML=`${ic('list-ordered')}${i+1} / ${items.length} · ${ic('check')}${ok}`;
+    $('#pb').innerHTML=`<div class="card"><div class="qk">${esc(d.kind)} · ${esc(d.t)}</div><div class="qq">${esc(c.v)}</div><form class="typ" id="tf"><input id="ti" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Escribe aquí" aria-label="Tu respuesta"><button class="btn pri" ${cv(d.c)}>${ic('check')}Comprobar</button></form><div class="fb" id="fb"></div></div>`;
+    $('#ti').focus();
+    $('#tf').onsubmit=e=>{e.preventDefault();const v=$('#ti').value;if(!v.trim())return;const good=[c.k,...c.k.split(/,|\//)].some(k=>keyNorm(k)&&keyNorm(v)===keyNorm(k));$('#ti').disabled=true;$('#tf').querySelector('button').disabled=true;
+      if(good){ok++;S.ok[c.id]=1}else wr.push(c);save();
+      $('#fb').innerHTML=`<span class="msg ${good?'ok':'ko'}">${ic(good?'circle-check':'circle-x')}${good?'¡Exacto!':'No es esa'}</span><div class="exp">${ic('lightbulb')}<span>La respuesta es <b class="mono">${esc(c.k)}</b></span></div><button class="btn sm pri nx" id="nx" ${cv(d.c)}>Siguiente${ic('arrow-right')}</button>`;
+      $('#nx').onclick=()=>{i++;draw()};$('#nx').focus()}};draw()}
+
+/* ordena */
+function vOrder(){app.innerHTML=frame('--cyan','list-ordered','Ordena los pasos');
+  $('#pb').innerHTML=`<div class="setup"><h2>Elige una secuencia</h2><p>Toca los pasos en el orden correcto. Si te equivocas al colocar uno, tócalo otra vez para devolverlo.</p><div class="list" ${cv('--cyan')}>${SEQ.map((s,k)=>`<button class="li" data-q="${k}"><b>${esc(s.t)}</b><small>${s.s.length} pasos · ${esc(s.src)}${S.best['ord.'+k]?' · '+ic('check')+' superada':''}</small></button>`).join('')}</div></div>`;
+  document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>playOrder(+b.dataset.q))}
+function playOrder(k){const s=SEQ[k];let placed=[];const pool=shuf(s.s.map((x,i)=>i));
+  app.innerHTML=frame('--cyan','list-ordered',s.t);
+  const draw=(checked)=>{$('#pb').innerHTML=`<div class="card"><div class="qk">${esc(s.src)}</div><div class="qq">Coloca los ${s.s.length} pasos en orden</div>
+    <div class="ord">${s.s.map((_,i)=>{const p=placed[i];const cls=p===undefined?'':' fill'+(checked?(p===i?' ok':' ko'):'');return `<div class="slot${cls}" data-p="${i}"><span class="n">${i+1}</span><span>${p===undefined?'':esc(s.s[p])}</span></div>`}).join('')}</div>
+    ${checked?'':`<div class="pool">${pool.filter(i=>!placed.includes(i)).map(i=>`<button data-i="${i}">${esc(s.s[i])}</button>`).join('')}</div>`}
+    <div class="fb">${checked?`<span class="msg ${placed.every((p,i)=>p===i)?'ok':'ko'}">${placed.every((p,i)=>p===i)?ic('circle-check')+'¡Orden perfecto!':ic('circle-x')+'Hay pasos fuera de sitio'}</span>${placed.every((p,i)=>p===i)?'':`<div class="exp">${ic('lightbulb')}<span>Orden correcto: ${s.s.map((x,i)=>`<b>${i+1}.</b> ${esc(x)}`).join(' · ')}</span></div>`}<button class="btn sm" id="rt">${ic('rotate-ccw')}Repetir</button><button class="btn sm pri nx" id="nx">Otra secuencia${ic('arrow-right')}</button>`:`<button class="btn sm pri nx" id="ck" ${placed.length<s.s.length?'disabled':''}>${ic('check')}Comprobar</button>`}</div></div>`;
+    if(checked){$('#rt').onclick=()=>playOrder(k);$('#nx').onclick=()=>playOrder((k+1)%SEQ.length);return}
+    document.querySelectorAll('.pool button').forEach(b=>b.onclick=()=>{placed.push(+b.dataset.i);draw()});
+    document.querySelectorAll('.slot.fill').forEach(b=>b.onclick=()=>{placed.splice(+b.dataset.p,1);draw()});
+    $('#ck').onclick=()=>{const perfect=placed.every((p,i)=>p===i);if(perfect){addXP(5);S.best['ord.'+k]=1;save();popup('+5 XP')}else{const n=placed.filter((p,i)=>p===i).length;addXP(Math.max(0,n-1))}draw(true)}};draw()}
+
+/* clasifica */
+function vClass(){app.innerHTML=frame('--red','columns-3','Clasifica');
+  $('#pb').innerHTML=`<div class="setup"><h2>Elige un juego</h2><p>Te saldrá un caso cada vez. Mándalo al cajón que le corresponde.</p><div class="list" ${cv('--red')}>${CLS.map((c,k)=>`<button class="li" data-c="${k}"><b>${esc(c.t)}</b><small>${c.i.length} casos · ${c.b.length} cajones${S.best['cls.'+k]!==undefined?' · récord '+S.best['cls.'+k]+'/'+c.i.length:''}</small></button>`).join('')}</div></div>`;
+  document.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>playClass(+b.dataset.c))}
+function playClass(k){const c=CLS[k];const items=shuf(c.i);let i=0,ok=0;const wr=[];
+  app.innerHTML=frame('--red','columns-3',c.t,`<span class="pill" id="cp"></span>`);
+  const draw=()=>{if(i>=items.length){addXP(ok);const rec=ok>(S.best['cls.'+k]||0);if(rec||S.best['cls.'+k]===undefined)S.best['cls.'+k]=Math.max(ok,S.best['cls.'+k]||0);save();
+      $('#pb').innerHTML=`<div class="card res fade"><div class="qk">${ic('trophy')} Resultado</div><div class="big">${ok}/${items.length}</div><p><b>+${ok} XP</b></p><div class="row"><button class="btn pri" id="again">${ic('rotate-ccw')}Otra vez</button><button class="btn" id="other">${ic('columns-3')}Otro juego</button></div>${wr.length?`<div class="rv"><h3>Corrige estos</h3>${wr.map(([t,b])=>`<div>${esc(t)}<br>→ <b>${esc(c.b[b])}</b></div>`).join('')}</div>`:''}</div>`;$('#again').onclick=()=>playClass(k);$('#other').onclick=vClass;return}
+    const [t,b]=items[i];$('#cp').innerHTML=`${ic('list-ordered')}${i+1} / ${items.length} · ${ic('check')}${ok}`;
+    $('#pb').innerHTML=`<div class="card"><div class="qk">${esc(c.src)}</div><div class="item">${esc(t)}</div><div class="bins">${c.b.map((x,j)=>`<button data-b="${j}">${esc(x)}</button>`).join('')}</div><div class="fb" id="fb"></div></div>`;
+    document.querySelectorAll('[data-b]').forEach(x=>x.onclick=()=>{const j=+x.dataset.b;document.querySelectorAll('[data-b]').forEach(y=>{y.disabled=true;if(+y.dataset.b===b)y.classList.add('ok')});
+      if(j===b){ok++;setTimeout(()=>{i++;draw()},450)}else{x.classList.add('ko');wr.push(items[i]);$('#fb').innerHTML=`<span class="msg ko">${ic('circle-x')}Va en «${esc(c.b[b])}»</span><button class="btn sm pri nx" id="nx">Siguiente${ic('arrow-right')}</button>`;$('#nx').onclick=()=>{i++;draw()};$('#nx').focus()}})};draw()}
+
+/* tarjetas con repaso espaciado (Leitner) */
+const BOXD=[0,1,3,7,14];
+const flashSources=()=>[...DECKS.map(d=>({id:'d.'+d.id,t:d.t,icon:d.icon,c:d.c,cards:d.cards.map(x=>({id:x.id,f:x.k,b:x.v,key:1}))})),
+  ...G.sets.map(s=>({id:'s.'+s.id,t:s.t,icon:AICON[s.amb]||'layers',c:COL[s.amb],amb:s.amb,cards:s.qs.map(q=>({id:q.id,f:q.q,b:q.a,e:q.e}))}))];
+function vFlash(){const src=flashSources();app.innerHTML=frame('--violet','layers-2','Tarjetas con repaso espaciado');
+  const row=x=>{const st=S.lt[x.id]||{};const n=Object.keys(st).length;const due=x.cards.filter(c=>!st[c.id]||st[c.id].due<=Date.now()).length;return `<button class="li" data-f="${x.id}" ${cv(x.c)}><b>${ic(x.icon)} ${esc(x.t)}</b><small>${x.cards.length} tarjetas${n?` · ${due} para hoy`:''}</small>${n?`<div class="bar"><i style="width:${x.cards.filter(c=>st[c.id]&&st[c.id].box>=4).length/x.cards.length*100}%"></i></div>`:''}</button>`};
+  $('#pb').innerHTML=`<div class="setup"><h2>Elige un mazo</h2><p>Cada tarjeta empieza en la caja 1. Si la sabes, sube de caja y tarda más en volver (1, 3, 7 y 14 días). Si no, vuelve a la caja 1.</p>
+   <h3 style="font-family:var(--f-display);font-size:15px;margin:16px 0 10px">Claves, códigos y escalas</h3><div class="list">${src.filter(x=>x.id.startsWith('d.')).map(row).join('')}</div>
+   <h3 style="font-family:var(--f-display);font-size:15px;margin:20px 0 10px">Preguntas del manual por bloque</h3><div class="list">${src.filter(x=>x.id.startsWith('s.')).map(row).join('')}</div></div>`;
+  document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>playFlash(src.find(x=>x.id===b.dataset.f)))}
+function playFlash(x){const st=S.lt[x.id]=S.lt[x.id]||{};const due=shuf(x.cards.filter(c=>!st[c.id]||st[c.id].due<=Date.now()));
+  const queue=[...due.filter(c=>st[c.id]),...due.filter(c=>!st[c.id])].slice(0,20);let i=0,known=0;
+  app.innerHTML=frame(x.c,'layers-2',x.t,`<span class="pill" id="fp"></span>`);
+  const boxes=()=>{const n=[0,0,0,0,0];x.cards.forEach(c=>{if(st[c.id])n[st[c.id].box-1]++});return `<div class="boxes">${n.map((v,k)=>`<div><b>${v}</b>Caja ${k+1}</div>`).join('')}</div>`};
+  const draw=()=>{if(i>=queue.length){addXP(known);save();$('#pb').innerHTML=`<div class="card res fade" ${cv(x.c)}><div class="qk">${ic('trophy')} Sesión terminada</div><div class="big">${known}/${queue.length}</div><p>${queue.length?'tarjetas que ya sabías':'No tienes tarjetas pendientes hoy en este mazo.'} · <b>+${known} XP</b></p>${boxes()}<div class="row"><button class="btn pri" id="more">${ic('plus')}Seguir con este mazo</button><button class="btn" id="other">${ic('layers-2')}Otro mazo</button></div></div>`;
+      $('#more').onclick=()=>{x.cards.forEach(c=>{if(st[c.id]&&st[c.id].due>Date.now()&&st[c.id].box<3)st[c.id].due=0});playFlash(x)};$('#other').onclick=vFlash;return}
+    const c=queue[i];$('#fp').innerHTML=`${ic('list-ordered')}${i+1} / ${queue.length}`;
+    $('#pb').innerHTML=`<button class="fc" id="fc" aria-label="Dar la vuelta"><span class="in"><span class="fa"><span class="hint">Toca para ver la respuesta</span><span class="main ${c.key?'key':''}">${esc(c.f)}</span><span class="hint">Caja ${st[c.id]?st[c.id].box:1}</span></span><span class="bk"><span class="hint">Respuesta</span><span class="main">${esc(c.b)}</span>${c.e?`<span class="sub">${esc(c.e)}</span>`:''}</span></span></button>
+      <div class="rate" id="rt" hidden><button class="btn" id="no" style="--c:var(--bad)">${ic('x')}No lo sabía</button><button class="btn pri" id="si" style="--c:var(--ok)">${ic('check')}Lo sabía</button></div>${boxes()}`;
+    $('#fc').onclick=()=>{$('#fc').classList.toggle('on');$('#rt').hidden=false};
+    const rate=good=>{const cur=st[c.id]||{box:1};const box=good?Math.min(5,(st[c.id]?cur.box+1:2)):1;st[c.id]={box,due:Date.now()+BOXD[box-1]*864e5};if(good){known++;S.ok[c.id]=1}save();i++;draw()};
+    $('#no').onclick=()=>rate(false);$('#si').onclick=()=>rate(true)};draw()}
+
+/* ---------- router y tema ---------- */
+function route(){stopT();const h=location.hash.slice(1)||'inicio';
+  ({inicio:vHome,reto:vDaily,tests:vTests,examen:vExam,supervivencia:vSurv,fallos:vFails,'verdadero-falso':vVF,parejas:vPairs,unir:vMatch,escribe:vType,ordena:vOrder,clasifica:vClass,tarjetas:vFlash}[h]||vHome)();
+  drawTop();scrollTo(0,0)}
+addEventListener('hashchange',route);
+addEventListener('keydown',e=>{if(!/^[1-4a-d]$/i.test(e.key)||document.activeElement.tagName==='INPUT')return;const k='1234'.includes(e.key)?'1234'.indexOf(e.key):'abcd'.indexOf(e.key.toLowerCase());const b=document.querySelectorAll('.opt')[k];b&&!b.disabled&&b.click()});
+$('#mk').innerHTML=ic('dumbbell');
+const th=()=>{const cur=document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');$('#theme').innerHTML=ic(cur==='dark'?'sun':'moon')};
+$('#theme').onclick=()=>{const cur=document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=cur==='dark'?'light':'dark';try{localStorage.setItem('samurpc-juegos-theme',document.documentElement.dataset.theme)}catch(e){}th()};
+try{const t=localStorage.getItem('samurpc-juegos-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}
+th();route();
+</script>
+</body>
+</html>

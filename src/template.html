@@ -73,6 +73,12 @@ h1,h2,h3{text-wrap:balance}
 .brand .mark .ic{position:relative;z-index:1;width:20px;height:20px}
 .brand b{font-family:var(--f-display);font-weight:700;font-size:15px;letter-spacing:.01em;line-height:1}
 .brand small{display:block;font-size:11px;color:var(--fg3);letter-spacing:.12em;text-transform:uppercase;margin-top:3px}
+.brand.ent{padding:5px 14px 5px 5px;border-radius:14px;border:1px solid var(--line2);background:var(--panel);transition:border-color .15s,transform .15s}
+.brand.ent:hover{border-color:var(--orange);transform:translateY(-1px)}
+.brand.ent .mark{width:32px;height:32px;border-radius:9px}
+.brand.ent .mark .ic{width:18px;height:18px}
+.brand.ent b{font-size:13.5px}
+.brand.ent small{font-family:var(--f-mono);font-size:10px;letter-spacing:.14em}
 .search{flex:1;min-width:0;position:relative;max-width:560px;margin-left:auto}
 .search input{width:100%;height:42px;border-radius:12px;border:1px solid var(--line2);background:var(--panel);color:var(--fg);padding:0 14px 0 40px;font:inherit;font-size:15px}
 .search input::placeholder{color:var(--fg3)}
@@ -90,6 +96,8 @@ h1,h2,h3{text-wrap:balance}
 .navrow a:hover{background:var(--panel)}
 .navrow a.on{background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--fg);border-color:color-mix(in srgb,var(--c) 40%,transparent)}
 @media (max-width:720px){.xp span,.brand small,.search kbd{display:none}.brand b{font-size:13px}.top .wrap{gap:8px}}
+@media (max-width:1060px){.brand.ent small{display:none}}
+@media (max-width:900px){.brand.ent{padding:5px}.brand.ent>span:last-child{display:none}}
 @media (max-width:460px){.brand b{display:none}}
 
 main{padding-block:28px 80px;min-height:70vh}
@@ -448,6 +456,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 <header class="top">
   <div class="wrap">
     <a class="brand" href="#inicio"><span class="mark" id="markIc"></span><span><b>SAMUR·PC</b><small>Manual 2026 interactivo</small></span></a>
+    <a class="brand ent" href="juegos.html" title="Abrir Entreno SAMUR·PC: tests, juegos y memoria"><span class="mark" id="entIc"></span><span><b>Entreno SAMUR·PC</b><small>Tests · juegos · memoria</small></span></a>
     <label class="search"><span id="sIc"></span><input id="q" type="search" placeholder="Busca un procedimiento, fármaco, clave…" autocomplete="off" aria-label="Buscar en el manual"><kbd>/</kbd></label>
     <a class="xp" href="#repaso" id="xp"></a>
     <button class="iconbtn" id="theme" aria-label="Cambiar tema"></button>
@@ -954,7 +963,7 @@ const themeBtn=$('#theme');
 function curDark(){const t=document.documentElement.dataset.theme;return t?t==='dark':!matchMedia('(prefers-color-scheme: light)').matches}
 function drawTheme(){themeBtn.innerHTML=ic(curDark()?'sun':'moon')}
 themeBtn.onclick=()=>{document.documentElement.dataset.theme=curDark()?'light':'dark';drawTheme()};
-$('#markIc').innerHTML=ic('ambulance');$('#sIc').innerHTML=ic('search');
+$('#markIc').innerHTML=ic('ambulance');$('#entIc').innerHTML=ic('dumbbell');$('#sIc').innerHTML=ic('search');
 $('#foot').textContent=`${P.length} procedimientos · ${D.drugs.length} fármacos · ${D.abbr.length} abreviaturas`;
 drawTheme();drawXP();route();
 </script>
