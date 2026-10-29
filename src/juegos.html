@@ -311,6 +311,88 @@ main{padding-block:22px 60px}
 .case-intro{margin:8px 0 12px;padding:12px 14px;border-radius:12px;background:var(--panel2);color:var(--fg2);font-size:15px;line-height:1.5}
 .cons{display:flex;gap:10px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--bad) 10%,var(--panel2));border:1px solid color-mix(in srgb,var(--bad) 35%,var(--line));font-size:14.5px;margin:10px 0}
 .cons .ic{color:var(--bad);margin-top:1px}
+
+/* simulacro */
+.sim h3{font-family:var(--f-display);font-size:15px;margin:20px 0 10px}
+.amb-list{display:grid;gap:8px}
+.amb{border:1px solid var(--line2);border-radius:14px;background:var(--panel)}
+.amb summary,.amb.exrow{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;list-style:none}
+.amb summary::-webkit-details-marker{display:none}
+.amb .an{display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex:1;min-width:0}
+.amb .an .ic{color:var(--c)}
+.amb .an small{color:var(--fg3);font-size:12.5px;flex-basis:100%;margin-left:28px}
+.amb .chev{color:var(--fg3);transition:transform .2s}
+.amb[open] .chev{transform:rotate(180deg)}
+.ck{position:relative;display:grid;place-items:center;flex:none}
+.ck input{position:absolute;opacity:0;width:26px;height:26px;margin:0;cursor:pointer}
+.ck .box{width:26px;height:26px;border-radius:8px;border:2px solid var(--line2);display:grid;place-items:center;color:transparent;background:var(--panel2)}
+.ck .box .ic{width:16px;height:16px}
+.ck input:checked+.box{background:var(--c);border-color:var(--c);color:var(--on-accent)}
+.ck input:focus-visible+.box{outline:2px solid var(--c);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 14px}
+.chips button{padding:7px 11px;border-radius:999px;border:1px solid var(--line2);background:var(--panel2);font-size:13px;font-weight:600;text-align:left}
+.chips button small{color:var(--fg3);font-weight:700;margin-left:2px}
+.chips button.on{background:color-mix(in srgb,var(--c) 16%,var(--panel));border-color:var(--c)}
+.simgo{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:22px;padding:16px;border-radius:16px;background:color-mix(in srgb,var(--cyan) 9%,var(--panel));border:1px solid color-mix(in srgb,var(--cyan) 35%,var(--line))}
+.simgo b{display:block;font-family:var(--f-display);font-size:17px}
+.simgo small{color:var(--fg2);font-size:13.5px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.hist{display:grid;gap:6px}
+.hist div{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding:10px 12px;border-radius:12px;background:var(--panel);border:1px solid var(--line)}
+.hist b{font-family:var(--f-display);font-size:18px;color:var(--cyan);min-width:48px}
+.hist span{font-size:13.5px;color:var(--fg2)} .hist small{margin-left:auto;color:var(--fg3);font-size:12.5px}
+.opt.pick{border-color:var(--c);background:color-mix(in srgb,var(--c) 14%,var(--panel2))}
+.opt.pick .k{background:var(--c);color:var(--on-accent)}
+.simnav{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.simnav .pri{margin-left:auto}
+.simnav .fl{border-color:var(--yellow);color:var(--yellow)}
+.pill.warn{border-color:var(--bad);color:var(--bad)}
+.grid-q{margin-top:14px;border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:10px 14px}
+.grid-q summary{cursor:pointer;display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;color:var(--fg2)}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(40px,1fr));gap:6px;margin-top:10px}
+.qgrid button{height:36px;border-radius:9px;border:1px solid var(--line2);background:var(--panel2);font-family:var(--f-mono);font-weight:700;font-size:13px;position:relative}
+.qgrid button.a{background:color-mix(in srgb,var(--cyan) 22%,var(--panel2));border-color:var(--cyan)}
+.qgrid button.f::after{content:"";position:absolute;top:3px;right:3px;width:7px;height:7px;border-radius:50%;background:var(--yellow)}
+.qgrid button.cur{box-shadow:0 0 0 2px var(--fg)}
+.simres{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%}
+.simres div{padding:10px;border-radius:12px;background:var(--panel2);border:1px solid var(--line);font-size:12.5px;color:var(--fg3)}
+.simres b{display:block;font-family:var(--f-display);font-size:22px;color:var(--fg)}
+.simres .ok b{color:var(--ok)} .simres .ko b{color:var(--bad)} .simres .bl b{color:var(--fg3)}
+@media (max-width:520px){.simres{grid-template-columns:repeat(2,1fr)}}
+.byamb{display:grid;gap:6px;width:100%;text-align:left}
+.byamb div{display:grid;grid-template-columns:minmax(0,1fr) 120px 50px;gap:10px;align-items:center;font-size:13.5px}
+.byamb .bar{height:8px;border-radius:99px;background:var(--panel2);overflow:hidden}
+.byamb .bar i{display:block;height:100%;background:var(--c)}
+.byamb b{font-family:var(--f-mono);font-size:13px;text-align:right}
+.rq{padding:12px 14px;border-radius:14px;background:var(--panel2);border:1px solid var(--line);border-left:4px solid var(--fg3);display:grid;gap:6px;margin-top:8px}
+.rq.ok{border-left-color:var(--ok)} .rq.ko{border-left-color:var(--bad)}
+.rqh{display:flex;gap:10px;align-items:flex-start;font-size:14.5px}
+.rqh .n{font-family:var(--f-mono);font-weight:700;font-size:12px;padding:2px 7px;border-radius:7px;background:var(--bg2);flex:none}
+.ro{display:flex;gap:8px;font-size:13.5px;color:var(--fg2);padding:4px 8px;border-radius:8px}
+.ro .k{font-family:var(--f-mono);font-weight:700;font-size:12px;color:var(--fg3)}
+.ro.g{background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--fg)} .ro.g .k{color:var(--ok)}
+.ro.b{background:color-mix(in srgb,var(--bad) 12%,transparent);color:var(--fg)} .ro.b .k{color:var(--bad)}
+.rq .exp{display:flex;gap:8px;font-size:13.5px;color:var(--fg2)} .rq .exp .ic{color:var(--yellow);width:16px;height:16px;flex:none;margin-top:2px}
+/* truco y parecidos */
+.tip{flex:1 1 100%;display:flex;gap:10px;padding:11px 14px;border-radius:14px;background:color-mix(in srgb,var(--violet) 10%,var(--panel2));border:1px solid color-mix(in srgb,var(--violet) 32%,var(--line));color:var(--fg2);font-size:14px;line-height:1.5;text-align:left}
+.tip .ic{color:var(--violet);flex:none;margin-top:1px}
+.tip b{color:var(--fg)}
+.conf{display:grid;gap:8px}
+.cg{border:1px solid var(--line2);border-radius:14px;background:var(--panel);padding:0 14px}
+.cg summary{display:flex;align-items:center;gap:10px;padding:13px 0;cursor:pointer;list-style:none}
+.cg summary::-webkit-details-marker{display:none}
+.cg summary b{flex:1;font-size:15px} .cg summary small{color:var(--fg3);font-size:12.5px}
+.cg .chev{color:var(--fg3);transition:transform .2s} .cg[open] .chev{transform:rotate(180deg)}
+.cgi{display:grid;gap:6px;margin-bottom:10px}
+.cgi div{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:12px;padding:9px 12px;border-radius:10px;background:var(--panel2);font-size:14px}
+.cgi span{color:var(--fg2)} .cgi b{font-weight:700}
+@media (max-width:520px){.cgi div{grid-template-columns:1fr;gap:2px}}
+.cg .tip{margin-bottom:10px}
+.cg>.btn{margin-bottom:14px}
+/* caza la trampa */
+.opt .ot{display:flex;flex-direction:column;gap:3px}
+.opt .why{font-size:13px;color:var(--fg2);line-height:1.35}
+.opt.ok .why{color:var(--fg)}
 .pop{position:fixed;left:50%;top:38%;transform:translate(-50%,-50%);font-family:var(--f-display);font-size:40px;color:var(--yellow);pointer-events:none;animation:pop .8s ease forwards;z-index:95;text-shadow:0 4px 30px rgba(0,0,0,.35)}
 @keyframes pop{0%{opacity:0;transform:translate(-50%,-30%) scale(.6)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}100%{opacity:0;transform:translate(-50%,-90%) scale(1)}}
 .empty{padding:22px;border-radius:16px;border:1px dashed var(--line2);color:var(--fg2);text-align:center}
@@ -483,7 +565,7 @@ function nextQ(){stopT();const t=T;
     else{t.streak=0;t.wrong.push(it);S.wrong[it.id]={id:it.id,k:it.k,q:it.q,a:it.a,d:it.d||[],o:it.fixed?it.o:null,e:it.e||''};if(t.lives)t.lives--;msg=`<span class="msg ko">${ic('circle-x')}${k<0?'Se acabó el tiempo':'Incorrecto'}</span>`}
     save();$('#ps').innerHTML=`${ic('star')}${t.score}`;if($('#pl'))$('#pl').innerHTML=t.lives>0?ic('heart').repeat(t.lives):'Sin vidas';
     const last=(!t.gen&&t.i+1>=t.items.length)||(!!t.gen&&t.lives<=0);
-    $('#fb').innerHTML=msg+(it.e?`<div class="exp">${ic('lightbulb')}<span>${esc(it.e)}</span></div>`:(!right?`<div class="exp">${ic('lightbulb')}<span>Respuesta correcta: <b>${esc(it.a)}</b></span></div>`:''))+(!right?refHTML(it.id,it.a):'')+`<button class="btn sm pri nx" id="nx">${last?'Ver resultado':'Siguiente'}${ic('arrow-right')}</button>`;
+    $('#fb').innerHTML=msg+(it.e?`<div class="exp">${ic('lightbulb')}<span>${esc(it.e)}</span></div>`:(!right?`<div class="exp">${ic('lightbulb')}<span>Respuesta correcta: <b>${esc(it.a)}</b></span></div>`:''))+(!right?refHTML(it.id,it.a)+tipHTML(it):'')+`<button class="btn sm pri nx" id="nx">${last?'Ver resultado':'Siguiente'}${ic('arrow-right')}</button>`;
     $('#nx').onclick=()=>{t.i++;nextQ()};$('#nx').focus();
   };
   document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>ans(+b.dataset.k));
@@ -503,6 +585,7 @@ function endMCQ(){stopT();const t=T;const n=t.gen?t.i+(t.lives>0?0:1):t.items.le
 const GAMES=[
  {tray:0,id:'tests',t:'Test por bloque',d:'Elige ámbito y bloque. Con explicación en cada respuesta.',icon:'layers',c:'--cyan'},
  {tray:0,id:'examen',t:'Examen oficial TATS 2024',d:'Las 95 preguntas reales, en orden o 20 al azar.',icon:'file-text',c:'--cyan'},
+ {tray:0,id:'simulacro',t:'Simulacro personalizado',d:'Combina los temas que quieras (SVB, SVA, códigos…) y el examen oficial, con tiempo y penalización.',icon:'clipboard-check',c:'--cyan'},
  {tray:0,id:'supervivencia',t:'Supervivencia',d:'Preguntas sin fin con 3 vidas. De 40 a 75 segundos según lo larga que sea la pregunta.',icon:'heart',c:'--red'},
  {tray:0,id:'fallos',t:'Repaso de fallos',d:'Solo las preguntas que has fallado en cualquier juego.',icon:'rotate-ccw',c:'--orange'},
  {tray:1,id:'verdadero-falso',t:'Verdadero o falso',d:'2 minutos: ¿esta respuesta es correcta?',icon:'timer',c:'--orange'},
@@ -512,6 +595,8 @@ const GAMES=[
  {tray:1,id:'ordena',t:'Ordena los pasos',d:'Arrastra los pasos de cada protocolo (RCP, DEA, OVACE, ictus, PIC, NRBQ…) hasta dejarlos en orden.',icon:'list-ordered',c:'--cyan'},
  {tray:1,id:'clasifica',t:'Clasifica',d:'Manda cada caso a su cajón: prioridades, zonas, gravedad…',icon:'columns-3',c:'--red'},
  {tray:2,id:'tarjetas',t:'Tarjetas con repaso espaciado',d:'Cinco cajas: lo que te cuesta vuelve antes y lo que sabes, más tarde. Con «Repaso de hoy» de todos tus mazos.',icon:'layers-2',c:'--violet'},
+ {tray:2,id:'parecidos',t:'Parecidos que se confunden',d:'Los datos que más se mezclan en un test, con su truco, y el juego «¿Cuál es cuál?».',icon:'scale',c:'--violet'},
+ {tray:2,id:'trampa',t:'Caza la trampa',d:'Opciones que solo cambian en una cifra o una palabra. Te explica por qué cada una es falsa.',icon:'crosshair',c:'--red'},
  {tray:3,id:'casos',t:'Casos clínicos',d:'Decide paso a paso qué harías. Si te desvías, el caso cambia y al final ves en qué fallaste.',icon:'stethoscope',c:'--green'},
  {tray:3,id:'triaje',t:'Simulador de triaje STARS',d:'Un IMV con víctimas y sus datos: clasifícalas a contrarreloj en los tres triajes.',icon:'tags',c:'--red'},
  {tray:3,id:'codigo',t:'¿Qué código es?',d:'Te describen una situación y activas el código correcto entre los 11 del manual.',icon:'hash',c:'--orange'},
@@ -544,6 +629,9 @@ function meta(id){const b=S.best;switch(id){
  case 'ordena':return `${SEQ.length} secuencias`;
  case 'clasifica':return `${CLS.length} juegos`;
  case 'tarjetas':{const n=Object.keys(S.lt).reduce((a,k)=>a+Object.keys(S.lt[k]).length,0);const d=n?dueAll().length:0;return n?`${d} para hoy · ${n} en tus cajas`:'Empieza tu primera caja'}
+ case 'simulacro':{const h=(S.sims||[]).slice(-1)[0];return h?`Último: ${h.nota.toFixed(2)} sobre 10`:'Monta tu primer simulacro'}
+ case 'parecidos':return b.conf!==undefined?`Récord: ${b.conf}/15 · ${CONF.length} grupos`:`${CONF.length} grupos`;
+ case 'trampa':return b.trap!==undefined?`Récord: ${b.trap}/10`:`${TRAP.length} trampas`;
  case 'casos':{const n=CASES.filter(c=>S.best['case.'+c.id]!==undefined).length;return `${CASES.length} casos${n?' · '+n+' hechos':''}`}
  case 'triaje':return b.tri!==undefined?`Récord: ${b.tri}/${TRIN.reduce((x,y)=>x+y)}`:'3 triajes · sin récord';
  case 'codigo':return b.cod!==undefined?`Récord: ${b.cod}/10`:`${CQ.length} situaciones`;
@@ -1063,10 +1151,196 @@ function playCase(C){let i=0,ok=0,cons='';const dev=[];
     $('#again').onclick=()=>playCase(C);$('#menu').onclick=vCases};
   draw()}
 
+/* ---------- simulacro personalizado (modo examen) ---------- */
+const PENS=[[0,'Sin penalización'],[1/3,'Cada 3 fallos restan 1 acierto'],[1/4,'Cada 4 fallos restan 1 acierto']];
+const SIMN=[20,50,95,100];
+let SIMSEL=null;
+function simCfg(){const c=Object.assign({sets:[],ex:0,n:50,min:60,pen:1/3},S.simcfg||{});if(!SIMSEL)SIMSEL=new Set(c.sets);return c}
+function simPool(c){const ids=new Set(SIMSEL);let p=G.sets.filter(s=>ids.has(s.id)).flatMap(s=>s.qs);if(c.ex)p=p.concat(G.exams[0].qs);return p}
+function vSim(){const c=simCfg();app.innerHTML=frame('--cyan','clipboard-check','Simulacro personalizado');
+  const ambs=G.tree.filter(a=>G.sets.some(s=>s.amb===a.id));
+  const draw=()=>{const pool=simPool(c);const n=Math.min(c.n,pool.length);
+    const hist=(S.sims||[]).slice(-5).reverse();
+    $('#pb').innerHTML=`<div class="setup sim"><h2>Monta tu examen</h2><p>Elige los temas que quieras combinar. Las respuestas no se corrigen hasta que entregues, como en el examen de verdad.</p>
+     <h3>1 · Temas</h3>
+     <div class="amb-list">${ambs.map(a=>{const ss=G.sets.filter(s=>s.amb===a.id);const on=ss.filter(s=>SIMSEL.has(s.id)).length;const nq=ss.reduce((x,s)=>x+s.qs.length,0);
+       return `<details class="amb" ${cv(COL[a.id])} ${on&&on<ss.length?'open':''}><summary><label class="ck" onclick="event.stopPropagation()"><input type="checkbox" data-amb="${a.id}" ${on===ss.length?'checked':''}><span class="box">${ic('check')}</span></label><span class="an">${ic(AICON[a.id]||'layers')}<b>${esc(a.name)}</b><small>${on?`${on} de ${ss.length} bloques`:`${ss.length} bloques · ${nq} preguntas`}</small></span>${ic('chevron-down','chev')}</summary>
+        <div class="chips">${ss.map(s=>`<button class="${SIMSEL.has(s.id)?'on':''}" data-set="${s.id}">${esc(s.t)} <small>${s.qs.length}</small></button>`).join('')}</div></details>`}).join('')}
+       <label class="amb exrow" ${cv('--orange')}><span class="ck"><input type="checkbox" id="sx" ${c.ex?'checked':''}><span class="box">${ic('check')}</span></span><span class="an">${ic('file-text')}<b>Examen oficial TATS 2024</b><small>${G.exams[0].qs.length} preguntas reales</small></span></label></div>
+     <h3>2 · Número de preguntas</h3><div class="seg" id="sn">${SIMN.map(v=>`<button class="${c.n===v?'on':''}" data-n="${v}">${v}</button>`).join('')}<button class="${!SIMN.includes(c.n)?'on':''}" data-n="0">Todas las elegidas</button></div>
+     <h3>3 · Tiempo</h3><div class="seg" id="st">${[[0,'Sin límite'],[30,'30 min'],[60,'60 min'],[90,'90 min'],[120,'120 min'],[-1,'1 min por pregunta']].map(([v,t])=>`<button class="${c.min===v?'on':''}" data-m="${v}">${t}</button>`).join('')}</div>
+     <h3>4 · Penalización</h3><div class="seg" id="sp">${PENS.map(([v,t],k)=>`<button class="${Math.abs(c.pen-v)<1e-6?'on':''}" data-p="${k}">${t}</button>`).join('')}</div>
+     <div class="simgo"><div><b>${pool.length?`${n} preguntas`:'Elige al menos un tema'}</b><small>${pool.length?`de ${pool.length} disponibles · ${c.min===0?'sin límite de tiempo':c.min<0?n+' minutos':c.min+' minutos'} · ${PENS.find(p=>Math.abs(p[0]-c.pen)<1e-6)[1].toLowerCase()}`:'Puedes mezclar bloques de distintos ámbitos y el examen oficial.'}</small></div><button class="btn pri" id="go" ${pool.length?'':'disabled'}>${ic('play')}Empezar simulacro</button></div>
+     ${hist.length?`<h3>Tus últimos simulacros</h3><div class="hist">${hist.map(h=>`<div><b>${h.nota.toFixed(2)}</b><span>${h.ok} aciertos · ${h.ko} fallos · ${h.bl} en blanco · ${h.n} preguntas</span><small>${esc(h.d)}</small></div>`).join('')}</div>`:''}</div>`;
+    document.querySelectorAll('[data-amb]').forEach(x=>x.onchange=()=>{G.sets.filter(s=>s.amb===x.dataset.amb).forEach(s=>x.checked?SIMSEL.add(s.id):SIMSEL.delete(s.id));draw()});
+    document.querySelectorAll('[data-set]').forEach(b=>b.onclick=()=>{const id=b.dataset.set;SIMSEL.has(id)?SIMSEL.delete(id):SIMSEL.add(id);const open=b.closest('details');draw();const d=document.querySelector(`details [data-set="${id}"]`);if(d)d.closest('details').open=true});
+    $('#sx').onchange=e=>{c.ex=e.target.checked?1:0;draw()};
+    document.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{c.n=+b.dataset.n||9999;draw()});
+    document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{c.min=+b.dataset.m;draw()});
+    document.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{c.pen=PENS[+b.dataset.p][0];draw()});
+    $('#go').onclick=()=>{c.sets=[...SIMSEL];S.simcfg=c;save();const items=shuf(pool).slice(0,n).map(it=>({...it,opts:it.fixed?it.o:shuf([it.a,...it.d])}));playSim(items,c)}};
+  draw()}
+function playSim(items,c){stopT();const N=items.length;const ans=new Array(N).fill(-1),flag=new Array(N).fill(0);let i=0,done=false;const v0=APPV;
+  const secs=c.min===0?0:(c.min<0?N:c.min)*60;const t0=performance.now();
+  app.innerHTML=frame('--cyan','clipboard-check','Simulacro',`${secs?'<span class="pill" id="sclk"></span>':''}<span class="pill" id="sans"></span>`);
+  const tick=()=>{if(!secs||done)return;const left=Math.max(0,secs-(performance.now()-t0)/1000);const el=$('#sclk');if(!el)return stopT();const m=Math.floor(left/60),s=Math.floor(left%60);el.innerHTML=`${ic('clock')}${m}:${String(s).padStart(2,'0')}`;el.classList.toggle('warn',left<120);if(left<=0)finish(true)};
+  const cnt=()=>{$('#sans').innerHTML=`${ic('check')}${ans.filter(a=>a>=0).length} / ${N}`};
+  const draw=()=>{const it=items[i];cnt();
+    $('#pb').innerHTML=`<div class="card" ${cv('--cyan')}><div class="qk">Pregunta ${i+1} de ${N} · ${esc(it.k)}</div><div class="qq">${esc(it.q)}</div>
+      <div class="opts">${it.opts.map((o,k)=>`<button class="opt sim${ans[i]===k?' pick':''}" data-k="${k}"><span class="k">${'ABCD'[k]}</span><span>${esc(o)}</span></button>`).join('')}</div>
+      <div class="simnav"><button class="btn sm" id="pv" ${i?'':'disabled'}>${ic('arrow-left')}Anterior</button><button class="btn sm" id="bl" ${ans[i]<0?'disabled':''}>${ic('eraser')}Dejar en blanco</button><button class="btn sm${flag[i]?' fl':''}" id="fg">${ic('flag')}${flag[i]?'Marcada':'Marcar para revisar'}</button><button class="btn sm pri" id="nx">${i+1<N?'Siguiente':'Revisar y entregar'}${ic('arrow-right')}</button></div></div>
+      <details class="grid-q" ${N<=60?'open':''}><summary>${ic('layout-grid')}Ver todas las preguntas</summary><div class="qgrid">${items.map((_,k)=>`<button class="${ans[k]>=0?'a':''}${flag[k]?' f':''}${k===i?' cur':''}" data-g="${k}">${k+1}</button>`).join('')}</div></details>
+      <div class="fb"><button class="btn" id="end" ${cv('--orange')}>${ic('send')}Entregar examen</button></div>`;
+    document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const k=+b.dataset.k;ans[i]=k;document.querySelectorAll('.opt').forEach(x=>x.classList.toggle('pick',+x.dataset.k===k));$('#bl').disabled=false;cnt();const g=document.querySelector(`[data-g="${i}"]`);if(g)g.classList.add('a')});
+    $('#pv').onclick=()=>{i--;draw()};$('#nx').onclick=()=>{if(i+1<N){i++;draw()}else confirmEnd()};
+    $('#bl').onclick=()=>{ans[i]=-1;draw()};$('#fg').onclick=()=>{flag[i]^=1;draw()};
+    document.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{i=+b.dataset.g;draw()});$('#end').onclick=confirmEnd};
+  const confirmEnd=()=>{const bl=ans.filter(a=>a<0).length,fl=flag.filter(Boolean).length;
+    $('#pb').innerHTML=`<div class="card res fade" ${cv('--orange')}><div class="qk">${ic('send')} ¿Entregar el examen?</div><div class="big">${N-bl}/${N}</div><p>respondidas${bl?` · <b>${bl} en blanco</b>`:''}${fl?` · ${fl} marcadas para revisar`:''}</p><div class="row"><button class="btn" id="back">${ic('arrow-left')}Seguir revisando</button><button class="btn pri" id="ok">${ic('send')}Entregar</button></div></div>`;
+    $('#back').onclick=draw;$('#ok').onclick=()=>finish(false)};
+  const finish=(timeUp)=>{if(done||v0!==APPV)return;done=true;stopT();
+    let ok=0,ko=0,bl=0;const byA={};
+    items.forEach((it,k)=>{const good=it.opts.indexOf(it.a);const am=it.amb||'examen';byA[am]=byA[am]||[0,0];byA[am][1]++;
+      if(ans[k]<0)bl++;else if(ans[k]===good){ok++;byA[am][0]++;S.ok[it.id]=1;if(S.wrong[it.id])delete S.wrong[it.id]}
+      else{ko++;S.wrong[it.id]={id:it.id,k:it.k,q:it.q,a:it.a,d:it.d||[],o:it.fixed?it.o:null,e:it.e||''}}});
+    const net=Math.max(0,ok-ko*c.pen);const nota=net/N*10;
+    S.sims=(S.sims||[]).concat([{d:new Date().toLocaleDateString('es-ES',{day:'numeric',month:'short'})+' · '+new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}),n:N,ok,ko,bl,nota}]).slice(-20);addXP(ok);save();
+    const usedMin=Math.round((performance.now()-t0)/60000);
+    const row=(it,k)=>{const good=it.opts.indexOf(it.a);const st=ans[k]<0?'bl':ans[k]===good?'ok':'ko';return `<div class="rq ${st}" data-st="${st}"><div class="rqh"><span class="n">${k+1}</span><b>${esc(it.q)}</b></div>${it.opts.map((o,j)=>`<div class="ro${j===good?' g':''}${j===ans[k]&&j!==good?' b':''}"><span class="k">${'ABCD'[j]}</span>${esc(o)}</div>`).join('')}${st!=='ok'&&it.e?`<div class="exp">${ic('lightbulb')}<span>${esc(it.e)}</span></div>`:''}${st!=='ok'?tipHTML(it)+refHTML(it.id,it.a,1):''}</div>`};
+    $('#sans').innerHTML=`${ic('check')}${ok} / ${N}`;if($('#sclk'))$('#sclk').innerHTML=`${ic('clock')}${usedMin} min`;
+    $('#pb').innerHTML=`<div class="card res fade" ${cv('--cyan')}><div class="qk">${ic('trophy')} ${timeUp?'Se acabó el tiempo':'Examen entregado'}</div><div class="big">${nota.toFixed(2)}</div><p>nota sobre 10 · ${PENS.find(p=>Math.abs(p[0]-c.pen)<1e-6)[1].toLowerCase()}</p>
+      <div class="simres"><div class="ok"><b>${ok}</b>aciertos</div><div class="ko"><b>${ko}</b>fallos</div><div class="bl"><b>${bl}</b>en blanco</div><div><b>${net.toFixed(2)}</b>puntos netos</div></div>
+      <div class="byamb">${Object.entries(byA).map(([a,[o,t]])=>`<div ${cv(COL[a]||'--orange')}><span>${esc(AMB[a]?AMB[a].name:'Examen oficial')}</span><div class="bar"><i style="width:${o/t*100}%"></i></div><b>${o}/${t}</b></div>`).join('')}</div>
+      <div class="row"><button class="btn pri" id="again">${ic('rotate-ccw')}Otro simulacro igual</button><button class="btn" id="cfg">${ic('settings')}Cambiar temas</button></div>
+      <div class="rv"><h3>Revisión</h3><div class="seg" id="rf"><button class="on" data-f="mal">Fallos y en blanco (${ko+bl})</button><button data-f="ko">Solo fallos (${ko})</button><button data-f="all">Todas (${N})</button></div><div id="rl"></div></div></div>`;
+    const rl=$('#rl');const show=f=>{rl.innerHTML=items.map((it,k)=>row(it,k)).filter((h,k)=>{const it=items[k];const good=it.opts.indexOf(it.a);const st=ans[k]<0?'bl':ans[k]===good?'ok':'ko';return f==='all'||(f==='ko'&&st==='ko')||(f==='mal'&&st!=='ok')}).join('')||'<div class="empty">Nada que revisar aquí. ¡Muy bien!</div>'};show('mal');
+    document.querySelectorAll('#rf button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#rf button').forEach(x=>x.classList.toggle('on',x===b));show(b.dataset.f)});
+    $('#again').onclick=()=>{const pool=simPool(c);playSim(shuf(pool).slice(0,Math.min(c.n,pool.length)).map(it=>({...it,opts:it.fixed?it.o:shuf([it.a,...it.d])})),c)};$('#cfg').onclick=vSim};
+  if(secs)TT=setInterval(tick,500);tick();draw()}
+
+/* ---------- parecidos que se confunden ---------- */
+/* t: título · i: [etiqueta, dato] · tip: truco para recordarlo · kw: cuándo mostrar el truco al fallar una pregunta */
+const CONF=[
+ {t:'Pulsos y TAS estimada',i:[['Pulso radial presente','TAS mayor de 80 mmHg'],['Pulso femoral presente','TAS mayor de 70 mmHg'],['Pulso carotídeo presente','TAS mayor de 60 mmHg']],tip:'Cuanto más cerca del corazón, menos tensión hace falta para notarlo: radial 80, femoral 70, carotídeo 60. Bajan de 10 en 10 según te acercas al cuello.',kw:/pulso (radial|femoral|carot)/i},
+ {t:'Objetivos de SatO2',i:[['Objetivo general (convulsiones, respiratorio)','SatO2 entre 94 y 96 %'],['Paciente con EPOC','SatO2 entre 88 y 92 %'],['Posible ictus','Mínimo 92 %; no dar O2 si supera el 96 %'],['Inconsciente que respira (SVB instrumental)','Dar O2 si la SatO2 es menor del 94 %'],['Dolor torácico (SVB)','Dar O2 si la SatO2 es menor del 90 %']],tip:'El EPOC va un escalón por debajo: 88-92. El resto busca 94-96. En el dolor torácico solo hay oxígeno por debajo de 90, y en el ictus nunca por encima de 96.',kw:/sat ?o2|saturaci/i},
+ {t:'Código 15 o Código 15.1',i:[['Código 15','Inestable: TAS < 90 o FC > 120, GCS < 12, penetrante en torso, amputación proximal, quemado > 15 %'],['Código 15.1','Potencialmente grave: un criterio de mecanismo (A) y otro fisiológico (B): FC > 100, TAS < 100, GCS 12-14, FR ≥ 30']],tip:'El .1 es la versión «potencial»: cifras menos extremas (100 en vez de 90 y 120; GCS 12-14 en vez de menos de 12) y necesita mecanismo más alteración.',kw:/c[oó]digo 15|politrauma/i},
+ {t:'Código 16 o Código Infarto',i:[['Código 16 (SCASEST)','Descenso del ST, T negativas o ECG normal; el dolor responde a nitratos'],['Código Infarto (SCACEST)','Elevación del ST que persiste 5 min tras nitroglicerina, BCRIHH o PCR recuperada con ST elevado']],tip:'Infarto: el ST «sube y se queda». Código 16: el ST baja o la elevación es pasajera (menos de 20 minutos).',kw:/c[oó]digo (16|infarto)|scasest|scacest|segmento st/i},
+ {t:'Ictus: 13, 13.1 y Madrid-Direct',i:[['Código 13','NIHSS menor de 10: Unidad de Ictus'],['Código 13.1','NIHSS de 10 o más: Centro de Ictus (fuera del horario laboral)'],['Madrid-Direct 0-1','Unidad de Ictus más cercana'],['Madrid-Direct 2 o más','Probable gran vaso: Centro de Intervencionismo']],tip:'El «.1» y el «2 o más» son los grandes: más déficit, más intervencionismo. El 13 y el 0-1 van a la Unidad de Ictus.',kw:/ictus|nihss|madrid.?direct|c[oó]digo 13/i},
+ {t:'Tiempos del estatus epiléptico',i:[['Estatus convulsivo','T1 a los 5 min · T2 a los 30 min'],['Estatus focal','T1 a los 10 min · T2 a los 60 min'],['Estatus de ausencias','T1 a los 15 min · T2 no definido']],tip:'5-10-15 para el T1: del más aparatoso al más silencioso. El T2 dobla y triplica: 30 y 60.',kw:/estatus|status|c[oó]digo crisis|crisis epil/i},
+ {t:'Niveles de protección NRBQ',i:[['Nivel III','Traje integral y ERA: zona caliente'],['Nivel II','Buzo naranja sellado y ERA: zona templada y tres primeras fases de descontaminación'],['Nivel I','Traje blanco y máscara o FFP: zona fría y última fase de descontaminación']],tip:'A más número, más cerca del peligro: III caliente, II templada, I fría. El ERA solo va en los niveles III y II.',kw:/nivel (i|ii|iii)\b|nbq|nrbq|descontamina/i},
+ {t:'Distancias en incidente químico menor',i:[['Agresión con spray','25 m y siempre fuera del edificio'],['Derrame en edificio','50 m fuera del edificio'],['Derrame en vía pública','75 m'],['Escape de gas ciudad','150 m']],tip:'De 25 en 25 (25, 50, 75) y el gas ciudad dobla al último: 150.',kw:/spray|gas ciudad|derrame|qu[ií]mic/i},
+ {t:'Distancias en incidente químico mayor',i:[['Gas en industria o laboratorio','300 m'],['Líquido en industria o laboratorio','100 m fuera del edificio'],['Incendio de un depósito químico','600 m'],['Riesgo de explosión de un depósito','1000 m']],tip:'Gas 300, líquido 100, incendio 600 (el doble del gas) y explosión 1000.',kw:/200 litros|incidente mayor|explosi[oó]n de un dep/i},
+ {t:'Distancias biológicas y radiológicas',i:[['Dispersión (biológica o radiológica) en edificio','25 m fuera del edificio'],['Dispersión en vía pública','50 m'],['Persona infectada en vía pública','2 m'],['Persona contaminada (radiológico) en vía pública','5 m']],tip:'Dispersión: 25 en edificio y 50 en la calle, igual en biológico y radiológico. Persona en la calle: infectada 2 m, contaminada radiactiva 5 m.',kw:/biol[oó]gic|radiol[oó]gic|radiaci/i},
+ {t:'Grados de hipotermia',i:[['Hipotermia leve','De 32 a 35 ºC'],['Hipotermia moderada','De 28 a 32 ºC'],['Hipotermia grave','Menos de 28 ºC']],tip:'Los cortes son 35, 32 y 28: primero bajas 3 grados y luego 4.',kw:/hipotermi/i},
+ {t:'Niveles de atrapamiento',i:[['Atrapamiento mecánico','No puede salir por el colapso de las puertas'],['Atrapamiento físico I','No puede salir por sus lesiones'],['Atrapamiento físico II','Por sus lesiones y por el colapso de elementos sobre la víctima']],tip:'Mecánico: la culpa es del coche. Físico I: la culpa es de las lesiones. Físico II: de las dos cosas.',kw:/atrapa/i},
+ {t:'Los tres triajes STARS',i:[['1.er triaje (rescate)','En el foco · un TATS, Oficial de rescate (peto morado)'],['2.º triaje (asistencia)','En el PRV, zona templada · médico o enfermero (peto morado «Triaje»)'],['3.er triaje (estabilización)','En el PSA · Responsable del PSA (peto verde «Jefe PSA»)']],tip:'R-A-E del foco hacia fuera: Rescate, Asistencia, Estabilización.',kw:/triaje|stars/i},
+ {t:'Petos en un IMV',i:[['Peto rojo','Jefe de Dispositivo Sanitario'],['Peto verde','Jefe PSA, Filiación, Evacuación y carga, leves'],['Peto morado','Rescate sanitario, Triaje y Numerador'],['Peto azul','Logística Comunicaciones']],tip:'Rojo manda, morado clasifica, verde atiende y registra, azul comunica.',kw:/peto/i},
+ {t:'Prioridades de la Central',i:[['P1','Emergencia: urgencia vital, activación en emergencia'],['P2','Urgencia no vital, activación en emergencia'],['P3','Preferente: no vital con condicionante social'],['P4','Normal: sin activación en emergencia']],tip:'E-U-P-N: Emergencia, Urgencia, Preferente, Normal. Solo P1 y P2 van en emergencia.',kw:/\bP[1-4]\b|prioridad/i},
+ {t:'Edades en los códigos',i:[['Código 9','Entre 16 y 60 años'],['Código 33','45 años o menos'],['ECMO (PCR no traumática)','Menor de 65 años'],['Códigos 13 / 13.1','Mayor de 16 años, sin límite superior']],tip:'De menor a mayor techo: Código 33 hasta 45, Código 9 de 16 a 60, ECMO hasta 65 y el ictus sin techo.',kw:/c[oó]digo (9|33)|ecmo|asistolia/i},
+ {t:'Tiempos de los códigos',i:[['Código 9: hasta la RCP avanzada','Menos de 20 min desde la PCR presenciada'],['Código 9: isquemia caliente','No más de 90 min hasta el hospital'],['Código Infarto','Dolor de más de 20 min y menos de 12 h de evolución'],['Angioplastia primaria','Si el retraso no supera los 120 min'],['Ictus (13 / 13.1)','Menos de 24 h de evolución']],tip:'20 se repite (RCP del Código 9 y dolor del infarto). Luego 90 (isquemia caliente), 120 (angioplastia), 12 h (infarto) y 24 h (ictus).',kw:/isquemia caliente|angioplastia/i},
+ {t:'Frecuencias en el adulto (SVB)',i:[['FR normal','16-24 rpm'],['Taquipnea','Más de 30 rpm'],['Bradipnea','Menos de 10 rpm'],['Bradicardia','Menos de 60 lpm'],['Taquicardia','Más de 120 lpm']],tip:'Respiración: las fronteras son 10 y 30. Corazón: 60 y 120, el doble.',kw:/taquipnea|bradipnea|taquicardia|bradicardia|frecuencia (respiratoria|cardiaca)/i},
+ {t:'Tensión arterial: cuándo pedir USVA',i:[['Urgencia o emergencia hipertensiva','TAS ≥ 220 y/o TAD ≥ 120 tras 5-10 min de reposo'],['USVA sin síntomas','TAS ≥ 180 y/o TAD ≥ 120 mantenidas'],['USVA con afectación de órganos diana','TAS ≥ 180 y/o TAD ≥ 100'],['Embarazada','Cualquier TA elevada: USVA']],tip:'220 define la crisis, pero con 180 ya pides USVA. La diastólica: 120 sola, o 100 si hay síntomas.',kw:/hipertens|tensi[oó]n arterial|\btas\b|\btad\b/i},
+ {t:'Sepsis: qSOFA, Central y NEWS',i:[['qSOFA','GCS < 15, FR ≥ 22, TAS ≤ 100: 2 o más con infección → Código 18'],['Central de Comunicaciones','Fiebre + 2 de: alteración de conciencia, TAS ≤ 100, FR ≥ 22 → SVA como 3.18'],['NEWS','0-4 riesgo bajo · 5-7 medio · más de 7 alto']],tip:'«22 y 100» se repiten en la Central y en el qSOFA. La Central activa un 3.18; el código en la calle es el 18.',kw:/sepsis|qsofa|news|c[oó]digo 18|3\.18/i},
+ {t:'DEA en niños',i:[['Mayores de 8 años','Parches de adulto'],['De 1 a 8 años','Parches pediátricos o modo pediátrico (si no hay, DEA estándar)'],['Menores de 1 año','Aceptable con atenuador si no hay desfibrilador manual']],tip:'El 8 es la frontera: por encima, como un adulto.',kw:/\bdea\b|parche|desfibril/i},
+ {t:'OVACE según la edad',i:[['Adulto o niño mayor de 1 año consciente','5 golpes en la espalda y 5 compresiones abdominales'],['Lactante consciente','5 golpes en la espalda y 5 compresiones torácicas'],['Niño o lactante inconsciente','5 ventilaciones de rescate y compresiones sin comprobar pulso'],['Adulto inconsciente','30 compresiones y 2 ventilaciones']],tip:'El lactante nunca va a la barriga: sus compresiones son en el pecho. Y al niño inconsciente le das 5 ventilaciones antes de comprimir.',kw:/ovace|atragant|heimlich|cuerpo extra/i},
+ {t:'Clasificación Killip',i:[['Killip I','Sin insuficiencia cardiaca'],['Killip II','Crepitantes en la mitad inferior de los campos pulmonares'],['Killip III','Edema agudo de pulmón'],['Killip IV','Shock cardiogénico']],tip:'Va empeorando paso a paso: nada, crepitantes, edema, shock.',kw:/killip/i},
+ {t:'Test de Apgar',i:[['Apgar 0-3','Depresión severa'],['Apgar 4-6','Depresión moderada'],['Apgar 7-10','Recién nacido en buenas condiciones']],tip:'Tres tramos: 0-3 mal, 4-6 regular, 7-10 bien.',kw:/apgar/i},
+ {t:'Laringoscopia Cormack-Lehane',i:[['Grado I','Glotis visible con comisura anterior y posterior'],['Grado II','Solo el aspecto posterior de la glotis'],['Grado III','Solo la epiglotis'],['Grado IV','Solo el paladar duro']],tip:'Cada grado ves menos: todo, la parte de atrás, la epiglotis y por último solo el paladar.',kw:/cormack/i},
+ {t:'Posiciones de traslado',i:[['Posible ictus','Semisentado, cabeza a 45º (Fowler)'],['Shock hipovolémico','Trendelenburg a 30º, salvo TCE'],['Patología respiratoria','Semisentado'],['Inconsciente que respira, sin sospecha de lesión','Posición lateral de seguridad']],tip:'La cabeza arriba para el cerebro y los pulmones; las piernas arriba para el shock (si no hay TCE).',kw:/fowler|trendelen|semisentad|posici[oó]n (lateral|de traslado)/i},
+];
+const tipHTML=it=>{const s=(it.q||'')+' '+(it.a||'');const g=CONF.find(c=>c.kw.test(s));return g?`<div class="tip">${ic('sparkles')}<span><b>Truco · ${esc(g.t)}:</b> ${esc(g.tip)}</span></div>`:''};
+function vConf(){app.innerHTML=frame('--violet','scale','Parecidos que se confunden');
+  $('#pb').innerHTML=`<div class="setup"><h2>Lo que más se mezcla en un test</h2><p>Datos que se parecen tanto que en el examen es fácil cambiarlos. Repasa cada grupo con su truco y luego ponte a prueba con «¿Cuál es cuál?».</p>
+   <div class="row" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px"><button class="btn pri" id="gq" ${cv('--violet')}>${ic('shuffle')}¿Cuál es cuál? (todo mezclado)</button></div>
+   <div class="conf">${CONF.map((g,k)=>`<details class="cg" ${cv('--violet')}><summary><b>${esc(g.t)}</b><small>${g.i.length} datos</small>${ic('chevron-down','chev')}</summary><div class="cgi">${g.i.map(([a,b])=>`<div><span>${esc(a)}</span><b>${esc(b)}</b></div>`).join('')}</div><div class="tip">${ic('sparkles')}<span>${esc(g.tip)}</span></div><button class="btn sm" data-g="${k}">${ic('play')}Practicar este grupo</button></details>`).join('')}</div></div>`;
+  $('#gq').onclick=()=>playConf(null);document.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>playConf(+b.dataset.g))}
+function confItems(gk){const gs=gk===null?CONF.map((g,k)=>k):[gk];const out=[];
+  gs.forEach(k=>{const g=CONF[k];g.i.forEach(([a,b],j)=>{const others=g.i.filter((x,m)=>m!==j);
+    if(Math.random()<.5)out.push({k:g.t,q:`¿A qué corresponde «${b}»?`,a,d:shuf(others.map(x=>x[0])).slice(0,3),tip:g.tip});
+    else out.push({k:g.t,q:`${a}:`,a:b,d:shuf(others.map(x=>x[1])).slice(0,3),tip:g.tip})})});
+  return shuf(out).slice(0,gk===null?15:out.length)}
+function playConf(gk){const items=confItems(gk);let i=0,ok=0;const wr=[];
+  app.innerHTML=frame('--violet','scale',gk===null?'¿Cuál es cuál?':CONF[gk].t,`<span class="pill" id="cp"></span>`);
+  const draw=()=>{if(i>=items.length){addXP(ok);if(gk===null)S.best.conf=Math.max(S.best.conf||0,ok);save();
+      $('#pb').innerHTML=`<div class="card res fade" ${cv('--violet')}><div class="qk">${ic('trophy')} Resultado</div><div class="big">${ok}/${items.length}</div><p><b>+${ok} XP</b></p><div class="row"><button class="btn pri" id="again">${ic('rotate-ccw')}Otra vez</button><button class="btn" id="menu">${ic('scale')}Ver los grupos</button></div>${wr.length?`<div class="rv"><h3>Repasa estos</h3>${wr.map(w=>`<div><small style="color:var(--fg3)">${esc(w.k)}</small><br>${esc(w.q)}<br>→ <b>${esc(w.a)}</b><em>${esc(w.tip)}</em></div>`).join('')}</div>`:''}</div>`;
+      $('#again').onclick=()=>playConf(gk);$('#menu').onclick=vConf;return}
+    const it=items[i];const opts=shuf([it.a,...it.d]);$('#cp').innerHTML=`${ic('list-ordered')}${i+1} / ${items.length} · ${ic('check')}${ok}`;
+    $('#pb').innerHTML=`<div class="card" ${cv('--violet')}><div class="qk">${esc(it.k)}</div><div class="qq">${esc(it.q)}</div><div class="opts">${opts.map((o,k)=>`<button class="opt" data-k="${k}"><span class="k">${'ABCD'[k]}</span><span>${esc(o)}</span></button>`).join('')}</div><div class="fb" id="fb"></div></div>`;
+    document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const k=+b.dataset.k;const good=opts.indexOf(it.a);document.querySelectorAll('.opt').forEach((x,j)=>{x.disabled=true;if(j===good)x.classList.add('ok')});
+      const right=k===good;if(right)ok++;else{b.classList.add('ko');wr.push(it)}
+      $('#fb').innerHTML=`<span class="msg ${right?'ok':'ko'}">${ic(right?'circle-check':'circle-x')}${right?'¡Bien!':'No es ese'}</span><div class="tip">${ic('sparkles')}<span>${esc(it.tip)}</span></div><button class="btn sm pri nx" id="nx">${i+1>=items.length?'Ver resultado':'Siguiente'}${ic('arrow-right')}</button>`;
+      $('#nx').onclick=()=>{i++;draw()};$('#nx').focus()})};draw()}
+
+/* ---------- caza la trampa: opciones casi iguales, con el porqué de cada una ---------- */
+/* [tema, pregunta, [4 opciones], índice correcto, [explicación de cada opción]] */
+const TRAP=[
+ ['SVB instrumental','¿Durante cuánto tiempo se comprueba el pulso carotídeo?',['No más de 10 segundos','No más de 5 segundos','Al menos 10 segundos','No más de 15 segundos'],0,['Correcto: no más de 10 segundos, a la vez que la respiración si es posible.','Los 5 segundos son el máximo para el cambio de compresor, no para el pulso.','Trampa del «al menos»: es un máximo, no un mínimo.','15 segundos retrasan la primera compresión.']],
+ ['SVB instrumental','Profundidad de las compresiones en el adulto:',['Unos 5 cm, sin pasar de 6','Al menos 6 cm','Unos 4 cm, sin pasar de 5','Lo más profundo posible'],0,['Correcto: aproximadamente 5 cm y no más de 6.','6 cm es el límite máximo, no el mínimo.','Se queda corto: son unos 5 cm.','Hay límite: no más de 6 cm.']],
+ ['SVB instrumental','Frecuencia de las compresiones torácicas:',['100-120 por minuto','Al menos 120 por minuto','80-100 por minuto','120-140 por minuto'],0,['Correcto: 100-120 compresiones por minuto.','120 es el techo del rango, no el mínimo.','80-100 es demasiado lento.','Por encima de 120 se pierde calidad.']],
+ ['SVB instrumental','¿Cada cuánto se cambia el reanimador que comprime?',['Como máximo cada 2 minutos, en menos de 5 s','Como mínimo cada 2 minutos','Cada 5 minutos','Solo cuando el compresor está cansado'],0,['Correcto: máximo cada 2 minutos y sin emplear más de 5 segundos en el cambio.','Es un máximo: se puede cambiar antes, nunca después.','5 minutos es demasiado: baja la calidad de la RCP.','No se espera al cansancio: el límite son 2 minutos.']],
+ ['SVB instrumental','Paciente con pulso que no respira: ritmo de ventilación con balón',['10 por minuto, una cada 6 segundos','12 por minuto, una cada 5 segundos','20 por minuto, una cada 3 segundos','6 por minuto, una cada 10 segundos'],0,['Correcto: 10 ventilaciones por minuto, una cada 6 segundos, reevaluando el pulso cada 2 minutos.','Cifra habitual en otros protocolos, pero el manual dice una cada 6 segundos.','Sería hiperventilar, que reduce el retorno venoso.','Se queda corto.']],
+ ['Oxigenoterapia','SatO2 objetivo en el paciente con EPOC:',['Entre el 88 y el 92 %','Entre el 94 y el 96 %','Entre el 90 y el 94 %','Por encima del 96 %'],0,['Correcto: en la EPOC se limita el oxígeno a una SatO2 del 88-92 %.','94-96 % es el objetivo general, no el de la EPOC.','Rango inventado: mezcla los dos objetivos.','Nunca se busca más del 96 % en la EPOC.']],
+ ['Posible ictus','En el posible ictus, el oxígeno:',['Garantiza un mínimo del 92 % y no se da si la SatO2 supera el 96 %','Se da siempre a alto flujo','Garantiza un mínimo del 94 % y no se da si supera el 98 %','No se administra nunca'],0,['Correcto: mínimo 92 % y sin oxígeno por encima del 96 %.','No se da a todos: depende de la SatO2.','Las cifras correctas son 92 y 96.','Sí se administra si hace falta para llegar al 92 %.']],
+ ['Valoración del trauma','Pulso femoral presente indica una TAS aproximada:',['Mayor de 70 mmHg','Mayor de 80 mmHg','Mayor de 60 mmHg','Menor de 70 mmHg'],0,['Correcto: femoral presente, TAS mayor de 70.','Más de 80 es el pulso radial.','Más de 60 es el pulso carotídeo.','Trampa: es «mayor de», no «menor de».']],
+ ['Código 15','Inestabilidad hemodinámica del adulto en el Código 15:',['TAS < 90 mmHg o FC > 120 lpm','TAS < 100 mmHg o FC > 100 lpm','TAS < 90 mmHg o FC > 100 lpm','TAS < 80 mmHg o FC > 130 lpm'],0,['Correcto: TAS < 90 y FC > 120.','Esas cifras son del bloque B del Código 15.1.','Mezcla la TAS del 15 con la FC del 15.1.','Cifras inventadas.']],
+ ['Código 15.1','Precipitación como mecanismo del Código 15.1:',['Más de 2 m de altura','Más de 3 m de altura','Más de 5 m de altura','Más de 1 m de altura'],0,['Correcto: precipitación de más de 2 metros.','Cifra inventada.','Cifra inventada.','Cifra inventada.']],
+ ['Código 15.1','Moto sin casco: velocidad del mecanismo en el Código 15.1',['Más de 20 km/h','Más de 30 km/h','Más de 50 km/h','Más de 65 km/h'],0,['Correcto: moto sin casco a más de 20 km/h.','Cifra inventada.','Cifra inventada.','65 km/h es para el accidente de moto o coche en general.']],
+ ['Código 15.1','Extricación prolongada en el Código 15.1:',['Más de 20 minutos','Más de 10 minutos','Más de 30 minutos','Más de 15 minutos'],0,['Correcto: extricación de más de 20 minutos.','Cifra inventada.','Cifra inventada.','Cifra inventada.']],
+ ['Código 15','Quemaduras de 2.º o 3.º grado en el adulto para el Código 15:',['Más del 15 % de SCQ','Más del 10 % de SCQ','Más del 20 % de SCQ','Más del 2 % de SCQ'],0,['Correcto: más del 15 % en adultos.','10 % es el corte del 2.º grado en niños y ancianos.','Cifra inventada.','2 % es el corte del 3.er grado en niños y ancianos.']],
+ ['Código 9','Edad aproximada del Código 9:',['Entre 16 y 60 años','Entre 18 y 65 años','45 años o menos','Entre 16 y 65 años'],0,['Correcto: entre 16 y 60 años.','65 es el límite del ECMO.','45 años o menos es el Código 33.','Mezcla el 16 del Código 9 con el 65 del ECMO.']],
+ ['Código 9','Tiempo máximo desde la PCR hasta la llegada al hospital (isquemia caliente):',['90 minutos','60 minutos','120 minutos','45 minutos'],0,['Correcto: no más de 90 minutos.','Cifra inventada.','120 minutos es el límite de la angioplastia primaria.','45 minutos es el tiempo del ECMO hasta hemodinámica.']],
+ ['Código 9','RCP avanzada sin éxito para el Código 9:',['Más de 20 minutos','Más de 10 minutos','Más de 30 minutos','Más de 15 minutos'],0,['Correcto: más de 20 minutos de RCP avanzada sin éxito.','Cifra inventada.','Cifra inventada.','Cifra inventada.']],
+ ['Código 11 · ECMO','Edad para valorar el traslado a ECMO:',['Menor de 65 años','Menor de 60 años','45 años o menos','Menor de 75 años'],0,['Correcto: menor de 65 años.','60 es el límite del Código 9.','45 es el Código 33.','Cifra inventada.']],
+ ['Código 11 · ECMO','ETCO2 en el momento de la inclusión en ECMO:',['Mayor de 10 mmHg','Mayor de 20 mmHg','Menor de 10 mmHg','Mayor de 35 mmHg'],0,['Correcto: ETCO2 mayor de 10 mmHg.','Cifra inventada.','Trampa: es «mayor de».','Cifra inventada.']],
+ ['Código 33','Edad del Código 33:',['45 años o menos','Menos de 35 años','Entre 16 y 60 años','65 años o menos'],0,['Correcto: 45 años o menos, niños incluidos.','Cifra inventada.','Es la edad del Código 9.','65 es la edad del ECMO.']],
+ ['Código 33','El esfuerzo cuenta para el Código 33 si fue hasta:',['30 minutos antes','60 minutos antes','15 minutos antes','2 horas antes'],0,['Correcto: esfuerzo hasta 30 minutos antes del cuadro.','Cifra inventada.','Se queda corto.','Cifra inventada.']],
+ ['Código 33','Es criterio de EXCLUSIÓN del Código 33:',['Ser diabético o epiléptico','Tener 40 años','Síncope tras un partido de fútbol','Antecedentes familiares de muerte súbita'],0,['Correcto: la diabetes y la epilepsia excluyen.','Tener 45 años o menos es criterio de inclusión.','El síncope tras esfuerzo es justo lo que incluye.','Los antecedentes familiares de muerte súbita son criterio de inclusión.']],
+ ['Código 33','Una PCR durante el esfuerzo se cursa como:',['Código 11','Código 33','Código 9','Código 16'],0,['Correcto: se cursa como Código 11, reflejándolo en el informe.','Trampa clásica: el 33 es el síncope, no la parada.','El 9 es la donación en asistolia.','El 16 es el SCASEST.']],
+ ['Código Infarto','El dolor debe persistir tras la nitroglicerina:',['5 minutos','20 minutos','10 minutos','2 minutos'],0,['Correcto: persiste 5 minutos tras la nitroglicerina.','20 minutos es la duración mínima del dolor, no el tiempo tras la NTG.','Cifra inventada.','Cifra inventada.']],
+ ['Código Infarto','La evaluación debe hacerse dentro de las primeras:',['12 horas desde el inicio','24 horas desde el inicio','6 horas desde el inicio','2 horas desde el inicio'],0,['Correcto: primeras 12 horas.','24 horas es el límite del ictus.','Cifra inventada.','Cifra inventada.']],
+ ['Código Infarto','La angioplastia primaria es de elección si el retraso no supera:',['120 minutos','90 minutos','60 minutos','180 minutos'],0,['Correcto: 120 minutos desde el primer contacto médico hasta abrir la arteria.','90 minutos es la isquemia caliente del Código 9.','Cifra inventada.','Cifra inventada.']],
+ ['Código 16','Es criterio de EXCLUSIÓN del Código 16:',['Elevación del ST de más de 20 min pese a nitratos','Descenso del segmento ST','Ondas T negativas simétricas','ECG normal'],0,['Correcto: eso es un SCACEST (Código Infarto).','El descenso del ST es criterio de inclusión.','Las T negativas simétricas son de inclusión.','Un ECG normal también puede incluirse.']],
+ ['Códigos 13 / 13.1','El Código 13.1 corresponde a:',['NIHSS ≥ 10','NIHSS < 10','NIHSS ≥ 15','Madrid-Direct ≥ 10'],0,['Correcto: NIHSS de 10 o más.','NIHSS menor de 10 es el Código 13.','Cifra inventada.','Mezcla escalas: la Madrid-Direct usa pocos puntos (2 o más para intervencionismo).']],
+ ['Posible ictus','En la Madrid-Direct, el traslado a Centro de Intervencionismo es con:',['2 o más puntos','0 a 1 punto','4 o más puntos','10 o más puntos'],0,['Correcto: 2 o más, probable oclusión de gran vaso.','0-1 va a la Unidad de Ictus más cercana.','Cifra inventada.','10 es el corte de la NIHSS, no de la Madrid-Direct.']],
+ ['Posible ictus','Madrid-Direct: paciente con TAS de 195 mmHg',['Resta 2 puntos','Suma 2 puntos','Resta 1 punto','Resta 3 puntos'],0,['Correcto: 190-199 resta 2.','La TAS alta resta, no suma.','Resta 1 la franja 180-189.','Resta 3 la franja 200-209.']],
+ ['Posible ictus','Madrid-Direct: la edad',['Resta 1 punto por cada año a partir de los 85','Resta 1 punto por cada año a partir de los 80','Suma 1 punto por cada año a partir de los 85','Resta 2 puntos a partir de los 85'],0,['Correcto: resta 1 por cada año desde los 85.','La edad de corte es 85.','Resta, no suma.','Es 1 punto por cada año.']],
+ ['Código Crisis','Estatus generalizado para activar el Código Crisis:',['Más de 5 minutos','Más de 10 minutos','Más de 15 minutos','Más de 30 minutos'],0,['Correcto: más de 5 minutos.','10 minutos es el T1 del estatus focal.','15 minutos es el T1 de las ausencias.','30 minutos es el T2 del convulsivo.']],
+ ['Código Crisis','Crisis en acúmulos:',['2 o más crisis en menos de 24 horas','3 o más crisis en menos de 24 horas','2 o más crisis en menos de 12 horas','2 o más crisis en menos de 48 horas'],0,['Correcto: 2 o más en menos de 24 horas, sin criterios de estatus.','Basta con 2.','El periodo es de 24 horas.','El periodo es de 24 horas.']],
+ ['Código 18','Frecuencia respiratoria en el qSOFA:',['≥ 22 rpm','≥ 20 rpm','≥ 30 rpm','≥ 25 rpm'],0,['Correcto: FR de 22 o más.','Cifra inventada.','30 es la taquipnea del SVB.','25 o más son 3 puntos en la escala NEWS.']],
+ ['Código 18','Tensión en el qSOFA:',['TAS ≤ 100 mmHg','TAS < 90 mmHg','TAS ≤ 110 mmHg','TAM < 65 mmHg'],0,['Correcto: TAS de 100 o menos.','90 es el corte de hipotensión o disfunción orgánica añadida.','Cifra inventada.','La TAM < 65 es un signo de disfunción añadido, no del qSOFA.']],
+ ['NRBQ','¿Qué se instala en la zona fría?',['El Puesto Médico Avanzado y el apoyo','La descontaminación','Solo trabajan bomberos con nivel III','El punto de reunión de víctimas'],0,['Correcto: zona libre del agente, con PMA y equipos de apoyo.','La descontaminación es en la zona templada.','Eso es la zona caliente.','El PRV o refugio seguro está en el límite de la zona caliente, en la templada.']],
+ ['NRBQ','Nivel II de protección:',['Buzo naranja con ERA, para la zona templada','Traje blanco con máscara, para la zona fría','Traje integral con ERA, para la zona caliente','Buzo naranja sin ERA, para la zona fría'],0,['Correcto: buzo naranja sellado más ERA.','Eso es el nivel I.','Eso es el nivel III.','El nivel II lleva ERA y es para la templada.']],
+ ['NRBQ','Escape de gas ciudad: límite de la zona templada con la fría',['150 m','75 m','300 m','50 m'],0,['Correcto: 150 metros.','75 m es el derrame en vía pública.','300 m es el gas en industria o laboratorio (incidente mayor).','50 m es el derrame dentro de un edificio.']],
+ ['NRBQ','Autonomía aproximada de una botella de ERA:',['Unos 30 minutos','Unos 60 minutos','Unos 15 minutos','Unas 2 horas'],0,['Correcto: unos 30 minutos por botella.','Cifra inventada.','Cifra inventada.','Cifra inventada.']],
+ ['OVACE','Lactante consciente: tras los golpes en la espalda...',['5 compresiones torácicas','5 compresiones abdominales','10 golpes más en la espalda','Barrido digital a ciegas'],0,['Correcto: compresiones torácicas, con la cabeza más baja.','En el lactante no hay compresiones abdominales.','Se alternan 5 golpes con 5 compresiones.','Nunca barrido a ciegas.']],
+ ['DEA','Parches de adulto en niños de:',['Más de 8 años','Más de 1 año','Más de 12 años','Más de 6 años'],0,['Correcto: más de 8 años.','De 1 a 8 años van parches pediátricos.','Cifra inventada.','Cifra inventada.']],
+ ['DEA','Con marcapasos o DAI, el electrodo se separa del dispositivo al menos:',['8 cm','2 cm','15 cm','5 cm'],0,['Correcto: al menos 8 cm.','Cifra inventada.','Cifra inventada.','Cifra inventada.']],
+ ['Convulsiones','En el epiléptico conocido se pide USVA si la crisis dura más de:',['5 minutos','2 minutos','10 minutos','15 minutos'],0,['Correcto: más de 5 minutos (también si se repite o no recupera la alerta).','Cifra inventada.','10 minutos es el T1 del estatus focal.','15 minutos es el T1 de las ausencias.']],
+ ['Shock','Shock hipovolémico: elevación de las piernas',['Ligeramente, 15-30º','45º','60-90º','5-10º'],0,['Correcto: 15-30º.','45º es la cabeza en Fowler (ictus).','Demasiado.','Se queda corto.']],
+ ['Shock','Posición de traslado en el shock hipovolémico:',['Trendelenburg a 30º, salvo TCE','Fowler a 45º','Trendelenburg siempre, también con TCE','Semisentado'],0,['Correcto: Trendelenburg salvo contraindicación como el TCE.','Fowler es para el ictus.','Trampa del «siempre»: el TCE lo contraindica.','Semisentado es para la patología respiratoria.']],
+ ['Cardiovascular','Definición de urgencia o emergencia hipertensiva:',['TAS ≥ 220 y/o TAD ≥ 120','TAS ≥ 180 y/o TAD ≥ 120','TAS ≥ 160 y/o TAD ≥ 100','TAS ≥ 200 y/o TAD ≥ 110'],0,['Correcto: TAS ≥ 220 y/o TAD ≥ 120 tras 5-10 minutos de reposo.','180/120 es el criterio para pedir USVA, no la definición.','Cifras de alerta del ictus, no de la crisis.','Cifras inventadas.']],
+ ['Cardiovascular','Se desaconseja la nitroglicerina autoadministrada si:',['TAS < 90 y/o FC < 50','TAS < 100 y/o FC < 60','TAS < 80 y/o FC < 40','TAS > 160'],0,['Correcto: TAS por debajo de 90 y/o FC por debajo de 50.','Cifras inventadas.','Cifras inventadas.','La tensión alta no la contraindica.']],
+];
+function vTrap(){app.innerHTML=frame('--red','crosshair','Caza la trampa');
+  $('#pb').innerHTML=`<div class="setup"><h2>Opciones que casi son iguales</h2><p>Aquí las opciones cambian en una cifra o una palabra («mayor» o «menor», «siempre», «al menos»). Al responder verás por qué cada opción es verdadera o falsa, para que aprendas cómo se construyen los distractores.</p>
+   <div class="row" style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn pri" id="g10" ${cv('--red')}>${ic('play')}10 trampas al azar</button><button class="btn" id="gall">Las ${TRAP.length} seguidas</button></div>${S.best.trap!==undefined?`<p style="margin-top:12px;color:var(--fg2)">Tu mejor ronda de 10: <b>${S.best.trap}/10</b></p>`:''}</div>`;
+  $('#g10').onclick=()=>playTrap(shuf(TRAP).slice(0,10));$('#gall').onclick=()=>playTrap(shuf(TRAP))}
+function playTrap(items){let i=0,ok=0;const wr=[];
+  app.innerHTML=frame('--red','crosshair','Caza la trampa',`<span class="pill" id="cp"></span>`);
+  const draw=()=>{if(i>=items.length){addXP(ok*2);if(items.length===10)S.best.trap=Math.max(S.best.trap||0,ok);save();
+      $('#pb').innerHTML=`<div class="card res fade" ${cv('--red')}><div class="qk">${ic('trophy')} Resultado</div><div class="big">${ok}/${items.length}</div><p><b>+${ok*2} XP</b></p><div class="row"><button class="btn pri" id="again">${ic('rotate-ccw')}Otra ronda</button><a class="btn" href="#inicio">${ic('house')}Inicio</a></div>${wr.length?`<div class="rv"><h3>Las trampas en las que caíste</h3>${wr.map(([t,q,o,c,w,j])=>`<div><small style="color:var(--fg3)">${esc(t)}</small><br>${esc(q)}<br><span style="color:var(--bad)">Elegiste:</span> ${esc(o[j])} <em>${esc(w[j])}</em><span style="color:var(--ok)">Correcta:</span> <b>${esc(o[c])}</b></div>`).join('')}</div>`:''}</div>`;
+      $('#again').onclick=()=>playTrap(shuf(TRAP).slice(0,items.length===TRAP.length?TRAP.length:10));return}
+    const [t,q,o,c,w]=items[i];const ord=shuf(o.map((x,j)=>j));$('#cp').innerHTML=`${ic('list-ordered')}${i+1} / ${items.length} · ${ic('check')}${ok}`;
+    $('#pb').innerHTML=`<div class="card" ${cv('--red')}><div class="qk">${esc(t)}</div><div class="qq">${esc(q)}</div><div class="opts">${ord.map((j,k)=>`<button class="opt" data-j="${j}"><span class="k">${'ABCD'[k]}</span><span class="ot"><span>${esc(o[j])}</span><small class="why" hidden>${esc(w[j])}</small></span></button>`).join('')}</div><div class="fb" id="fb"></div></div>`;
+    document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const j=+b.dataset.j;document.querySelectorAll('.opt').forEach(x=>{x.disabled=true;x.querySelector('.why').hidden=false;if(+x.dataset.j===c)x.classList.add('ok')});
+      const right=j===c;if(right)ok++;else{b.classList.add('ko');wr.push([...items[i],j])}
+      $('#fb').innerHTML=`<span class="msg ${right?'ok':'ko'}">${ic(right?'circle-check':'circle-x')}${right?'¡Trampa esquivada!':'Has caído en la trampa'}</span><button class="btn sm pri nx" id="nx">${i+1>=items.length?'Ver resultado':'Siguiente'}${ic('arrow-right')}</button>`;
+      $('#nx').onclick=()=>{i++;draw()};$('#nx').focus()})};draw()}
+
 /* ---------- router y tema ---------- */
 let APPV=0;
 function route(){APPV++;stopT();const h=location.hash.slice(1)||'inicio';
-  ({inicio:vHome,reto:vDaily,tests:vTests,examen:vExam,supervivencia:vSurv,fallos:vFails,'verdadero-falso':vVF,parejas:vPairs,unir:vMatch,escribe:vType,ordena:vOrder,clasifica:vClass,tarjetas:vFlash,casos:vCases,triaje:vTri,codigo:vCode}[h]||vHome)();
+  ({inicio:vHome,reto:vDaily,tests:vTests,examen:vExam,supervivencia:vSurv,fallos:vFails,'verdadero-falso':vVF,parejas:vPairs,unir:vMatch,escribe:vType,ordena:vOrder,clasifica:vClass,tarjetas:vFlash,casos:vCases,triaje:vTri,codigo:vCode,simulacro:vSim,parecidos:vConf,trampa:vTrap}[h]||vHome)();
   drawTop();scrollTo(0,0)}
 addEventListener('hashchange',route);
 addEventListener('keydown',e=>{if(!/^[1-4a-d]$/i.test(e.key)||document.activeElement.tagName==='INPUT')return;const k='1234'.includes(e.key)?'1234'.indexOf(e.key):'abcd'.indexOf(e.key.toLowerCase());const b=document.querySelectorAll('.opt')[k];b&&!b.disabled&&b.click()});
