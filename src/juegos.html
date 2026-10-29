@@ -386,7 +386,7 @@ let T=null,TT=null;const stopT=()=>{clearInterval(TT);TT=null};
 function frame(c,icon,title,right=''){return `<div class="play fade" ${cv(c)}><div class="ptop"><span class="ttl"><span class="tile">${ic(icon)}</span>${esc(title)}</span>${right}<a class="btn sm" href="#inicio">${ic('x')}Salir</a></div><div id="pb"></div></div>`}
 function runMCQ(cfg){stopT();
   T={...cfg,i:0,ok:0,score:0,streak:0,best:0,wrong:[],lives:cfg.lives||0};T.items=(cfg.items||[]).map(x=>({...x,opts:null}));
-  app.innerHTML=frame(cfg.c,cfg.icon,cfg.title,`<span class="pill" id="pp"></span>${cfg.lives?'<span class="pill lives" id="pl"></span>':''}<span class="pill" id="ps"></span>`);
+  app.innerHTML=frame(cfg.c,cfg.icon,cfg.title,`${cfg.timer?'<span class="pill" id="tl"></span>':''}<span class="pill" id="pp"></span>${cfg.lives?'<span class="pill lives" id="pl"></span>':''}<span class="pill" id="ps"></span>`);
   nextQ()}
 function nextQ(){stopT();const t=T;
   if(t.gen&&t.lives<=0)return endMCQ();
@@ -397,11 +397,11 @@ function nextQ(){stopT();const t=T;
   $('#ps').innerHTML=`${ic('star')}${t.score}`;if(t.lives)$('#pl').innerHTML=ic('heart').repeat(t.lives);
   $('#pb').innerHTML=`${t.timer?'<div class="timer"><i id="tb" style="width:100%"></i></div>':''}<div class="card"><div class="qk">${esc(it.k)}</div><div class="qq">${esc(it.q)}</div>
    <div class="opts">${it.opts.map((o,k)=>`<button class="opt" data-k="${k}"><span class="k">${'ABCD'[k]}</span><span>${esc(o)}</span></button>`).join('')}</div><div class="fb" id="fb"></div></div>`;
-  const t0=performance.now();let done=false;
+  const tm=typeof t.timer==='function'?t.timer(it):t.timer;const t0=performance.now();let done=false;
   const ans=k=>{if(done)return;done=true;stopT();const good=it.opts.indexOf(it.a);
     document.querySelectorAll('.opt').forEach((b,j)=>{b.disabled=true;if(j===good)b.classList.add('ok');if(j===k&&k!==good)b.classList.add('ko')});
     const right=k===good;let msg;
-    if(right){t.ok++;t.streak++;t.best=Math.max(t.best,t.streak);const pts=10+(t.timer?Math.max(0,Math.round(t.timer-(performance.now()-t0)/1000)):0)+(t.streak>=3?5:0);t.score+=pts;S.ok[it.id]=1;if(S.wrong[it.id]){delete S.wrong[it.id]}msg=`<span class="msg ok">${ic('circle-check')}¡Correcto!${t.streak>=3?' Racha x'+t.streak:''}</span>`}
+    if(right){t.ok++;t.streak++;t.best=Math.max(t.best,t.streak);const pts=10+(tm?Math.max(0,Math.round((tm-(performance.now()-t0)/1000)/2)):0)+(t.streak>=3?5:0);t.score+=pts;S.ok[it.id]=1;if(S.wrong[it.id]){delete S.wrong[it.id]}msg=`<span class="msg ok">${ic('circle-check')}¡Correcto!${t.streak>=3?' Racha x'+t.streak:''}</span>`}
     else{t.streak=0;t.wrong.push(it);S.wrong[it.id]={id:it.id,k:it.k,q:it.q,a:it.a,d:it.d||[],o:it.fixed?it.o:null,e:it.e||''};if(t.lives)t.lives--;msg=`<span class="msg ko">${ic('circle-x')}${k<0?'Se acabó el tiempo':'Incorrecto'}</span>`}
     save();$('#ps').innerHTML=`${ic('star')}${t.score}`;if($('#pl'))$('#pl').innerHTML=t.lives>0?ic('heart').repeat(t.lives):'Sin vidas';
     const last=(!t.gen&&t.i+1>=t.items.length)||(!!t.gen&&t.lives<=0);
@@ -409,7 +409,7 @@ function nextQ(){stopT();const t=T;
     $('#nx').onclick=()=>{t.i++;nextQ()};$('#nx').focus();
   };
   document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>ans(+b.dataset.k));
-  if(t.timer){TT=setInterval(()=>{const el=(performance.now()-t0)/1000,tb=$('#tb');if(!tb){stopT();return}tb.style.width=Math.max(0,100-el/t.timer*100)+'%';tb.style.backgroundPosition=(el/t.timer*100)+'% 0';if(el>=t.timer)ans(-1)},100)}
+  if(tm){TT=setInterval(()=>{const el=(performance.now()-t0)/1000,tb=$('#tb');if(!tb){stopT();return}tb.style.width=Math.max(0,100-el/tm*100)+'%';tb.style.backgroundPosition=(el/tm*100)+'% 0';const tl=$('#tl');if(tl)tl.textContent=Math.ceil(tm-el)+' s';if(el>=tm)ans(-1)},100)}
 }
 function endMCQ(){stopT();const t=T;const n=t.gen?t.i+(t.lives>0?0:1):t.items.length;const total=t.gen?t.ok+t.wrong.length:t.items.length;
   let xp=t.ok*2+(t.ok===total&&total>=5?10:0);if(t.onDone)xp+=t.onDone(t)||0;addXP(xp);S.played++;
@@ -425,9 +425,9 @@ function endMCQ(){stopT();const t=T;const n=t.gen?t.i+(t.lives>0?0:1):t.items.le
 const GAMES=[
  {tray:0,id:'tests',t:'Test por bloque',d:'Elige ámbito y bloque. Con explicación en cada respuesta.',icon:'layers',c:'--cyan'},
  {tray:0,id:'examen',t:'Examen oficial TATS 2024',d:'Las 95 preguntas reales, en orden o 20 al azar.',icon:'file-text',c:'--cyan'},
- {tray:0,id:'supervivencia',t:'Supervivencia',d:'Preguntas sin fin con 3 vidas y 20 segundos cada una.',icon:'heart',c:'--red'},
+ {tray:0,id:'supervivencia',t:'Supervivencia',d:'Preguntas sin fin con 3 vidas. De 40 a 75 segundos según lo larga que sea la pregunta.',icon:'heart',c:'--red'},
  {tray:0,id:'fallos',t:'Repaso de fallos',d:'Solo las preguntas que has fallado en cualquier juego.',icon:'rotate-ccw',c:'--orange'},
- {tray:1,id:'verdadero-falso',t:'Verdadero o falso',d:'60 segundos: ¿esta respuesta es correcta?',icon:'timer',c:'--orange'},
+ {tray:1,id:'verdadero-falso',t:'Verdadero o falso',d:'2 minutos: ¿esta respuesta es correcta?',icon:'timer',c:'--orange'},
  {tray:1,id:'parejas',t:'Parejas',d:'Memory clásico: levanta cartas y une cada término con su significado.',icon:'grid-2x2',c:'--violet'},
  {tray:1,id:'unir',t:'Une columnas',d:'Empareja cinco términos con su definición, ronda tras ronda.',icon:'git-merge',c:'--green'},
  {tray:1,id:'escribe',t:'Escribe la clave',d:'Lee el significado y teclea la clave, el código o la sigla.',icon:'keyboard',c:'--yellow'},
@@ -480,7 +480,7 @@ function vExam(){const x=G.exams[0];app.innerHTML=frame('--cyan','file-text',x.t
    <div class="list" ${cv('--cyan')}><button class="li all" data-m="20"><b>20 preguntas al azar</b><small>Primero las que aún no dominas</small></button><button class="li" data-m="all"><b>Examen completo</b><small>${x.qs.length} preguntas en orden</small><div class="bar"><i style="width:${okN(x.qs)/x.qs.length*100}%"></i></div></button></div></div>`;
   document.querySelectorAll('.li').forEach(b=>b.onclick=()=>{const all=b.dataset.m==='all';const go=()=>runMCQ({title:x.t,c:'--cyan',icon:'file-text',items:all?x.qs.slice():pick(x.qs,20),key:'x.'+b.dataset.m,again:go});go()})}
 function mixGen(){const r=Math.random();if(r<.7)return shuf(ALLQ)[0];if(r<.85)return shuf(G.exams[0].qs)[0];const d=shuf(BIG)[0];return deckMCQ(d,shuf(d.cards)[0])}
-function vSurv(){const go=()=>runMCQ({title:'Supervivencia',c:'--red',icon:'heart',gen:()=>({...mixGen(),opts:null}),lives:3,timer:20,again:go,onDone:t=>{S.best.surv=Math.max(S.best.surv||0,t.ok);return 0}});go()}
+function vSurv(){const go=()=>runMCQ({title:'Supervivencia',c:'--red',icon:'heart',gen:()=>({...mixGen(),opts:null}),lives:3,timer:it=>Math.round(Math.min(75,Math.max(40,25+(it.q.length+it.opts.join('').length)/8))),again:go,onDone:t=>{S.best.surv=Math.max(S.best.surv||0,t.ok);return 0}});go()}
 function vFails(){const list=Object.values(S.wrong);app.innerHTML=frame('--orange','rotate-ccw','Repaso de fallos');
   if(!list.length){$('#pb').innerHTML=`<div class="empty">No tienes fallos pendientes. Cada pregunta que falles en cualquier juego aparecerá aquí hasta que la aciertes.</div>`;return}
   const go=()=>{const l=Object.values(S.wrong);if(!l.length)return vFails();runMCQ({title:'Repaso de fallos',c:'--orange',icon:'rotate-ccw',items:shuf(l).slice(0,10).map(w=>({...w,fixed:!!w.o,opts:null,d:w.d&&w.d.length?w.d:[]})).filter(w=>w.fixed||w.d.length),again:go})};go()}
@@ -490,15 +490,15 @@ function vDaily(){const items=[];const byAmb=G.tree.map(a=>G.sets.filter(s=>s.am
 
 /* verdadero o falso */
 function vVF(){stopT();app.innerHTML=frame('--orange','timer','Verdadero o falso',`<span class="pill" id="vt"></span><span class="pill" id="vs"></span>`);
-  $('#pb').innerHTML=`<div class="setup"><h2>60 segundos</h2><p>Verás una pregunta y una respuesta. Di si esa respuesta es la correcta. Cada acierto suma 1 punto, cada fallo resta 1 segundo.</p><button class="btn pri" id="go" ${cv('--orange')}>${ic('play')}Empezar</button>${S.best.vf?`<p style="margin-top:12px">Tu récord: <b>${S.best.vf}</b></p>`:''}</div>`;
-  $('#go').onclick=()=>{let ok=0,ko=0,end=performance.now()+60000;const wr=[];
+  $('#pb').innerHTML=`<div class="setup"><h2>2 minutos</h2><p>Verás una pregunta y una respuesta. Di si esa respuesta es la correcta. Cada acierto suma 1 punto, cada fallo resta 1 segundo.</p><button class="btn pri" id="go" ${cv('--orange')}>${ic('play')}Empezar</button>${S.best.vf2?`<p style="margin-top:12px">Tu récord: <b>${S.best.vf2}</b></p>`:''}</div>`;
+  $('#go').onclick=()=>{let ok=0,ko=0,end=performance.now()+120000;const wr=[];
     const draw=()=>{const it=Math.random()<.85?shuf(ALLQ)[0]:shuf(G.exams[0].qs)[0];const truth=Math.random()<.5;const dis=it.fixed?it.o.filter(o=>o!==it.a):it.d;const shown=truth?it.a:shuf(dis)[0];
       $('#pb').innerHTML=`<div class="timer"><i id="tb" style="width:100%"></i></div><div class="card stmt" id="vc"><div class="qk">${esc(it.k)}</div><div class="qq">${esc(it.q)}</div><div class="lbl">Respuesta propuesta</div><div class="ans">${esc(shown)}</div><div class="vf"><button class="t" id="bt">${ic('check')}Verdadero</button><button class="f" id="bf">${ic('x')}Falso</button></div></div>`;
       const a=v=>{const good=v===truth;if(good){ok++;$('#vc').classList.add('flash-ok')}else{ko++;end-=1000;wr.push({...it});$('#vc').classList.add('flash-ko')}$('#vs').innerHTML=`${ic('check')}${ok}`;setTimeout(draw,good?160:420)};
       $('#bt').onclick=()=>a(true);$('#bf').onclick=()=>a(false)};
     $('#vs').innerHTML=`${ic('check')}0`;draw();
-    TT=setInterval(()=>{const left=Math.max(0,end-performance.now());const tb=$('#tb');if(tb)tb.style.width=(left/600)+'%';$('#vt').innerHTML=`${ic('clock')}${Math.ceil(left/1000)} s`;
-      if(left<=0){stopT();const rec=ok>(S.best.vf||0);if(rec)S.best.vf=ok;addXP(ok);
+    TT=setInterval(()=>{const left=Math.max(0,end-performance.now());const tb=$('#tb');if(tb)tb.style.width=(left/1200)+'%';$('#vt').innerHTML=`${ic('clock')}${Math.ceil(left/1000)} s`;
+      if(left<=0){stopT();const rec=ok>(S.best.vf2||0);if(rec)S.best.vf2=ok;addXP(ok);
         $('#pb').innerHTML=`<div class="card res fade"><div class="qk">${ic('trophy')} Tiempo</div><div class="big">${ok}</div><p>aciertos · ${ko} fallos · <b>+${ok} XP</b>${rec?' · ¡nuevo récord!':''}</p><div class="row"><button class="btn pri" id="again">${ic('rotate-ccw')}Otra vez</button><a class="btn" href="#inicio">${ic('house')}Inicio</a></div>${wr.length?`<div class="rv"><h3>Preguntas en las que dudaste</h3>${wr.slice(0,12).map(w=>`<div>${esc(w.q)}<br>→ <b>${esc(w.a)}</b>${refHTML(w.id,w.a,1)}</div>`).join('')}</div>`:''}</div>`;
         $('#again').onclick=vVF}},100)}}
 
